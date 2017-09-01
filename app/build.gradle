@@ -9,6 +9,8 @@ android {
         targetSdkVersion 26
         versionCode 100000
         versionName "1.0.0"
+
+        buildConfigField "String", "BASE_URL", "\"https://api.github.com/\""
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -44,6 +46,7 @@ dependencies {
     // AutoValue
     provided "com.google.auto.value:auto-value:$autoValueVersion"
     annotationProcessor "com.google.auto.value:auto-value:$autoValueVersion"
+    provided 'com.ryanharter.auto.value:auto-value-moshi-annotations:0.4.3'
     annotationProcessor 'com.ryanharter.auto.value:auto-value-moshi:0.4.3'
     annotationProcessor 'com.ryanharter.auto.value:auto-value-parcel:0.2.5'
 

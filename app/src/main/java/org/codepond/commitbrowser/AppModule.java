@@ -14,16 +14,56 @@
 package org.codepond.commitbrowser;
 
 import android.content.Context;
+import android.text.TextUtils;
+
+import com.squareup.moshi.Moshi;
+
+import org.codepond.commitbrowser.api.GithubApi;
+import org.codepond.commitbrowser.model.AdapterFactory;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.Cache;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.moshi.MoshiConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
+import rx.schedulers.Schedulers;
 
 /**
  * Application module refers to sub components and provides application level dependencies.
  */
 @Module
 public class AppModule {
+    private static final long CACHE_SIZE = 20 * 1024 * 1024; // 20 MB
+    private static final String HEADER_LINK = "link";
+
     @Provides Context provideContext(App application) {
         return application.getApplicationContext();
+    }
+
+    @Provides GithubApi provideGithubApi(Context context) {
+        OkHttpClient okHttp = new OkHttpClient.Builder()
+                .cache(new Cache(context.getCacheDir(), CACHE_SIZE))
+                .addInterceptor(chain -> {
+                    Request request = chain.request();
+                    String linkHeader = request.header(HEADER_LINK);
+                    Response response = chain.proceed(request);
+                    return response;
+                }).build();
+        Moshi moshi = new Moshi.Builder()
+                .add(AdapterFactory.class)
+                .build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(MoshiConverterFactory.create(moshi))
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
+                .baseUrl(BuildConfig.BASE_URL)
+                .client(okHttp)
+                .build();
+        return retrofit.create(GithubApi.class);
     }
 }
