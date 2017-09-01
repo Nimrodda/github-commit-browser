@@ -11,13 +11,14 @@
  * limitations under the License.
  */
 
-package org.codepond.commitbrowser;
+package org.codepond.commitbrowser.di;
 
 import android.content.Context;
-import android.text.TextUtils;
 
 import com.squareup.moshi.Moshi;
 
+import org.codepond.commitbrowser.App;
+import org.codepond.commitbrowser.BuildConfig;
 import org.codepond.commitbrowser.api.GithubApi;
 import org.codepond.commitbrowser.model.AdapterFactory;
 

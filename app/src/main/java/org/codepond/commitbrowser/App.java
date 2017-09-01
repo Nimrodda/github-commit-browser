@@ -19,6 +19,8 @@ package org.codepond.commitbrowser;
 import android.app.Activity;
 import android.app.Application;
 
+import org.codepond.commitbrowser.di.DaggerAppComponent;
+
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjector;

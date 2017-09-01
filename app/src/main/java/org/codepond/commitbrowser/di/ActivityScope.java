@@ -11,13 +11,14 @@
  * limitations under the License.
  */
 
-package org.codepond.commitbrowser.commitlist;
+package org.codepond.commitbrowser.di;
 
-import dagger.Module;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
-/**
- * Feature level module holds all the bindings needed for this feature.
- */
-@Module
-public abstract class CommitListModule {
+import javax.inject.Scope;
+
+@Scope
+@Retention(RetentionPolicy.RUNTIME)
+public @interface ActivityScope {
 }

@@ -11,19 +11,17 @@
  * limitations under the License.
  */
 
-package org.codepond.commitbrowser;
+package org.codepond.commitbrowser.commitlist;
 
-import org.codepond.commitbrowser.commitlist.CommitListActivity;
-import org.codepond.commitbrowser.commitlist.CommitListModule;
+import org.codepond.commitbrowser.di.ActivityScope;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
 /**
- * This module contains all the binding to the sub component builders in the app
+ * Feature level module holds all the bindings needed for this feature.
  */
 @Module
-public abstract class BuildersModule {
-    @ContributesAndroidInjector(modules = { CommitListModule.class })
-    public abstract CommitListActivity contributeCommitListActivityInjector();
+public abstract class CommitListActivityModule {
+    @ActivityScope @ContributesAndroidInjector public abstract CommitListActivity contributeCommitListActivityInjector();
 }
