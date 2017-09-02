@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2017 Nimrod Dayan CodePond.org
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context="org.codepond.commitbrowser.commitlist.CommitListActivity">
+    <data>
+        <variable name="viewModel" type="org.codepond.commitbrowser.commitlist.CommitItemViewModel"/>
+    </data>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/commit_list_item"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/three_line_list_item_height">
+
+            <ImageView
+                android:id="@+id/avatar"
+                android:layout_width="@dimen/avatar_size"
+                android:layout_height="@dimen/avatar_size"
+                android:layout_marginBottom="@dimen/content_vertical_margin"
+                android:layout_marginStart="@dimen/avatar_margin_start"
+                android:layout_marginTop="@dimen/content_vertical_margin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@mipmap/ic_launcher"/>
+
+            <TextView
+                android:id="@+id/commit_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/text_margin_start"
+                android:layout_marginTop="@dimen/content_vertical_margin"
+                android:textSize="@dimen/primary_text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@{viewModel.getMessage()}"
+                tools:text="Commit message"/>
+
+            <TextView
+                android:id="@+id/commit_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/content_vertical_margin"
+                android:layout_marginStart="@dimen/text_margin_start"
+                android:layout_marginTop="@dimen/content_vertical_margin"
+                app:layout_constraintBottom_toTopOf="@+id/commit_author"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/commit_message"
+                android:text="@{viewModel.getDate()}"
+                tools:text="Date and time"/>
+
+            <TextView
+                android:id="@+id/commit_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/content_vertical_margin"
+                android:layout_marginStart="@dimen/text_margin_start"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@{viewModel.getAuthor()}"
+                tools:text="Author"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+</layout>

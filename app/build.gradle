@@ -16,6 +16,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    dataBinding {
+        enabled = true
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -27,9 +30,12 @@ android {
 dependencies {
     // Android support libraries
     implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation "com.android.support:recyclerview-v7:$supportLibraryVersion"
     implementation "com.android.support:design:$supportLibraryVersion"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation "android.arch.lifecycle:runtime:$archComponentsVersion"
+    implementation "android.arch.lifecycle:extensions:$archComponentsVersion"
+    annotationProcessor "android.arch.lifecycle:compiler:$archComponentsVersion"
 
     // RxJava related
     implementation 'io.reactivex:rxandroid:1.2.1'
