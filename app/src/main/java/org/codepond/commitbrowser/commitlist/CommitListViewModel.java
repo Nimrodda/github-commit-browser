@@ -19,9 +19,9 @@ import android.arch.lifecycle.OnLifecycleEvent;
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
-import android.view.View;
 
 import org.codepond.commitbrowser.api.GithubApi;
+import org.codepond.commitbrowser.common.recyclerview.Item;
 
 import rx.Observable;
 import rx.Subscription;
@@ -30,7 +30,7 @@ import timber.log.Timber;
 
 public class CommitListViewModel extends ViewModel implements LifecycleObserver {
     private GithubApi githubApi;
-    private ObservableList<CommitItemViewModel> commits = new ObservableArrayList<>();
+    private ObservableList<Item> commits = new ObservableArrayList<>();
     private int page = 1;
     private Subscription subscription;
 
@@ -56,11 +56,7 @@ public class CommitListViewModel extends ViewModel implements LifecycleObserver 
         Timber.v("Request commit list");
         subscription = githubApi.getCommits(page)
                 .flatMap(Observable::from)
-                .map(commitResponse -> new CommitItemViewModel(
-                        commitResponse.sha(),
-                        commitResponse.commit().message(),
-                        commitResponse.commit().author().date(),
-                        commitResponse.commit().author().name()))
+                .map(commitResponse -> new CommitItem(commitResponse, this))
                 .toList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(commitList -> {
@@ -70,7 +66,7 @@ public class CommitListViewModel extends ViewModel implements LifecycleObserver 
                 });
     }
 
-    public ObservableList<CommitItemViewModel> getCommits() {
+    public ObservableList<Item> getCommits() {
         return commits;
     }
 

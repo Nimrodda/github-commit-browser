@@ -18,7 +18,7 @@
         tools:context="org.codepond.commitbrowser.commitlist.CommitListActivity">
     <data>
         <variable name="commitListViewModel" type="org.codepond.commitbrowser.commitlist.CommitListViewModel"/>
-        <variable name="commitItemViewModel" type="org.codepond.commitbrowser.commitlist.CommitItemViewModel"/>
+        <variable name="commitItem" type="org.codepond.commitbrowser.commitlist.CommitItem"/>
     </data>
 
         <android.support.constraint.ConstraintLayout
@@ -28,7 +28,7 @@
             android:background="?selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
-            android:onClick="@{() -> commitListViewModel.onClick(commitItemViewModel.getSha())}">
+            android:onClick="@{() -> commitListViewModel.onClick(commitItem.getSha())}">
 
             <ImageView
                 android:id="@+id/avatar"
@@ -52,7 +52,7 @@
                 android:layout_marginTop="@dimen/content_vertical_margin"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@{commitItemViewModel.getMessage()}"
+                android:text="@{commitItem.getMessage()}"
                 android:textSize="@dimen/primary_text_size"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -67,7 +67,7 @@
                 android:layout_marginEnd="@dimen/horizontal_end_margin"
                 android:layout_marginStart="@dimen/text_margin_start"
                 android:layout_marginTop="@dimen/content_vertical_margin"
-                android:text="@{commitItemViewModel.getDate()}"
+                android:text="@{commitItem.getDate()}"
                 app:layout_constraintBottom_toTopOf="@+id/commit_author"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +81,7 @@
                 android:layout_marginBottom="@dimen/content_vertical_margin"
                 android:layout_marginEnd="@dimen/horizontal_end_margin"
                 android:layout_marginStart="@dimen/text_margin_start"
-                android:text="@{commitItemViewModel.getAuthor()}"
+                android:text="@{commitItem.getAuthor()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
