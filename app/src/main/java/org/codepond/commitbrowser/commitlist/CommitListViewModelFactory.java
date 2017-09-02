@@ -13,19 +13,23 @@
 
 package org.codepond.commitbrowser.commitlist;
 
+import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
-import org.codepond.commitbrowser.di.ActivityScope;
+import org.codepond.commitbrowser.api.GithubApi;
 
-import dagger.Binds;
-import dagger.Module;
-import dagger.android.ContributesAndroidInjector;
+import javax.inject.Inject;
 
-/**
- * Feature level module holds all the bindings needed for this feature.
- */
-@Module
-public abstract class CommitListActivityModule {
-    @ActivityScope @ContributesAndroidInjector public abstract CommitListActivity contributeCommitListActivityInjector();
-    @Binds abstract ViewModelProvider.Factory bindViewModelFactory(CommitListViewModelFactory viewModelFactory);
+public class CommitListViewModelFactory implements ViewModelProvider.Factory {
+    private GithubApi githubApi;
+
+    @Inject
+    public CommitListViewModelFactory(GithubApi githubApi) {
+        this.githubApi = githubApi;
+    }
+
+    @Override
+    public <T extends ViewModel> T create(Class<T> modelClass) {
+        return (T) new CommitListViewModel(githubApi);
+    }
 }

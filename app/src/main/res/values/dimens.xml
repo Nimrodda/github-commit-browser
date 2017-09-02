@@ -13,7 +13,7 @@
   -->
 
 <resources>
-    <dimen name="side_margins">8dp</dimen>
+    <dimen name="side_margins">16dp</dimen>
     <dimen name="three_line_list_item_height">88dp</dimen>
     <dimen name="primary_text_size">16sp</dimen>
     <dimen name="avatar_margin_start">16dp</dimen>

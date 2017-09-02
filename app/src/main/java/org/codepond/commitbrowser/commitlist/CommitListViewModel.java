@@ -13,20 +13,54 @@
 
 package org.codepond.commitbrowser.commitlist;
 
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleObserver;
+import android.arch.lifecycle.OnLifecycleEvent;
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 
 import org.codepond.commitbrowser.api.GithubApi;
 
-import javax.inject.Inject;
+import rx.Observable;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import timber.log.Timber;
 
-public class CommitListViewModel extends ViewModel {
+public class CommitListViewModel extends ViewModel implements LifecycleObserver {
     private GithubApi githubApi;
     private ObservableList<CommitItemViewModel> commits = new ObservableArrayList<>();
+    private int page = 1;
+    private Subscription subscription;
 
-    @Inject public CommitListViewModel(GithubApi githubApi) {
+    public CommitListViewModel(GithubApi githubApi) {
         this.githubApi = githubApi;
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    public void loadCommits() {
+        if (commits.size() == 0) {
+            Timber.v("Request commit list");
+            subscription = githubApi.getCommits(page)
+                    .flatMap(Observable::from)
+                    .map(commitResponse -> new CommitItemViewModel(
+                            commitResponse.commit().message(),
+                            commitResponse.commit().author().date(),
+                            commitResponse.commit().author().name()))
+                    .toList()
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(commitList -> {
+                        Timber.v("Received commit list. Size: %d", commitList.size());
+                        commits.addAll(commitList);
+                    });
+        }
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    public void clean() {
+        if (!subscription.isUnsubscribed()) {
+            subscription.unsubscribe();
+        }
     }
 
     public ObservableList<CommitItemViewModel> getCommits() {

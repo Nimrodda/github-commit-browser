@@ -16,6 +16,8 @@
 
 package org.codepond.commitbrowser.commitlist;
 
+import android.arch.lifecycle.LifecycleRegistry;
+import android.arch.lifecycle.LifecycleRegistryOwner;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableList;
@@ -34,16 +36,22 @@ import com.android.databinding.library.baseAdapters.BR;
 import org.codepond.commitbrowser.R;
 import org.codepond.commitbrowser.databinding.CommitListBinding;
 
+import javax.inject.Inject;
+
 import dagger.android.AndroidInjection;
 
-public class CommitListActivity extends AppCompatActivity {
+public class CommitListActivity extends AppCompatActivity implements LifecycleRegistryOwner {
+    private LifecycleRegistry lifecycleRegistry = new LifecycleRegistry(this);
+    private CommitListViewModel viewModel;
+    @Inject CommitListViewModelFactory viewModelFactory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(CommitListViewModel.class);
         CommitListBinding binding = DataBindingUtil.setContentView(this, R.layout.commit_list);
-        CommitListViewModel viewModel = ViewModelProviders.of(this).get(CommitListViewModel.class);
+        lifecycleRegistry.addObserver(viewModel);
         binding.setViewModel(viewModel);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -51,6 +59,11 @@ public class CommitListActivity extends AppCompatActivity {
         binding.commitList.setItemAnimator(new DefaultItemAnimator());
         binding.commitList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         binding.commitList.setAdapter(new CommitAdapter(viewModel.getCommits()));
+    }
+
+    @Override
+    public LifecycleRegistry getLifecycle() {
+        return lifecycleRegistry;
     }
 
     class CommitAdapter extends RecyclerView.Adapter<CommitAdapter.CommitViewHolder> {
