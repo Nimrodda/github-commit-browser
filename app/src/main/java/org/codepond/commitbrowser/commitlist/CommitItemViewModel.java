@@ -14,14 +14,20 @@
 package org.codepond.commitbrowser.commitlist;
 
 public class CommitItemViewModel {
+    private String sha;
     private String message;
     private String date;
     private String author;
 
-    public CommitItemViewModel(String message, String date, String author) {
+    public CommitItemViewModel(String sha, String message, String date, String author) {
+        this.sha = sha;
         this.message = message;
         this.date = date;
         this.author = author;
+    }
+
+    public String getSha() {
+        return sha;
     }
 
     public String getMessage() {

@@ -59,7 +59,7 @@ public class CommitListActivity extends AppCompatActivity implements LifecycleRe
         binding.commitList.setLayoutManager(layoutManager);
         binding.commitList.setItemAnimator(new DefaultItemAnimator());
         binding.commitList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        binding.commitList.setAdapter(new CommitAdapter(viewModel.getCommits()));
+        binding.commitList.setAdapter(new CommitAdapter(viewModel.getCommits(), viewModel));
         binding.commitList.addOnScrollListener(new OnLoadMoreScrollListener(getResources().getInteger(R.integer.load_threshold)) {
             @Override
             protected void onLoadMore() {
@@ -75,9 +75,11 @@ public class CommitListActivity extends AppCompatActivity implements LifecycleRe
 
     class CommitAdapter extends RecyclerView.Adapter<CommitAdapter.CommitViewHolder> {
         private ObservableList<CommitItemViewModel> commits;
+        private CommitListViewModel commitListViewModel;
 
-        CommitAdapter(ObservableList<CommitItemViewModel> commits) {
+        CommitAdapter(ObservableList<CommitItemViewModel> commits, CommitListViewModel commitListViewModel) {
             this.commits = commits;
+            this.commitListViewModel = commitListViewModel;
         }
 
         @Override
@@ -89,8 +91,8 @@ public class CommitListActivity extends AppCompatActivity implements LifecycleRe
 
         @Override
         public void onBindViewHolder(CommitViewHolder holder, int position) {
-            CommitItemViewModel commit = commits.get(position);
-            holder.bind(commit);
+            CommitItemViewModel commitItemViewModel = commits.get(position);
+            holder.bind(commitItemViewModel, commitListViewModel);
         }
 
         @Override
@@ -151,8 +153,9 @@ public class CommitListActivity extends AppCompatActivity implements LifecycleRe
                 this.binding = binding;
             }
 
-            void bind(CommitItemViewModel viewModel) {
-                binding.setVariable(BR.viewModel, viewModel);
+            void bind(CommitItemViewModel commitItemViewModel, CommitListViewModel commitListViewModel) {
+                binding.setVariable(BR.commitListViewModel, commitListViewModel);
+                binding.setVariable(BR.commitItemViewModel, commitItemViewModel);
                 binding.executePendingBindings();
             }
         }

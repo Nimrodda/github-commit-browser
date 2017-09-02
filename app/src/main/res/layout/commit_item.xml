@@ -17,20 +17,24 @@
         xmlns:tools="http://schemas.android.com/tools"
         tools:context="org.codepond.commitbrowser.commitlist.CommitListActivity">
     <data>
-        <variable name="viewModel" type="org.codepond.commitbrowser.commitlist.CommitItemViewModel"/>
+        <variable name="commitListViewModel" type="org.codepond.commitbrowser.commitlist.CommitListViewModel"/>
+        <variable name="commitItemViewModel" type="org.codepond.commitbrowser.commitlist.CommitItemViewModel"/>
     </data>
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/commit_list_item"
             android:layout_width="match_parent"
             android:layout_height="@dimen/three_line_list_item_height"
-            android:layout_marginStart="@dimen/side_margins"
-            android:layout_marginEnd="@dimen/side_margins">
+            android:background="?selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{() -> commitListViewModel.onClick(commitItemViewModel.getSha())}">
 
             <ImageView
                 android:id="@+id/avatar"
                 android:layout_width="@dimen/avatar_size"
                 android:layout_height="@dimen/avatar_size"
+                android:layout_marginStart="@dimen/horizontal_start_margin"
                 android:layout_marginBottom="@dimen/content_vertical_margin"
                 android:layout_marginTop="@dimen/content_vertical_margin"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -43,38 +47,44 @@
                 android:id="@+id/commit_message"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/horizontal_end_margin"
                 android:layout_marginStart="@dimen/text_margin_start"
                 android:layout_marginTop="@dimen/content_vertical_margin"
-                android:textSize="@dimen/primary_text_size"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:text="@{commitItemViewModel.getMessage()}"
+                android:textSize="@dimen/primary_text_size"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:text="@{viewModel.getMessage()}"
-                tools:text="Commit message"/>
+                tools:text="Commit message"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
             <TextView
                 android:id="@+id/commit_date"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/content_vertical_margin"
+                android:layout_marginEnd="@dimen/horizontal_end_margin"
                 android:layout_marginStart="@dimen/text_margin_start"
                 android:layout_marginTop="@dimen/content_vertical_margin"
+                android:text="@{commitItemViewModel.getDate()}"
                 app:layout_constraintBottom_toTopOf="@+id/commit_author"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/commit_message"
-                android:text="@{viewModel.getDate()}"
                 tools:text="Date and time"/>
 
             <TextView
                 android:id="@+id/commit_author"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/content_vertical_margin"
+                android:layout_marginEnd="@dimen/horizontal_end_margin"
                 android:layout_marginStart="@dimen/text_margin_start"
+                android:text="@{commitItemViewModel.getAuthor()}"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:text="@{viewModel.getAuthor()}"
                 tools:text="Author"/>
 
         </android.support.constraint.ConstraintLayout>

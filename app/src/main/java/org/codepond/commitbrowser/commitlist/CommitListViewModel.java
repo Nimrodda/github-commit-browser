@@ -19,6 +19,7 @@ import android.arch.lifecycle.OnLifecycleEvent;
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
+import android.view.View;
 
 import org.codepond.commitbrowser.api.GithubApi;
 
@@ -56,6 +57,7 @@ public class CommitListViewModel extends ViewModel implements LifecycleObserver 
         subscription = githubApi.getCommits(page)
                 .flatMap(Observable::from)
                 .map(commitResponse -> new CommitItemViewModel(
+                        commitResponse.sha(),
                         commitResponse.commit().message(),
                         commitResponse.commit().author().date(),
                         commitResponse.commit().author().name()))
@@ -70,5 +72,9 @@ public class CommitListViewModel extends ViewModel implements LifecycleObserver 
 
     public ObservableList<CommitItemViewModel> getCommits() {
         return commits;
+    }
+
+    public void onClick(String sha) {
+        Timber.v("Commit with sha: %s was clicked", sha);
     }
 }
