@@ -34,6 +34,7 @@ import android.view.ViewGroup;
 import com.android.databinding.library.baseAdapters.BR;
 
 import org.codepond.commitbrowser.R;
+import org.codepond.commitbrowser.common.recyclerview.OnLoadMoreScrollListener;
 import org.codepond.commitbrowser.databinding.CommitListBinding;
 
 import javax.inject.Inject;
@@ -59,6 +60,12 @@ public class CommitListActivity extends AppCompatActivity implements LifecycleRe
         binding.commitList.setItemAnimator(new DefaultItemAnimator());
         binding.commitList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         binding.commitList.setAdapter(new CommitAdapter(viewModel.getCommits()));
+        binding.commitList.addOnScrollListener(new OnLoadMoreScrollListener(getResources().getInteger(R.integer.load_threshold)) {
+            @Override
+            protected void onLoadMore() {
+                viewModel.load();
+            }
+        });
     }
 
     @Override

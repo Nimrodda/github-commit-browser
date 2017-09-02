@@ -38,29 +38,34 @@ public class CommitListViewModel extends ViewModel implements LifecycleObserver 
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    public void loadCommits() {
+    public void resume() {
         if (commits.size() == 0) {
-            Timber.v("Request commit list");
-            subscription = githubApi.getCommits(page)
-                    .flatMap(Observable::from)
-                    .map(commitResponse -> new CommitItemViewModel(
-                            commitResponse.commit().message(),
-                            commitResponse.commit().author().date(),
-                            commitResponse.commit().author().name()))
-                    .toList()
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(commitList -> {
-                        Timber.v("Received commit list. Size: %d", commitList.size());
-                        commits.addAll(commitList);
-                    });
+            load();
         }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    public void clean() {
+    public void pause() {
         if (!subscription.isUnsubscribed()) {
             subscription.unsubscribe();
         }
+    }
+
+    public void load() {
+        Timber.v("Request commit list");
+        subscription = githubApi.getCommits(page)
+                .flatMap(Observable::from)
+                .map(commitResponse -> new CommitItemViewModel(
+                        commitResponse.commit().message(),
+                        commitResponse.commit().author().date(),
+                        commitResponse.commit().author().name()))
+                .toList()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(commitList -> {
+                    Timber.v("Received commit list. Size: %d", commitList.size());
+                    commits.addAll(commitList);
+                    page++;
+                });
     }
 
     public ObservableList<CommitItemViewModel> getCommits() {
