@@ -21,9 +21,10 @@ import java.util.List;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
 
 public interface GithubApi {
-    @GET("repos/android/platform_build/commits?page={page}") Observable<List<CommitResponse>> getCommits(@Path("page") int page);
+    @GET("repos/android/platform_build/commits") Observable<List<CommitResponse>> getCommits(@Query("page") int page);
     @GET("repos/android/platform_build/commits/{sha}") Observable<CommitResponse> getCommit(@Path("sha") @NonNull String sha);
 }
