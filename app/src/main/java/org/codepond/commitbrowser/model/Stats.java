@@ -28,7 +28,7 @@ public abstract class Stats implements Parcelable {
     }
 
     public static JsonAdapter<Stats> jsonAdapter(Moshi moshi) {
-        return AutoValue_Stats.jsonAdapter(moshi);
+        return new AutoValue_Stats.MoshiJsonAdapter(moshi);
     }
 
     public abstract long total();

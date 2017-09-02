@@ -33,7 +33,7 @@ public abstract class CommitResponse implements Parcelable {
     }
 
     public static JsonAdapter<CommitResponse> jsonAdapter(Moshi moshi) {
-        return AutoValue_CommitResponse.jsonAdapter(moshi);
+        return new AutoValue_CommitResponse.MoshiJsonAdapter(moshi);
     }
 
     @Nullable public abstract String sha();

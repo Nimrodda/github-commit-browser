@@ -29,7 +29,7 @@ public abstract class Commit implements Parcelable {
     }
 
     public static JsonAdapter<Commit> jsonAdapter(Moshi moshi) {
-        return AutoValue_Commit.jsonAdapter(moshi);
+        return new AutoValue_Commit.MoshiJsonAdapter(moshi);
     }
 
     @Nullable public abstract Author author();

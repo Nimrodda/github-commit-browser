@@ -30,7 +30,7 @@ public abstract class Author implements Parcelable {
     }
 
     public static JsonAdapter<Author> jsonAdapter(Moshi moshi) {
-        return AutoValue_Author.jsonAdapter(moshi);
+        return new AutoValue_Author.MoshiJsonAdapter(moshi);
     }
 
     @Nullable public abstract String name();

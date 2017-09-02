@@ -56,7 +56,7 @@ public class AppModule {
                     return response;
                 }).build();
         Moshi moshi = new Moshi.Builder()
-                .add(AdapterFactory.class)
+                .add(AdapterFactory.create())
                 .build();
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(ScalarsConverterFactory.create())

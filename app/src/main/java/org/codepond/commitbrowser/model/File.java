@@ -34,7 +34,7 @@ public abstract class File implements Parcelable {
     }
 
     public static JsonAdapter<File> jsonAdapter(Moshi moshi) {
-        return AutoValue_File.jsonAdapter(moshi);
+        return new AutoValue_File.MoshiJsonAdapter(moshi);
     }
 
     @Nullable public abstract String sha();
