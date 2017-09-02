@@ -47,7 +47,8 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-scalars:$retrofitVersion"
     implementation "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
-    implementation 'com.squareup.okhttp3:okhttp:3.8.1'
+    implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    debugImplementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
 
     // AutoValue
     provided "com.google.auto.value:auto-value:$autoValueVersion"

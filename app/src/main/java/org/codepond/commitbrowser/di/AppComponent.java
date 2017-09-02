@@ -29,6 +29,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
 @Component(modules = {
         AndroidSupportInjectionModule.class,
         AppModule.class,
+        OkHttpModule.class,
         CommitListActivityModule.class
 })
 public interface AppComponent {

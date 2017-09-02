@@ -46,8 +46,8 @@ public class AppModule {
         return application.getApplicationContext();
     }
 
-    @Provides GithubApi provideGithubApi(Context context) {
-        OkHttpClient okHttp = new OkHttpClient.Builder()
+    @Provides GithubApi provideGithubApi(Context context, OkHttpClient.Builder okHttpBuilder) {
+        OkHttpClient okHttp = okHttpBuilder
                 .cache(new Cache(context.getCacheDir(), CACHE_SIZE))
                 .addInterceptor(chain -> {
                     Request request = chain.request();
