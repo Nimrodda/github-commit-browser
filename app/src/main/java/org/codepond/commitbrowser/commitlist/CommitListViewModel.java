@@ -13,9 +13,6 @@
 
 package org.codepond.commitbrowser.commitlist;
 
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleObserver;
-import android.arch.lifecycle.OnLifecycleEvent;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.databinding.ObservableArrayList;
@@ -24,47 +21,33 @@ import android.databinding.ObservableList;
 import org.codepond.commitbrowser.api.GithubApi;
 import org.codepond.commitbrowser.common.recyclerview.Item;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import rx.Observable;
-import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
-public class CommitListViewModel extends ViewModel implements LifecycleObserver {
+public class CommitListViewModel extends ViewModel {
     private GithubApi githubApi;
     private ObservableList<Item> commits = new ObservableArrayList<>();
     private int page = 1;
-    private Subscription subscription;
 
     public CommitListViewModel(GithubApi githubApi) {
         this.githubApi = githubApi;
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    public void resume() {
-        if (commits.size() == 0) {
-            load();
-        }
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    public void pause() {
-        if (!subscription.isUnsubscribed()) {
-            subscription.unsubscribe();
-        }
-    }
-
-    public void load() {
+    public Observable<List<CommitItem>> loadCommits() {
         Timber.v("Request commit list");
-        subscription = githubApi.getCommits(page)
+        return githubApi.getCommits(page)
                 .flatMap(Observable::from)
                 .map(commitResponse -> new CommitItem(commitResponse, this))
                 .toList()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(commitList -> {
-                    Timber.v("Received commit list. Size: %d", commitList.size());
-                    commits.addAll(commitList);
+                .doOnNext(commitItems -> {
+                    Timber.v("Received commit list. Size: %d", commitItems.size());
+                    commits.addAll(commitItems);
                     page++;
                 });
     }

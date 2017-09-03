@@ -16,8 +16,6 @@
 
 package org.codepond.commitbrowser.commitlist;
 
-import android.arch.lifecycle.LifecycleRegistry;
-import android.arch.lifecycle.LifecycleRegistryOwner;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -34,11 +32,12 @@ import org.codepond.commitbrowser.databinding.CommitListActivityBinding;
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
+import rx.Subscription;
 
-public class CommitListActivity extends AppCompatActivity implements LifecycleRegistryOwner {
-    private LifecycleRegistry lifecycleRegistry = new LifecycleRegistry(this);
+public class CommitListActivity extends AppCompatActivity {
     private CommitListViewModel viewModel;
     @Inject CommitListViewModel.Factory viewModelFactory;
+    private Subscription subscription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +45,6 @@ public class CommitListActivity extends AppCompatActivity implements LifecycleRe
         super.onCreate(savedInstanceState);
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(CommitListViewModel.class);
         CommitListActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.commit_list_activity);
-        lifecycleRegistry.addObserver(viewModel);
         binding.setViewModel(viewModel);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -57,13 +55,28 @@ public class CommitListActivity extends AppCompatActivity implements LifecycleRe
         binding.commitList.addOnScrollListener(new OnLoadMoreScrollListener(getResources().getInteger(R.integer.load_threshold)) {
             @Override
             protected void onLoadMore() {
-                viewModel.load();
+                loadMore();
             }
         });
     }
 
+    private void loadMore() {
+        subscription = viewModel.loadCommits().subscribe();
+    }
+
     @Override
-    public LifecycleRegistry getLifecycle() {
-        return lifecycleRegistry;
+    protected void onStart() {
+        super.onStart();
+        if (viewModel.getCommits().size() == 0) {
+            loadMore();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (subscription != null && !subscription.isUnsubscribed()) {
+            subscription.unsubscribe();
+        }
     }
 }
