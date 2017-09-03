@@ -11,6 +11,8 @@ import org.codepond.commitbrowser.R;
 
 public class CommitDetailActivity extends AppCompatActivity {
 
+    public static final String EXTRA_COMMIT_SHA = "extra_commit_sha";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -22,6 +22,7 @@
         <activity
             android:name=".commitdetail.CommitDetailActivity"
             android:label="@string/title_activity_commit_detail"
+            android:launchMode="singleTask"
             android:parentActivityName=".commitlist.CommitListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
