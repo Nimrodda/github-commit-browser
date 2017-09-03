@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.codepond.commitbrowser.commitdetail.CommitDetailActivityFragment"
+    tools:context="org.codepond.commitbrowser.commitdetail.CommitDetailFragment"
     tools:showIn="@layout/commit_detail_activity">
 
 </android.support.constraint.ConstraintLayout>
