@@ -20,6 +20,10 @@ import com.android.databinding.library.baseAdapters.BR;
 public abstract class Item {
     public void bind(ViewHolder viewHolder, OnItemClickListener onItemClickListener) {
         viewHolder.binding.setVariable(BR.itemClickListener, onItemClickListener);
+        bind(viewHolder);
+    }
+
+    public void bind(ViewHolder viewHolder) {
         viewHolder.binding.executePendingBindings();
     }
 
