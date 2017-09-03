@@ -6,7 +6,6 @@
     tools:context="org.codepond.commitbrowser.commitlist.CommitListActivity">
 
     <data>
-        <import type="android.view.View"/>
         <variable name="viewModel" type="org.codepond.commitbrowser.commitlist.CommitListViewModel"/>
     </data>
 
