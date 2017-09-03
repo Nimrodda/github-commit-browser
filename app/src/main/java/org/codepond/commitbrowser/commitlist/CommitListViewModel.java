@@ -17,11 +17,14 @@ import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.OnLifecycleEvent;
 import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProvider;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 
 import org.codepond.commitbrowser.api.GithubApi;
 import org.codepond.commitbrowser.common.recyclerview.Item;
+
+import javax.inject.Inject;
 
 import rx.Observable;
 import rx.Subscription;
@@ -72,5 +75,19 @@ public class CommitListViewModel extends ViewModel implements LifecycleObserver 
 
     public void onClick(String sha) {
         Timber.v("Commit with sha: %s was clicked", sha);
+    }
+
+    public static class Factory implements ViewModelProvider.Factory {
+        private GithubApi githubApi;
+
+        @Inject
+        public Factory(GithubApi githubApi) {
+            this.githubApi = githubApi;
+        }
+
+        @Override
+        public <T extends ViewModel> T create(Class<T> modelClass) {
+            return (T) new CommitListViewModel(githubApi);
+        }
     }
 }

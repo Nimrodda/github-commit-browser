@@ -38,7 +38,7 @@ import dagger.android.AndroidInjection;
 public class CommitListActivity extends AppCompatActivity implements LifecycleRegistryOwner {
     private LifecycleRegistry lifecycleRegistry = new LifecycleRegistry(this);
     private CommitListViewModel viewModel;
-    @Inject CommitListViewModelFactory viewModelFactory;
+    @Inject CommitListViewModel.Factory viewModelFactory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

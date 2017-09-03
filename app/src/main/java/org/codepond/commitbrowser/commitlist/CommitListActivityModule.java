@@ -13,19 +13,12 @@
 
 package org.codepond.commitbrowser.commitlist;
 
-import android.arch.lifecycle.ViewModelProvider;
-
 import org.codepond.commitbrowser.di.ActivityScope;
 
-import dagger.Binds;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
-/**
- * Feature level module holds all the bindings needed for this feature.
- */
 @Module
 public abstract class CommitListActivityModule {
     @ActivityScope @ContributesAndroidInjector public abstract CommitListActivity contributeCommitListActivityInjector();
-    @Binds abstract ViewModelProvider.Factory bindViewModelFactory(CommitListViewModelFactory viewModelFactory);
 }
