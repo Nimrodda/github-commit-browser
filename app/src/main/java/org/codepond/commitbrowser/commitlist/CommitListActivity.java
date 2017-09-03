@@ -27,6 +27,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import org.codepond.commitbrowser.R;
 import org.codepond.commitbrowser.common.recyclerview.ItemAdapter;
 import org.codepond.commitbrowser.common.recyclerview.OnLoadMoreScrollListener;
+import org.codepond.commitbrowser.common.ui.NetworkErrorSnackBar;
 import org.codepond.commitbrowser.databinding.CommitListActivityBinding;
 
 import javax.inject.Inject;
@@ -36,16 +37,20 @@ import rx.Subscription;
 
 public class CommitListActivity extends AppCompatActivity {
     private CommitListViewModel viewModel;
-    @Inject CommitListViewModel.Factory viewModelFactory;
     private Subscription subscription;
+    private CommitListActivityBinding binding;
+    private NetworkErrorSnackBar networkErrorSnackBar;
+
+    @Inject CommitListViewModel.Factory viewModelFactory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(CommitListViewModel.class);
-        CommitListActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.commit_list_activity);
+        binding = DataBindingUtil.setContentView(this, R.layout.commit_list_activity);
         binding.setViewModel(viewModel);
+        networkErrorSnackBar = new NetworkErrorSnackBar(binding.getRoot());
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         binding.commitList.setLayoutManager(layoutManager);
@@ -61,7 +66,9 @@ public class CommitListActivity extends AppCompatActivity {
     }
 
     private void loadMore() {
-        subscription = viewModel.loadCommits().subscribe();
+        subscription = viewModel.loadCommits()
+                .retryWhen(networkErrorSnackBar::show)
+                .subscribe();
     }
 
     @Override
