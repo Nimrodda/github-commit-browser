@@ -20,6 +20,7 @@ import android.databinding.ObservableList;
 
 import org.codepond.commitbrowser.api.GithubApi;
 import org.codepond.commitbrowser.common.recyclerview.Item;
+import org.codepond.commitbrowser.common.ui.BaseViewModel;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
-public class CommitListViewModel extends ViewModel {
+public class CommitListViewModel extends BaseViewModel {
     private GithubApi githubApi;
     private ObservableList<Item> commits = new ObservableArrayList<>();
     private int page = 1;
@@ -40,6 +41,7 @@ public class CommitListViewModel extends ViewModel {
 
     public Observable<List<CommitItem>> loadCommits() {
         Timber.v("Request commit list");
+        isLoading.set(true);
         return githubApi.getCommits(page)
                 .flatMap(Observable::from)
                 .map(CommitItem::new)
@@ -49,6 +51,7 @@ public class CommitListViewModel extends ViewModel {
                     Timber.v("Received commit list. Size: %d", commitItems.size());
                     commits.addAll(commitItems);
                     page++;
+                    isLoading.set(false);
                 });
     }
 
