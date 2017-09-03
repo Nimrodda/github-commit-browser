@@ -20,20 +20,15 @@ import android.arch.lifecycle.LifecycleRegistry;
 import android.arch.lifecycle.LifecycleRegistryOwner;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
-import android.databinding.ObservableList;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
 
 import org.codepond.commitbrowser.R;
-import org.codepond.commitbrowser.common.recyclerview.Item;
+import org.codepond.commitbrowser.common.recyclerview.ItemAdapter;
 import org.codepond.commitbrowser.common.recyclerview.OnLoadMoreScrollListener;
-import org.codepond.commitbrowser.common.recyclerview.ViewHolder;
 import org.codepond.commitbrowser.databinding.CommitListBinding;
 
 import javax.inject.Inject;
@@ -58,7 +53,7 @@ public class CommitListActivity extends AppCompatActivity implements LifecycleRe
         binding.commitList.setLayoutManager(layoutManager);
         binding.commitList.setItemAnimator(new DefaultItemAnimator());
         binding.commitList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        binding.commitList.setAdapter(new CommitAdapter(viewModel.getCommits()));
+        binding.commitList.setAdapter(new ItemAdapter(viewModel.getCommits()));
         binding.commitList.addOnScrollListener(new OnLoadMoreScrollListener(getResources().getInteger(R.integer.load_threshold)) {
             @Override
             protected void onLoadMore() {
@@ -70,75 +65,5 @@ public class CommitListActivity extends AppCompatActivity implements LifecycleRe
     @Override
     public LifecycleRegistry getLifecycle() {
         return lifecycleRegistry;
-    }
-
-    class CommitAdapter extends RecyclerView.Adapter<ViewHolder> {
-        private ObservableList<Item> commits;
-
-        CommitAdapter(ObservableList<Item> commits) {
-            this.commits = commits;
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-            return new ViewHolder<>(DataBindingUtil.inflate(inflater, viewType, parent, false));
-        }
-
-        @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            Item item = commits.get(position);
-            item.bind(holder);
-        }
-
-        @Override
-        public int getItemViewType(int position) {
-            return commits.get(position).getLayoutId();
-        }
-
-        @Override
-        public int getItemCount() {
-            return commits.size();
-        }
-
-        @Override
-        public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-            super.onAttachedToRecyclerView(recyclerView);
-            commits.addOnListChangedCallback(onListChangedCallback);
-        }
-
-        @Override
-        public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
-            super.onDetachedFromRecyclerView(recyclerView);
-            commits.removeOnListChangedCallback(onListChangedCallback);
-        }
-
-        private ObservableList.OnListChangedCallback<ObservableList<Item>> onListChangedCallback =
-                new ObservableList.OnListChangedCallback<ObservableList<Item>>() {
-            @Override
-            public void onChanged(ObservableList<Item> commitItemViewModels) {
-
-            }
-
-            @Override
-            public void onItemRangeChanged(ObservableList<Item> commitItemViewModels, int positionStart, int itemCount) {
-
-            }
-
-            @Override
-            public void onItemRangeInserted(ObservableList<Item> commitItemViewModels, int positionStart, int itemCount) {
-                notifyItemRangeInserted(positionStart, itemCount);
-            }
-
-            @Override
-            public void onItemRangeMoved(ObservableList<Item> commitItemViewModels, int fromPosition, int toPosition, int itemCount) {
-
-            }
-
-            @Override
-            public void onItemRangeRemoved(ObservableList<Item> commitItemViewModels, int positionStart, int itemCount) {
-
-            }
-        };
     }
 }
