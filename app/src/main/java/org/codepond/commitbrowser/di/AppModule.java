@@ -34,9 +34,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 import rx.schedulers.Schedulers;
 
-/**
- * Application module refers to sub components and provides application level dependencies.
- */
 @Module
 public class AppModule {
     private static final long CACHE_SIZE = 20 * 1024 * 1024; // 20 MB

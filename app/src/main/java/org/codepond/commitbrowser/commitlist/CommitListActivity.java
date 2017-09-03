@@ -31,6 +31,7 @@ import org.codepond.commitbrowser.common.recyclerview.ItemAdapter;
 import org.codepond.commitbrowser.common.recyclerview.OnItemClickListener;
 import org.codepond.commitbrowser.common.recyclerview.OnLoadMoreScrollListener;
 import org.codepond.commitbrowser.common.ui.NetworkErrorSnackBar;
+import org.codepond.commitbrowser.common.ui.ViewModelFactory;
 import org.codepond.commitbrowser.databinding.CommitListActivityBinding;
 
 import javax.inject.Inject;
@@ -51,7 +52,7 @@ public class CommitListActivity extends AppCompatActivity {
         startActivity(intent);
     };
 
-    @Inject CommitListViewModel.Factory viewModelFactory;
+    @Inject ViewModelFactory viewModelFactory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

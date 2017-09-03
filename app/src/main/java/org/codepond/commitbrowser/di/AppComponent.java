@@ -14,6 +14,7 @@
 package org.codepond.commitbrowser.di;
 
 import org.codepond.commitbrowser.App;
+import org.codepond.commitbrowser.commitdetail.CommitDetailActivityModule;
 import org.codepond.commitbrowser.commitlist.CommitListActivityModule;
 
 import javax.inject.Singleton;
@@ -22,15 +23,13 @@ import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.support.AndroidSupportInjectionModule;
 
-/**
- * Application component refers to application level modules only
- */
 @Singleton
 @Component(modules = {
         AndroidSupportInjectionModule.class,
         AppModule.class,
         OkHttpModule.class,
-        CommitListActivityModule.class
+        CommitListActivityModule.class,
+        CommitDetailActivityModule.class
 })
 public interface AppComponent {
     @Component.Builder

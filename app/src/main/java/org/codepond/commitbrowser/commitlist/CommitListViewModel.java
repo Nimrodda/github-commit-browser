@@ -13,8 +13,6 @@
 
 package org.codepond.commitbrowser.commitlist;
 
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 
@@ -24,25 +22,22 @@ import org.codepond.commitbrowser.common.ui.BaseViewModel;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
 public class CommitListViewModel extends BaseViewModel {
-    private GithubApi githubApi;
     private ObservableList<Item> commits = new ObservableArrayList<>();
     private int page = 1;
 
     public CommitListViewModel(GithubApi githubApi) {
-        this.githubApi = githubApi;
+        super(githubApi);
     }
 
     public Observable<List<CommitItem>> loadCommits() {
         Timber.v("Request commit list");
         isLoading.set(true);
-        return githubApi.getCommits(page)
+        return getGithubApi().getCommits(page)
                 .flatMap(Observable::from)
                 .map(CommitItem::new)
                 .toList()
@@ -57,19 +52,5 @@ public class CommitListViewModel extends BaseViewModel {
 
     public ObservableList<Item> getCommits() {
         return commits;
-    }
-
-    public static class Factory implements ViewModelProvider.Factory {
-        private GithubApi githubApi;
-
-        @Inject
-        public Factory(GithubApi githubApi) {
-            this.githubApi = githubApi;
-        }
-
-        @Override
-        public <T extends ViewModel> T create(Class<T> modelClass) {
-            return (T) new CommitListViewModel(githubApi);
-        }
     }
 }
