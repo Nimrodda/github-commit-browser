@@ -21,9 +21,10 @@ import android.view.ViewGroup;
 
 public class ItemAdapter extends RecyclerView.Adapter<ViewHolder> {
     private ObservableList<Item> items;
-
-    public ItemAdapter(ObservableList<Item> items) {
+    private OnItemClickListener onItemClickListener;
+    public ItemAdapter(ObservableList<Item> items, OnItemClickListener onItemClickListener) {
         this.items = items;
+        this.onItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -35,7 +36,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Item item = items.get(position);
-        item.bind(holder);
+        item.bind(holder, onItemClickListener);
     }
 
     @Override

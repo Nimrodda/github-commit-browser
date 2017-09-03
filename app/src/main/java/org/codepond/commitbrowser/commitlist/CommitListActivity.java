@@ -26,6 +26,7 @@ import android.support.v7.widget.LinearLayoutManager;
 
 import org.codepond.commitbrowser.R;
 import org.codepond.commitbrowser.common.recyclerview.ItemAdapter;
+import org.codepond.commitbrowser.common.recyclerview.OnItemClickListener;
 import org.codepond.commitbrowser.common.recyclerview.OnLoadMoreScrollListener;
 import org.codepond.commitbrowser.common.ui.NetworkErrorSnackBar;
 import org.codepond.commitbrowser.databinding.CommitListActivityBinding;
@@ -34,12 +35,16 @@ import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
 import rx.Subscription;
+import timber.log.Timber;
 
 public class CommitListActivity extends AppCompatActivity {
     private CommitListViewModel viewModel;
     private Subscription subscription;
     private CommitListActivityBinding binding;
     private NetworkErrorSnackBar networkErrorSnackBar;
+    private OnItemClickListener onItemClickListener = id -> {
+        Timber.v("Commit with sha: %s was clicked", id);
+    };
 
     @Inject CommitListViewModel.Factory viewModelFactory;
 
@@ -56,7 +61,7 @@ public class CommitListActivity extends AppCompatActivity {
         binding.commitList.setLayoutManager(layoutManager);
         binding.commitList.setItemAnimator(new DefaultItemAnimator());
         binding.commitList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        binding.commitList.setAdapter(new ItemAdapter(viewModel.getCommits()));
+        binding.commitList.setAdapter(new ItemAdapter(viewModel.getCommits(), onItemClickListener));
         binding.commitList.addOnScrollListener(new OnLoadMoreScrollListener(getResources().getInteger(R.integer.load_threshold)) {
             @Override
             protected void onLoadMore() {

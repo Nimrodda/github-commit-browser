@@ -17,19 +17,17 @@ import com.android.databinding.library.baseAdapters.BR;
 
 import org.codepond.commitbrowser.R;
 import org.codepond.commitbrowser.common.recyclerview.Item;
+import org.codepond.commitbrowser.common.recyclerview.OnItemClickListener;
 import org.codepond.commitbrowser.common.recyclerview.ViewHolder;
 import org.codepond.commitbrowser.model.CommitResponse;
 
 public class CommitItem extends Item {
-    private final CommitListViewModel commitListViewModel;
     private final String sha;
     private final String message;
     private final String date;
     private final String author;
 
-    public CommitItem(CommitResponse commitResponse,
-                      CommitListViewModel commitListViewModel) {
-        this.commitListViewModel = commitListViewModel;
+    public CommitItem(CommitResponse commitResponse) {
         this.sha = commitResponse.sha();
         this.message = commitResponse.commit().message();
         this.date = commitResponse.commit().author().date();
@@ -37,10 +35,9 @@ public class CommitItem extends Item {
     }
 
     @Override
-    public void bind(ViewHolder viewHolder) {
-        viewHolder.binding.setVariable(BR.commitListViewModel, commitListViewModel);
+    public void bind(ViewHolder viewHolder, OnItemClickListener onItemClickListener) {
         viewHolder.binding.setVariable(BR.commitItem, this);
-        super.bind(viewHolder);
+        super.bind(viewHolder, onItemClickListener);
     }
 
     @Override

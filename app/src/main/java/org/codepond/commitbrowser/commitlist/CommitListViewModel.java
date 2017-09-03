@@ -42,7 +42,7 @@ public class CommitListViewModel extends ViewModel {
         Timber.v("Request commit list");
         return githubApi.getCommits(page)
                 .flatMap(Observable::from)
-                .map(commitResponse -> new CommitItem(commitResponse, this))
+                .map(CommitItem::new)
                 .toList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(commitItems -> {
@@ -54,10 +54,6 @@ public class CommitListViewModel extends ViewModel {
 
     public ObservableList<Item> getCommits() {
         return commits;
-    }
-
-    public void onClick(String sha) {
-        Timber.v("Commit with sha: %s was clicked", sha);
     }
 
     public static class Factory implements ViewModelProvider.Factory {

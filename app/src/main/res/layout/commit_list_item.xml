@@ -17,7 +17,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         tools:context="org.codepond.commitbrowser.commitlist.CommitListActivity">
     <data>
-        <variable name="commitListViewModel" type="org.codepond.commitbrowser.commitlist.CommitListViewModel"/>
+        <variable name="itemClickListener" type="org.codepond.commitbrowser.common.recyclerview.OnItemClickListener"/>
         <variable name="commitItem" type="org.codepond.commitbrowser.commitlist.CommitItem"/>
     </data>
 
@@ -28,7 +28,7 @@
             android:background="?selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
-            android:onClick="@{() -> commitListViewModel.onClick(commitItem.getSha())}">
+            android:onClick="@{() -> itemClickListener.onItemClick(commitItem.getSha())}">
 
             <ImageView
                 android:id="@+id/avatar"

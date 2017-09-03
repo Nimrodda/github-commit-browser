@@ -15,8 +15,11 @@ package org.codepond.commitbrowser.common.recyclerview;
 
 import android.support.annotation.LayoutRes;
 
+import com.android.databinding.library.baseAdapters.BR;
+
 public abstract class Item {
-    public void bind(ViewHolder viewHolder) {
+    public void bind(ViewHolder viewHolder, OnItemClickListener onItemClickListener) {
+        viewHolder.binding.setVariable(BR.itemClickListener, onItemClickListener);
         viewHolder.binding.executePendingBindings();
     }
 
