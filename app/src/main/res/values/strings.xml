@@ -2,4 +2,6 @@
     <string name="app_name">commitbrowser</string>
     <string name="network_error_message">No connection</string>
     <string name="retry">RETRY</string>
+    <string name="title_activity_commit_detail">CommitDetailActivity</string>
+    <string name="action_settings">Settings</string>
 </resources>

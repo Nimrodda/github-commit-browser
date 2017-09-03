@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest package="org.codepond.commitbrowser"
           xmlns:android="http://schemas.android.com/apk/res/android">
+
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
@@ -17,6 +18,15 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".commitdetail.CommitDetailActivity"
+            android:label="@string/title_activity_commit_detail"
+            android:parentActivityName=".commitlist.CommitListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.codepond.commitbrowser.commitlist.CommitListActivity"/>
         </activity>
     </application>
 

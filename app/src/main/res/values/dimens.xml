@@ -21,4 +21,5 @@
     <dimen name="text_margin_start">72dp</dimen>
     <dimen name="avatar_size">48dp</dimen>
     <dimen name="content_vertical_margin">8dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>
