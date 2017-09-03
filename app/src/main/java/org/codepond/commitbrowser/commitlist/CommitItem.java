@@ -45,7 +45,7 @@ public class CommitItem extends Item {
 
     @Override
     public int getLayoutId() {
-        return R.layout.commit_item;
+        return R.layout.commit_list_item;
     }
 
     public String getSha() {

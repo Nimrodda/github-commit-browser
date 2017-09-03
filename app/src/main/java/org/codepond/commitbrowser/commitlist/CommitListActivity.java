@@ -29,7 +29,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import org.codepond.commitbrowser.R;
 import org.codepond.commitbrowser.common.recyclerview.ItemAdapter;
 import org.codepond.commitbrowser.common.recyclerview.OnLoadMoreScrollListener;
-import org.codepond.commitbrowser.databinding.CommitListBinding;
+import org.codepond.commitbrowser.databinding.CommitListActivityBinding;
 
 import javax.inject.Inject;
 
@@ -45,7 +45,7 @@ public class CommitListActivity extends AppCompatActivity implements LifecycleRe
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(CommitListViewModel.class);
-        CommitListBinding binding = DataBindingUtil.setContentView(this, R.layout.commit_list);
+        CommitListActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.commit_list_activity);
         lifecycleRegistry.addObserver(viewModel);
         binding.setViewModel(viewModel);
 
