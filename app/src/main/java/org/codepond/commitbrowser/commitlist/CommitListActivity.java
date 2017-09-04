@@ -16,11 +16,8 @@
 
 package org.codepond.commitbrowser.commitlist;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,45 +27,27 @@ import org.codepond.commitbrowser.commitdetail.CommitDetailActivity;
 import org.codepond.commitbrowser.common.recyclerview.ItemAdapter;
 import org.codepond.commitbrowser.common.recyclerview.OnItemClickListener;
 import org.codepond.commitbrowser.common.recyclerview.OnLoadMoreScrollListener;
-import org.codepond.commitbrowser.common.ui.NetworkErrorSnackBar;
+import org.codepond.commitbrowser.common.ui.BaseActivity;
 import org.codepond.commitbrowser.common.ui.ViewModelFactory;
 import org.codepond.commitbrowser.databinding.CommitListActivityBinding;
 
 import javax.inject.Inject;
 
-import dagger.android.AndroidInjection;
-import rx.Subscription;
 import timber.log.Timber;
 
-public class CommitListActivity extends AppCompatActivity {
-    private CommitListViewModel viewModel;
-    private Subscription subscription;
-    private CommitListActivityBinding binding;
-    private NetworkErrorSnackBar networkErrorSnackBar;
-    private OnItemClickListener onItemClickListener = id -> {
-        Timber.v("Commit with sha: %s was clicked", id);
-        Intent intent = new Intent(CommitListActivity.this, CommitDetailActivity.class);
-        intent.putExtra(CommitDetailActivity.EXTRA_COMMIT_SHA, id);
-        startActivity(intent);
-    };
-
+public class CommitListActivity extends BaseActivity<CommitListViewModel, CommitListActivityBinding> {
     @Inject ViewModelFactory viewModelFactory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(CommitListViewModel.class);
-        binding = DataBindingUtil.setContentView(this, R.layout.commit_list_activity);
-        binding.setViewModel(viewModel);
-        networkErrorSnackBar = new NetworkErrorSnackBar(binding.getRoot());
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        binding.commitList.setLayoutManager(layoutManager);
-        binding.commitList.setItemAnimator(new DefaultItemAnimator());
-        binding.commitList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        binding.commitList.setAdapter(new ItemAdapter(viewModel.getCommits(), onItemClickListener));
-        binding.commitList.addOnScrollListener(new OnLoadMoreScrollListener(getResources().getInteger(R.integer.load_threshold)) {
+        getBinding().recyclerview.setLayoutManager(layoutManager);
+        getBinding().recyclerview.setItemAnimator(new DefaultItemAnimator());
+        getBinding().recyclerview.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        getBinding().recyclerview.setAdapter(new ItemAdapter(getViewModel().getCommits(), onItemClickListener));
+        getBinding().recyclerview.addOnScrollListener(new OnLoadMoreScrollListener(getResources().getInteger(R.integer.load_threshold)) {
             @Override
             protected void onLoadMore() {
                 loadMore();
@@ -76,25 +55,32 @@ public class CommitListActivity extends AppCompatActivity {
         });
     }
 
+    private OnItemClickListener onItemClickListener = id -> {
+        Timber.v("Commit with sha: %s was clicked", id);
+        Intent intent = new Intent(CommitListActivity.this, CommitDetailActivity.class);
+        intent.putExtra(CommitDetailActivity.EXTRA_COMMIT_SHA, id);
+        startActivity(intent);
+    };
+
+    @Override
+    protected Class<CommitListViewModel> getViewModelClass() {
+        return CommitListViewModel.class;
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.commit_list_activity;
+    }
+
     private void loadMore() {
-        subscription = viewModel.loadCommits()
-                .retryWhen(networkErrorSnackBar::show)
-                .subscribe();
+        subscribe(getViewModel().loadCommits());
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if (viewModel.getCommits().size() == 0) {
+        if (getViewModel().getCommits().size() == 0) {
             loadMore();
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (subscription != null && !subscription.isUnsubscribed()) {
-            subscription.unsubscribe();
         }
     }
 }
