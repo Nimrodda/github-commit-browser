@@ -26,12 +26,19 @@ public class CommitItem extends Item {
     private final String message;
     private final String date;
     private final String author;
+    private final String avatarUrl;
 
     public CommitItem(CommitResponse commitResponse) {
         this.sha = commitResponse.sha();
         this.message = commitResponse.commit().message();
         this.date = commitResponse.commit().author().date();
         this.author = commitResponse.commit().author().name();
+        if (commitResponse.author() != null && commitResponse.author().avatarUrl() != null) {
+            this.avatarUrl = commitResponse.author().avatarUrl();
+        }
+        else {
+            this.avatarUrl = null;
+        }
     }
 
     @Override
@@ -59,5 +66,9 @@ public class CommitItem extends Item {
 
     public String getAuthor() {
         return author;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
     }
 }

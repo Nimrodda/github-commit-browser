@@ -28,8 +28,9 @@ public abstract class CommitResponse implements Parcelable {
     public static CommitResponse create(@Nullable String sha,
                                         @Nullable Commit commit,
                                         @Nullable Stats stats,
+                                        @Nullable Author author,
                                         @Nullable List<File> files) {
-        return new AutoValue_CommitResponse(sha, commit, stats, files);
+        return new AutoValue_CommitResponse(sha, commit, stats, author, files);
     }
 
     public static JsonAdapter<CommitResponse> jsonAdapter(Moshi moshi) {
@@ -39,5 +40,6 @@ public abstract class CommitResponse implements Parcelable {
     @Nullable public abstract String sha();
     @Nullable public abstract Commit commit();
     @Nullable public abstract Stats stats();
+    @Nullable public abstract Author author();
     @Nullable public abstract List<File> files();
 }

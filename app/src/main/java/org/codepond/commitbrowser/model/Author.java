@@ -16,6 +16,7 @@ package org.codepond.commitbrowser.model;
 import android.os.Parcelable;
 
 import com.google.auto.value.AutoValue;
+import com.squareup.moshi.Json;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 
@@ -25,8 +26,9 @@ import javax.annotation.Nullable;
 public abstract class Author implements Parcelable {
     public static Author create(@Nullable String name,
                                 @Nullable String email,
+                                @Nullable String avatarUrl,
                                 @Nullable String date) {
-        return new AutoValue_Author(name, email, date);
+        return new AutoValue_Author(name, email, avatarUrl, date);
     }
 
     public static JsonAdapter<Author> jsonAdapter(Moshi moshi) {
@@ -35,5 +37,6 @@ public abstract class Author implements Parcelable {
 
     @Nullable public abstract String name();
     @Nullable public abstract String email();
+    @Nullable @Json(name = "avatar_url") public abstract String avatarUrl();
     @Nullable public abstract String date();
 }
