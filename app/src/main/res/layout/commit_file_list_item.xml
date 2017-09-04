@@ -8,25 +8,27 @@
     </data>
     <LinearLayout android:orientation="vertical"
                   android:layout_width="match_parent"
-                  android:layout_height="wrap_content">
+                  android:layout_height="wrap_content"
+                  android:layout_marginBottom="@dimen/content_vertical_margin"
+                  android:layout_marginTop="@dimen/content_vertical_margin"
+                  android:layout_marginStart="@dimen/horizontal_start_margin"
+                  android:layout_marginEnd="@dimen/horizontal_end_margin">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/TextStyle"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@{file.filename()}"
             tools:text="Filename"/>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/TextStyle"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@{file.status()}"
             tools:text="Status"/>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/TextStyle"
             android:text="@{file.patch()}"
             tools:text="Patch"/>
     </LinearLayout>    
 </layout>
-        
