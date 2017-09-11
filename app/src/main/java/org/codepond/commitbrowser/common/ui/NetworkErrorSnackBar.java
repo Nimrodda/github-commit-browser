@@ -38,7 +38,6 @@ public class NetworkErrorSnackBar {
                 .setAction(R.string.retry, v -> {
                     Timber.v("Retry button clicked");
                     retrySubject.onNext(null);
-                    retrySubject.onCompleted();
                 }).show();
             return retrySubject;
         });
