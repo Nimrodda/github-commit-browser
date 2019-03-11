@@ -14,14 +14,13 @@
 package org.codepond.commitbrowser.model;
 
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 
 import com.google.auto.value.AutoValue;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 
 import java.util.List;
-
-import javax.annotation.Nullable;
 
 @AutoValue
 public abstract class CommitResponse implements Parcelable {

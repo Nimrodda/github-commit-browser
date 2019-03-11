@@ -7,7 +7,7 @@ import org.codepond.commitbrowser.R;
 import org.codepond.commitbrowser.common.glide.GlideApp;
 
 public class ImageUrlAdapter {
-    @BindingAdapter("app:imageUrl")
+    @BindingAdapter("imageUrl")
     public static void loadImage(ImageView imageView, String url) {
         GlideApp.with(imageView.getContext())
                 .load(url)
