@@ -11,20 +11,9 @@
  * limitations under the License.
  */
 
-package org.codepond.commitbrowser.di;
+package org.codepond.commitbrowser.common.recyclerview
 
-import dagger.Module;
-import dagger.Provides;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
+import android.databinding.ViewDataBinding
+import android.support.v7.widget.RecyclerView
 
-@Module
-public abstract class OkHttpModule {
-    @Provides
-    public static OkHttpClient.Builder provideOkHttpBuilder() {
-        HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor();
-        logInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
-        return new OkHttpClient.Builder()
-                .addInterceptor(logInterceptor);
-    }
-}
+class ViewHolder<T : ViewDataBinding>(val binding: T) : RecyclerView.ViewHolder(binding.root)

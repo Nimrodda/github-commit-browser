@@ -11,16 +11,16 @@
  * limitations under the License.
  */
 
-package org.codepond.commitbrowser.common.recyclerview;
+package org.codepond.commitbrowser.commitdetail
 
-import android.databinding.ViewDataBinding;
-import android.support.v7.widget.RecyclerView;
+import org.codepond.commitbrowser.di.ActivityScope
 
-public class ViewHolder<T extends ViewDataBinding> extends RecyclerView.ViewHolder {
-    public final T binding;
+import dagger.Module
+import dagger.android.ContributesAndroidInjector
 
-    public ViewHolder(T binding) {
-        super(binding.getRoot());
-        this.binding = binding;
-    }
+@Module
+abstract class CommitDetailActivityModule {
+    @ActivityScope
+    @ContributesAndroidInjector
+    abstract fun contributeCommitDetailActivityInjector(): CommitDetailActivity
 }

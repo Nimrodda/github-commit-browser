@@ -13,19 +13,19 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{file.filename()}"
+            android:text="@{file.filename}"
             tools:text="Filename"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{file.status()}"
+            android:text="@{file.status}"
             tools:text="Status"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{file.patch()}"
+            android:text="@{file.patch}"
             tools:text="Patch"/>
     </LinearLayout>    
 </layout>

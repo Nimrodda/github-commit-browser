@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Nimrod Dayan CodePond.org
+ * Copyright 2019 Nimrod Dayan nimroddayan.com
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -11,14 +11,9 @@
  * limitations under the License.
  */
 
-package org.codepond.commitbrowser.commitlist;
+package org.codepond.commitbrowser.model
 
-import org.codepond.commitbrowser.di.ActivityScope;
+import com.squareup.moshi.JsonClass
 
-import dagger.Module;
-import dagger.android.ContributesAndroidInjector;
-
-@Module
-public abstract class CommitListActivityModule {
-    @ActivityScope @ContributesAndroidInjector public abstract CommitListActivity contributeCommitListActivityInjector();
-}
+@JsonClass(generateAdapter = true)
+data class Stats(val total: Long, val addition: Long, val deletion: Long)

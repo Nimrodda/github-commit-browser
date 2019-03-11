@@ -11,14 +11,13 @@
  * limitations under the License.
  */
 
-package org.codepond.commitbrowser.commitdetail;
+package org.codepond.commitbrowser.di
 
-import org.codepond.commitbrowser.di.ActivityScope;
+import java.lang.annotation.Retention
+import java.lang.annotation.RetentionPolicy
 
-import dagger.Module;
-import dagger.android.ContributesAndroidInjector;
+import javax.inject.Scope
 
-@Module
-public abstract class CommitDetailActivityModule {
-    @ActivityScope @ContributesAndroidInjector public abstract CommitDetailActivity contributeCommitDetailActivityInjector();
-}
+@Scope
+@Retention(RetentionPolicy.RUNTIME)
+annotation class ActivityScope

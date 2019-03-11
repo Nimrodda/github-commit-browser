@@ -14,14 +14,10 @@
 package org.codepond.commitbrowser.di;
 
 import android.content.Context;
-
 import com.squareup.moshi.Moshi;
-
 import org.codepond.commitbrowser.App;
 import org.codepond.commitbrowser.BuildConfig;
 import org.codepond.commitbrowser.api.GithubApi;
-import org.codepond.commitbrowser.model.AdapterFactory;
-
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
@@ -29,10 +25,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
-import rx.schedulers.Schedulers;
 
 @Module
 public class AppModule {
@@ -52,13 +46,10 @@ public class AppModule {
                     Response response = chain.proceed(request);
                     return response;
                 }).build();
-        Moshi moshi = new Moshi.Builder()
-                .add(AdapterFactory.create())
-                .build();
+        Moshi moshi = new Moshi.Builder().build();
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(MoshiConverterFactory.create(moshi))
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .baseUrl(BuildConfig.BASE_URL)
                 .client(okHttp)
                 .build();

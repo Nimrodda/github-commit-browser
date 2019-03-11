@@ -11,14 +11,19 @@
  * limitations under the License.
  */
 
-package org.codepond.commitbrowser.di;
+package org.codepond.commitbrowser.api
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import org.codepond.commitbrowser.model.CommitResponse
 
-import javax.inject.Scope;
+import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
+import rx.Observable
 
-@Scope
-@Retention(RetentionPolicy.RUNTIME)
-public @interface ActivityScope {
+interface GithubApi {
+    @GET("repos/android/platform_build/commits")
+    fun getCommits(@Query("page") page: Int): Observable<List<CommitResponse>>
+
+    @GET("repos/android/platform_build/commits/{sha}")
+    fun getCommit(@Path("sha") sha: String): Observable<CommitResponse>
 }

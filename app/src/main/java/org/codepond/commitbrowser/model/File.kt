@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Nimrod Dayan CodePond.org
+ * Copyright 2019 Nimrod Dayan nimroddayan.com
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -11,14 +11,16 @@
  * limitations under the License.
  */
 
-package org.codepond.commitbrowser.model;
+package org.codepond.commitbrowser.model
 
-import com.ryanharter.auto.value.moshi.MoshiAdapterFactory;
-import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.JsonClass
 
-@MoshiAdapterFactory(nullSafe = true)
-public abstract class AdapterFactory implements JsonAdapter.Factory {
-    public static JsonAdapter.Factory create() {
-        return new AutoValueMoshi_AdapterFactory();
-    }
-}
+@JsonClass(generateAdapter = true)
+data class File(
+    val sha: String?,
+    val filename: String?,
+    val status: String?,
+    val additions: Long,
+    val deletions: Long,
+    val changes: Long,
+    val patch: String?)

@@ -11,20 +11,15 @@
  * limitations under the License.
  */
 
-package org.codepond.commitbrowser.di;
+package org.codepond.commitbrowser.model
 
-import dagger.Module;
-import dagger.Provides;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-@Module
-public abstract class OkHttpModule {
-    @Provides
-    public static OkHttpClient.Builder provideOkHttpBuilder() {
-        HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor();
-        logInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
-        return new OkHttpClient.Builder()
-                .addInterceptor(logInterceptor);
-    }
-}
+@JsonClass(generateAdapter = true)
+data class Author(
+    val name: String?,
+    val email: String?,
+    @Json(name = "avatar_url")
+    val avatarUrl: String?,
+    val date: String?)

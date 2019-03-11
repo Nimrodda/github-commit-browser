@@ -11,20 +11,23 @@
  * limitations under the License.
  */
 
-package org.codepond.commitbrowser.api;
+package org.codepond.commitbrowser.common.recyclerview
 
-import android.support.annotation.NonNull;
+import android.support.annotation.LayoutRes
 
-import org.codepond.commitbrowser.model.CommitResponse;
+import com.android.databinding.library.baseAdapters.BR
 
-import java.util.List;
+abstract class Item {
 
-import retrofit2.http.GET;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
-import rx.Observable;
+    @get:LayoutRes
+    abstract val layoutId: Int
 
-public interface GithubApi {
-    @GET("repos/android/platform_build/commits") Observable<List<CommitResponse>> getCommits(@Query("page") int page);
-    @GET("repos/android/platform_build/commits/{sha}") Observable<CommitResponse> getCommit(@Path("sha") @NonNull String sha);
+    open fun bind(viewHolder: ViewHolder<*>, onItemClickListener: OnItemClickListener) {
+        //viewHolder.binding.setVariable(BR.itemClickListener, onItemClickListener)
+        bind(viewHolder)
+    }
+
+    open fun bind(viewHolder: ViewHolder<*>) {
+        viewHolder.binding.executePendingBindings()
+    }
 }

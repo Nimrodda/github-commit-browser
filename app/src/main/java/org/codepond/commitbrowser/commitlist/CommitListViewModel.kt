@@ -11,21 +11,15 @@
  * limitations under the License.
  */
 
-package org.codepond.commitbrowser.common.recyclerview;
+package org.codepond.commitbrowser.commitlist
 
-import android.support.annotation.LayoutRes;
+import org.codepond.commitbrowser.api.GithubApi
+import org.codepond.commitbrowser.common.ui.BaseViewModel
+import timber.log.Timber
 
-import com.android.databinding.library.baseAdapters.BR;
+class CommitListViewModel(githubApi: GithubApi) : BaseViewModel(githubApi) {
 
-public abstract class Item {
-    public void bind(ViewHolder viewHolder, OnItemClickListener onItemClickListener) {
-        viewHolder.binding.setVariable(BR.itemClickListener, onItemClickListener);
-        bind(viewHolder);
+    fun loadCommits() {
+        Timber.v("Request commit list")
     }
-
-    public void bind(ViewHolder viewHolder) {
-        viewHolder.binding.executePendingBindings();
-    }
-
-    @LayoutRes public abstract int getLayoutId();
 }

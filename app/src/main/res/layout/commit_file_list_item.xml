@@ -17,18 +17,18 @@
         <TextView
             style="@style/TextStyle"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@{file.filename()}"
+            android:text="@{file.filename}"
             tools:text="Filename"/>
 
         <TextView
             style="@style/TextStyle"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@{file.status()}"
+            android:text="@{file.status}"
             tools:text="Status"/>
 
         <TextView
             style="@style/TextStyle"
-            android:text="@{file.patch()}"
+            android:text="@{file.patch}"
             tools:text="Patch"/>
     </LinearLayout>    
 </layout>

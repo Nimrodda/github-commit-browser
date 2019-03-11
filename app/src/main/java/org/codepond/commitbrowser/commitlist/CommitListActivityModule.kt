@@ -11,20 +11,16 @@
  * limitations under the License.
  */
 
-package org.codepond.commitbrowser.di;
+package org.codepond.commitbrowser.commitlist
 
-import dagger.Module;
-import dagger.Provides;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
+import org.codepond.commitbrowser.di.ActivityScope
+
+import dagger.Module
+import dagger.android.ContributesAndroidInjector
 
 @Module
-public abstract class OkHttpModule {
-    @Provides
-    public static OkHttpClient.Builder provideOkHttpBuilder() {
-        HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor();
-        logInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
-        return new OkHttpClient.Builder()
-                .addInterceptor(logInterceptor);
-    }
+abstract class CommitListActivityModule {
+    @ActivityScope
+    @ContributesAndroidInjector
+    abstract fun contributeCommitListActivityInjector(): CommitListActivity
 }
