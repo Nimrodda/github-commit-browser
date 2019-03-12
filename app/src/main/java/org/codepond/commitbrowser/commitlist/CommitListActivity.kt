@@ -18,9 +18,6 @@ package org.codepond.commitbrowser.commitlist
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
 import org.codepond.commitbrowser.R
 import org.codepond.commitbrowser.commitdetail.CommitDetailActivity
 import org.codepond.commitbrowser.common.recyclerview.OnLoadMoreScrollListener
@@ -42,11 +39,16 @@ class CommitListActivity : BaseActivity<CommitListViewModel, CommitListActivityB
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val layoutManager = LinearLayoutManager(this)
+        val layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         binding
         binding?.recyclerview.layoutManager = layoutManager
-        binding?.recyclerview.itemAnimator = DefaultItemAnimator()
-        binding?.recyclerview.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        binding?.recyclerview.itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator()
+        binding?.recyclerview.addItemDecoration(
+            androidx.recyclerview.widget.DividerItemDecoration(
+                this,
+                androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
+            )
+        )
         binding?.recyclerview.addOnScrollListener(object : OnLoadMoreScrollListener(resources.getInteger(R.integer.load_threshold)) {
             override fun onLoadMore() {
                 loadMore()

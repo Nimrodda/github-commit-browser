@@ -13,12 +13,12 @@
 
 package org.codepond.commitbrowser.common.recyclerview
 
-import android.databinding.DataBindingUtil
-import android.databinding.ObservableList
-import android.databinding.ViewDataBinding
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ObservableList
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.RecyclerView
 
 typealias OnItemClickListener = (Int) -> Unit
 
@@ -64,12 +64,12 @@ class ItemAdapter(private val items: ObservableList<Item>, private val onItemCli
         return items.size
     }
 
-    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+    override fun onAttachedToRecyclerView(recyclerView: androidx.recyclerview.widget.RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         items.addOnListChangedCallback(onListChangedCallback)
     }
 
-    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+    override fun onDetachedFromRecyclerView(recyclerView: androidx.recyclerview.widget.RecyclerView) {
         super.onDetachedFromRecyclerView(recyclerView)
         items.removeOnListChangedCallback(onListChangedCallback)
     }

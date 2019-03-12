@@ -13,12 +13,13 @@
 
 package org.codepond.commitbrowser.common.recyclerview
 
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 import timber.log.Timber
 
-abstract class OnLoadMoreScrollListener @JvmOverloads constructor(private val threshold: Int = 0) : RecyclerView.OnScrollListener() {
+abstract class OnLoadMoreScrollListener @JvmOverloads constructor(private val threshold: Int = 0) :
+    androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
     private var loading = false
     private var totalCountBeforeLoad: Int = 0
 

@@ -13,11 +13,9 @@
 
 package org.codepond.commitbrowser.common.ui
 
-import android.support.design.widget.Snackbar
 import android.view.View
-
+import com.google.android.material.snackbar.Snackbar
 import org.codepond.commitbrowser.R
-
 import rx.Observable
 import rx.subjects.PublishSubject
 import timber.log.Timber

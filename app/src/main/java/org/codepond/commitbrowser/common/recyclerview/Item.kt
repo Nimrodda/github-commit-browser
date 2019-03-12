@@ -13,9 +13,7 @@
 
 package org.codepond.commitbrowser.common.recyclerview
 
-import android.support.annotation.LayoutRes
-
-import com.android.databinding.library.baseAdapters.BR
+import androidx.annotation.LayoutRes
 
 abstract class Item {
 

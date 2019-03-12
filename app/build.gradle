@@ -34,13 +34,12 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Android support libraries
-    implementation "com.android.support:appcompat-v7:$androidxVersion"
-    implementation "com.android.support:recyclerview-v7:$androidxVersion"
-    implementation "com.android.support:design:$androidxVersion"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation "android.arch.lifecycle:runtime:$archComponentsVersion"
-    implementation "android.arch.lifecycle:extensions:$archComponentsVersion"
-    kapt "android.arch.lifecycle:compiler:$archComponentsVersion"
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.lifecycle:lifecycle-runtime:2.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    kapt 'androidx.lifecycle:lifecycle-compiler:2.0.0'
 
     // Retrofit related
     implementation 'com.squareup.moshi:moshi:1.8.0'

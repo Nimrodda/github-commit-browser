@@ -1,9 +1,6 @@
 package org.codepond.commitbrowser.commitdetail
 
 import android.os.Bundle
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
 import org.codepond.commitbrowser.R
 import org.codepond.commitbrowser.common.ui.BaseActivity
@@ -21,10 +18,15 @@ class CommitDetailActivity : BaseActivity<CommitDetailViewModel, CommitDetailAct
         sha = intent.getStringExtra(EXTRA_COMMIT_SHA)
         title = sha
 
-        val layoutManager = LinearLayoutManager(this)
+        val layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         binding.recyclerview.layoutManager = layoutManager
-        binding.recyclerview.itemAnimator = DefaultItemAnimator()
-        binding.recyclerview.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        binding.recyclerview.itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator()
+        binding.recyclerview.addItemDecoration(
+            androidx.recyclerview.widget.DividerItemDecoration(
+                this,
+                androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
+            )
+        )
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

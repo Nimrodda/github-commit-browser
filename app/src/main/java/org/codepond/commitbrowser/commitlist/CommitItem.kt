@@ -13,8 +13,7 @@
 
 package org.codepond.commitbrowser.commitlist
 
-import com.android.databinding.library.baseAdapters.BR
-
+import androidx.databinding.library.baseAdapters.BR
 import org.codepond.commitbrowser.R
 import org.codepond.commitbrowser.common.recyclerview.Item
 import org.codepond.commitbrowser.common.recyclerview.OnItemClickListener

@@ -1,8 +1,7 @@
 package org.codepond.commitbrowser.common.databinding
 
-import android.databinding.BindingAdapter
 import android.widget.ImageView
-
+import androidx.databinding.BindingAdapter
 import org.codepond.commitbrowser.R
 import org.codepond.commitbrowser.common.glide.GlideApp
 
