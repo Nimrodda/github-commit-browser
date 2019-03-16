@@ -8,7 +8,7 @@ import androidx.savedstate.SavedStateRegistryOwner
 import javax.inject.Inject
 
 class ViewModelFactory @Inject constructor(
-    private val viewModelMap: MutableMap<Class<out ViewModel>, ViewModelAssistedFactory<ViewModel>>,
+    private val viewModelMap: MutableMap<Class<out ViewModel>, ViewModelAssistedFactory<out ViewModel>>,
     owner: SavedStateRegistryOwner,
     defaultArgs: Bundle?
 ) : AbstractSavedStateVMFactory(owner, defaultArgs) {

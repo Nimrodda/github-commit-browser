@@ -2,6 +2,9 @@ package org.codepond.commitbrowser.commitdetail
 
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import org.codepond.commitbrowser.R
 import org.codepond.commitbrowser.common.ui.BaseActivity
 import org.codepond.commitbrowser.databinding.CommitDetailActivityBinding
@@ -14,17 +17,17 @@ class CommitDetailActivity : BaseActivity<CommitDetailViewModel, CommitDetailAct
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         sha = intent.getStringExtra(EXTRA_COMMIT_SHA)
         title = sha
 
-        val layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
+        val layoutManager = LinearLayoutManager(this)
         binding.recyclerview.layoutManager = layoutManager
-        binding.recyclerview.itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator()
+        binding.recyclerview.itemAnimator = DefaultItemAnimator()
         binding.recyclerview.addItemDecoration(
-            androidx.recyclerview.widget.DividerItemDecoration(
+            DividerItemDecoration(
                 this,
-                androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
+                DividerItemDecoration.VERTICAL
             )
         )
     }

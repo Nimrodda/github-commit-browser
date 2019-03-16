@@ -23,7 +23,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.codepond.commitbrowser.App;
 import org.codepond.commitbrowser.BuildConfig;
-import org.codepond.commitbrowser.di.ActivityScope;
 import retrofit2.Retrofit;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
@@ -33,13 +32,11 @@ public class GithubApiModule {
     private static final long CACHE_SIZE = 20 * 1024 * 1024; // 20 MB
     private static final String HEADER_LINK = "link";
 
-    @ActivityScope
     @Provides
     Context provideContext(App application) {
         return application.getApplicationContext();
     }
 
-    @ActivityScope
     @Provides
     GithubApi provideGithubApi(Context context, OkHttpClient.Builder okHttpBuilder) {
         OkHttpClient okHttp = okHttpBuilder

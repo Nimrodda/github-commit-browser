@@ -6,23 +6,19 @@ CommitBrowser is an app that shows the list of recent commits of [android/platfo
 
 The app is utilizing the MVVM design pattern for the UI with the help of the following libraries:
 
-* Android support libraries
+* AndroidX
 * Architecture Components
 * Rxjava
 * Retrofit2
 * Dagger2
-* AutoValue
 * Timber
 * Glide
-
-### Public Trello Board
-
-The project is managed with Trello in a [public board](https://trello.com/b/VlKcj7ue/github-commit-browser).
-
+* Epoxy
+* Kotlin coroutines
 
 ### License
 
-Copyright 2017 Nimrod Dayan
+Copyright 2019 Nimrod Dayan nimroddayan.com
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
