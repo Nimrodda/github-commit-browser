@@ -8,16 +8,22 @@ import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import dagger.android.support.DaggerAppCompatActivity
+import org.codepond.commitbrowser.di.ViewModelFactory
 import javax.inject.Inject
 
 abstract class BaseActivity<T : ViewModel, R : ViewDataBinding> : DaggerAppCompatActivity() {
-    lateinit var viewModel: T
-    lateinit var binding: R
-
-    private var networkErrorSnackBar: NetworkErrorSnackBar? = null
-
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
+    protected val viewModel: T by lazy(LazyThreadSafetyMode.NONE) {
+        ViewModelProviders.of(this, viewModelFactory).get(viewModelClass)
+    }
+
+    protected val binding: R by lazy(LazyThreadSafetyMode.NONE) {
+        DataBindingUtil.setContentView<R>(this, layoutId)
+    }
+
+    private var networkErrorSnackBar: NetworkErrorSnackBar? = null
 
     protected abstract val viewModelClass: Class<T>
 
@@ -26,8 +32,7 @@ abstract class BaseActivity<T : ViewModel, R : ViewDataBinding> : DaggerAppCompa
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(viewModelClass)
-        binding = DataBindingUtil.setContentView(this, layoutId)
+        binding.lifecycleOwner = this
         binding.setVariable(BR.viewModel, viewModel)
         networkErrorSnackBar = NetworkErrorSnackBar(binding.root)
     }

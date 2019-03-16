@@ -15,11 +15,12 @@ package org.codepond.commitbrowser.commitdetail
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import org.codepond.commitbrowser.api.GithubApiModule
 import org.codepond.commitbrowser.di.ActivityScope
 
 @Module
 abstract class CommitDetailActivityModule {
     @ActivityScope
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = [CommitDetailModule::class, GithubApiModule::class])
     abstract fun contributeCommitDetailActivityInjector(): CommitDetailActivity
 }

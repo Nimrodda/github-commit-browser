@@ -13,13 +13,23 @@
 
 package org.codepond.commitbrowser.commitlist
 
+import androidx.lifecycle.SavedStateHandle
+import com.squareup.inject.assisted.Assisted
+import com.squareup.inject.assisted.AssistedInject
 import org.codepond.commitbrowser.api.GithubApi
 import org.codepond.commitbrowser.common.ui.BaseViewModel
+import org.codepond.commitbrowser.di.ViewModelAssistedFactory
 import timber.log.Timber
 
-class CommitListViewModel(githubApi: GithubApi) : BaseViewModel(githubApi) {
+class CommitListViewModel @AssistedInject constructor(
+    @Assisted handle: SavedStateHandle,
+    githubApi: GithubApi
+) : BaseViewModel(handle, githubApi) {
 
     fun loadCommits() {
         Timber.v("Request commit list")
     }
+
+    @AssistedInject.Factory
+    interface Factory : ViewModelAssistedFactory<CommitListViewModel>
 }

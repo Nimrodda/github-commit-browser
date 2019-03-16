@@ -34,25 +34,33 @@ android {
     }
 }
 
+kapt {
+    useBuildCache = true
+}
+
 dependencies {
     implementation(Libs.Kotlin.stdlib)
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.3.21")
 
     // Android support libraries
     implementation(Libs.AndroidX.recyclerview)
+    implementation(Libs.AndroidX.Fragment.fragmentKtx)
+    implementation(Libs.AndroidX.Activity.activityKtx)
     implementation(Libs.Google.material)
     implementation(Libs.AndroidX.constraintlayout)
     implementation(Libs.AndroidX.Lifecycle.extensions)
+    implementation(Libs.AndroidX.Lifecycle.SavedState.savedstate)
     kapt(Libs.AndroidX.Lifecycle.compiler)
 
     // Retrofit related
     implementation(Libs.Moshi.moshi)
-    implementation(Libs.Moshi.codegen)
+    kapt(Libs.Moshi.codegen)
     implementation(Libs.Retrofit.retrofit)
     implementation(Libs.Retrofit.scalars)
     implementation(Libs.Retrofit.moshi)
     implementation(Libs.Retrofit.rxjava)
     implementation(Libs.OkHttp.okhttp)
-    debugImplementation(Libs.OkHttp.okhttp)
+    debugImplementation(Libs.OkHttp.loggingInterceptor)
 
 
     // Dagger related
@@ -60,6 +68,8 @@ dependencies {
     kapt(Libs.Dagger.androidProcessor)
     implementation(Libs.Dagger.dagger)
     implementation(Libs.Dagger.androidSupport)
+    compileOnly("com.squareup.inject:assisted-inject-annotations-dagger2:0.3.3")
+    kapt("com.squareup.inject:assisted-inject-processor-dagger2:0.3.3")
 
     // Timber
     implementation(Libs.timber)

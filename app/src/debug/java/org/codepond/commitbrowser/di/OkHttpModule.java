@@ -18,10 +18,13 @@ import dagger.Provides;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
+import javax.inject.Singleton;
+
 @Module
 public abstract class OkHttpModule {
+    @Singleton
     @Provides
-    public static OkHttpClient.Builder provideOkHttpBuilder() {
+    static OkHttpClient.Builder provideOkHttpBuilder() {
         HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor();
         logInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
         return new OkHttpClient.Builder()

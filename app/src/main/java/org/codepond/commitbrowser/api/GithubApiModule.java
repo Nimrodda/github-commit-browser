@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-package org.codepond.commitbrowser.di;
+package org.codepond.commitbrowser.api;
 
 import android.content.Context;
 import com.squareup.moshi.Moshi;
@@ -23,21 +23,25 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.codepond.commitbrowser.App;
 import org.codepond.commitbrowser.BuildConfig;
-import org.codepond.commitbrowser.api.GithubApi;
+import org.codepond.commitbrowser.di.ActivityScope;
 import retrofit2.Retrofit;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 @Module
-public class AppModule {
+public class GithubApiModule {
     private static final long CACHE_SIZE = 20 * 1024 * 1024; // 20 MB
     private static final String HEADER_LINK = "link";
 
-    @Provides Context provideContext(App application) {
+    @ActivityScope
+    @Provides
+    Context provideContext(App application) {
         return application.getApplicationContext();
     }
 
-    @Provides GithubApi provideGithubApi(Context context, OkHttpClient.Builder okHttpBuilder) {
+    @ActivityScope
+    @Provides
+    GithubApi provideGithubApi(Context context, OkHttpClient.Builder okHttpBuilder) {
         OkHttpClient okHttp = okHttpBuilder
                 .cache(new Cache(context.getCacheDir(), CACHE_SIZE))
                 .addInterceptor(chain -> {
