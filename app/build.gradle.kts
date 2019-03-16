@@ -58,7 +58,6 @@ dependencies {
     implementation(Libs.Retrofit.retrofit)
     implementation(Libs.Retrofit.scalars)
     implementation(Libs.Retrofit.moshi)
-    implementation(Libs.Retrofit.rxjava)
     implementation(Libs.OkHttp.okhttp)
     debugImplementation(Libs.OkHttp.loggingInterceptor)
 

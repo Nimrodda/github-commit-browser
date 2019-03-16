@@ -23,8 +23,6 @@ abstract class BaseActivity<T : ViewModel, R : ViewDataBinding> : DaggerAppCompa
         DataBindingUtil.setContentView<R>(this, layoutId)
     }
 
-    private var networkErrorSnackBar: NetworkErrorSnackBar? = null
-
     protected abstract val viewModelClass: Class<T>
 
     @get:LayoutRes
@@ -34,6 +32,5 @@ abstract class BaseActivity<T : ViewModel, R : ViewDataBinding> : DaggerAppCompa
         super.onCreate(savedInstanceState)
         binding.lifecycleOwner = this
         binding.setVariable(BR.viewModel, viewModel)
-        networkErrorSnackBar = NetworkErrorSnackBar(binding.root)
     }
 }

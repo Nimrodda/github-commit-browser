@@ -18,12 +18,11 @@ import org.codepond.commitbrowser.model.CommitResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import rx.Observable
 
 interface GithubApi {
     @GET("repos/android/platform_build/commits")
-    fun getCommits(@Query("page") page: Int): Observable<List<CommitResponse>>
+    suspend fun getCommits(@Query("page") page: Int): List<CommitResponse>
 
     @GET("repos/android/platform_build/commits/{sha}")
-    fun getCommit(@Path("sha") sha: String): Observable<CommitResponse>
+    suspend fun getCommit(@Path("sha") sha: String): CommitResponse
 }
