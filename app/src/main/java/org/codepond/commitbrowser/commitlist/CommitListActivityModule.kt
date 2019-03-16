@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Nimrod Dayan CodePond.org
+ * Copyright 2019 Nimrod Dayan nimroddayan.com
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,10 +13,9 @@
 
 package org.codepond.commitbrowser.commitlist
 
-import org.codepond.commitbrowser.di.ActivityScope
-
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import org.codepond.commitbrowser.di.ActivityScope
 
 @Module
 abstract class CommitListActivityModule {

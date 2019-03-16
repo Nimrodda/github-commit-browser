@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Nimrod Dayan CodePond.org
+ * Copyright 2019 Nimrod Dayan nimroddayan.com
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,15 +15,15 @@ package org.codepond.commitbrowser.di;
 
 import android.content.Context;
 import com.squareup.moshi.Moshi;
-import org.codepond.commitbrowser.App;
-import org.codepond.commitbrowser.BuildConfig;
-import org.codepond.commitbrowser.api.GithubApi;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.codepond.commitbrowser.App;
+import org.codepond.commitbrowser.BuildConfig;
+import org.codepond.commitbrowser.api.GithubApi;
 import retrofit2.Retrofit;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;

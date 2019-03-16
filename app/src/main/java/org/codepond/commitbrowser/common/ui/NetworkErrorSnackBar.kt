@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Nimrod Dayan CodePond.org
+ * Copyright 2019 Nimrod Dayan nimroddayan.com
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -28,7 +28,7 @@ class NetworkErrorSnackBar(private val root: View) {
             Timber.d("Showing NetworkErrorSnackBar. Reason: %s", throwable.message)
             Snackbar
                     .make(root, R.string.network_error_message, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(R.string.retry) { v ->
+                .setAction(R.string.retry) {
                         Timber.v("Retry button clicked")
                         retrySubject.onNext(null)
                     }.show()
