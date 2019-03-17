@@ -1,6 +1,4 @@
-# CommitBrowser
-
-CommitBrowser is an app that shows the list of recent commits of [android/platform_build](https://github.com/android/platform_build) repository on Github.com.
+This repository contains to source code for my blog post about SavedState architecture component.
 
 ![](screenshots/screenshot1.png)
 
@@ -8,12 +6,10 @@ The app is utilizing the MVVM design pattern for the UI with the help of the fol
 
 * AndroidX
 * Architecture Components
-* Rxjava
 * Retrofit2
 * Dagger2
 * Timber
 * Glide
-* Epoxy
 * Kotlin coroutines
 
 ### License
