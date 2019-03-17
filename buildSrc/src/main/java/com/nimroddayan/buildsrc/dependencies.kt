@@ -161,7 +161,7 @@ object Libs {
     }
 
     object AssistedInject {
-        private const val version = "0.3.2"
+        private const val version = "0.3.3"
         val annotationDagger2 = "com.squareup.inject:assisted-inject-annotations-dagger2:$version"
         val processorDagger2 = "com.squareup.inject:assisted-inject-processor-dagger2:$version"
     }

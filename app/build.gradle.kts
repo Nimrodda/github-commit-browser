@@ -40,7 +40,7 @@ kapt {
 
 dependencies {
     implementation(Libs.Kotlin.stdlib)
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.3.21")
+    implementation(Libs.Kotlin.reflect)
 
     // Android support libraries
     implementation(Libs.AndroidX.recyclerview)
@@ -67,8 +67,8 @@ dependencies {
     kapt(Libs.Dagger.androidProcessor)
     implementation(Libs.Dagger.dagger)
     implementation(Libs.Dagger.androidSupport)
-    compileOnly("com.squareup.inject:assisted-inject-annotations-dagger2:0.3.3")
-    kapt("com.squareup.inject:assisted-inject-processor-dagger2:0.3.3")
+    compileOnly(Libs.AssistedInject.annotationDagger2)
+    kapt(Libs.AssistedInject.processorDagger2)
 
     // Timber
     implementation(Libs.timber)
