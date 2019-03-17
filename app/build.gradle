@@ -85,5 +85,10 @@ dependencies {
     implementation(Libs.Glide.recyclerview)
     kapt(Libs.Glide.compiler)
 
+    // Epoxy
+    implementation(Libs.Epoxy.dataBinding)
+    implementation(Libs.Epoxy.epoxy)
+    kapt(Libs.Epoxy.processor)
+
     testImplementation(Libs.junit)
 }

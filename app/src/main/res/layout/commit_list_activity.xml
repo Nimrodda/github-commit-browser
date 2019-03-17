@@ -17,7 +17,7 @@
                 android:id="@+id/recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:listitem="@layout/item_commit_info"/>
+                tools:listitem="@layout/viewholder_list_item_commit_info"/>
 
         <include layout="@layout/loading"
              android:layout_width="wrap_content"

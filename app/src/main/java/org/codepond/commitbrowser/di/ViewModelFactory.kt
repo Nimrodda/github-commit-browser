@@ -13,6 +13,7 @@ class ViewModelFactory @Inject constructor(
     defaultArgs: Bundle?
 ) : AbstractSavedStateVMFactory(owner, defaultArgs) {
 
+    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(key: String, modelClass: Class<T>, handle: SavedStateHandle): T {
         return viewModelMap[modelClass]?.create(handle) as? T ?: throw IllegalStateException("Unknown ViewModel class")
     }
