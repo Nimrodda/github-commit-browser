@@ -14,5 +14,13 @@ abstract class BaseViewModel(
     val isLoading: LiveData<Boolean>
         get() = _isLoading
     private val _isLoading = MutableLiveData<Boolean>()
+
+    fun notifyLoading() {
+        _isLoading.value = true
+    }
+
+    fun notifyLoaded() {
+        _isLoading.value = false
+    }
 }
 

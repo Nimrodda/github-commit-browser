@@ -42,8 +42,7 @@ class CommitListActivity : BaseActivity<CommitListViewModel, CommitListActivityB
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val layoutManager = LinearLayoutManager(this)
-        binding.recyclerview.layoutManager = layoutManager
+        binding.recyclerview.layoutManager = LinearLayoutManager(this)
         binding.recyclerview.itemAnimator = DefaultItemAnimator()
         binding.recyclerview.addItemDecoration(
             DividerItemDecoration(
