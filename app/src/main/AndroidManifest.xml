@@ -18,7 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <!-- This activity is intentionally exported so that it can be started from adb for testing -->
         <activity
+            android:exported="true"
             android:name=".commitdetail.CommitDetailActivity"
             android:launchMode="singleTask"/>
     </application>

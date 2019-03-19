@@ -26,22 +26,29 @@ class CommitDetailViewModel @AssistedInject constructor(
 
     fun loadDetail(sha: String) {
         notifyLoading()
-        Timber.v("Request commit detail for sha: %s", sha)
+        Timber.d("Request commit detail for sha: %s", sha)
         val storedResponse: CommitResponse? = handle[STATE_RESPONSE]
         val storedSha = storedResponse?.sha
         if (sha == storedSha) {
             notifyLoaded()
+            Timber.d("Loaded from SavedState after process death")
             _commitDetail.value = storedResponse
         } else {
             viewModelScope.launch {
                 val response = withContext(Dispatchers.IO) {
                     githubApi.getCommit(sha)
                 }
+                Timber.d("Saving to SavedState")
                 handle[STATE_RESPONSE] = response
                 notifyLoaded()
                 _commitDetail.value = response
             }
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        Timber.d("ViewModel is destroyed")
     }
 
     @AssistedInject.Factory
