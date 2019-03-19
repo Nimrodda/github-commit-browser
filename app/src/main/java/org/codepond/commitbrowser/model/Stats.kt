@@ -13,7 +13,11 @@
 
 package org.codepond.commitbrowser.model
 
+import android.os.Parcelable
 import com.squareup.moshi.JsonClass
+import kotlinx.android.parcel.Parcelize
 
 @JsonClass(generateAdapter = true)
-data class Stats(val total: Long, val addition: Long, val deletion: Long)
+@Parcelize
+data class Stats(val total: Long, val addition: Long, val deletion: Long) : Parcelable
+

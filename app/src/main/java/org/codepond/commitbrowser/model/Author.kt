@@ -13,13 +13,17 @@
 
 package org.codepond.commitbrowser.model
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlinx.android.parcel.Parcelize
 
 @JsonClass(generateAdapter = true)
+@Parcelize
 data class Author(
     val name: String?,
     val email: String?,
     @Json(name = "avatar_url")
     val avatarUrl: String?,
-    val date: String?)
+    val date: String?
+) : Parcelable

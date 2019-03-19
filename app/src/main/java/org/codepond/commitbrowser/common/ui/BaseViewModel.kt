@@ -23,4 +23,3 @@ abstract class BaseViewModel(
         _isLoading.value = false
     }
 }
-

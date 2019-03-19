@@ -13,9 +13,12 @@
 
 package org.codepond.commitbrowser.model
 
+import android.os.Parcelable
 import com.squareup.moshi.JsonClass
+import kotlinx.android.parcel.Parcelize
 
 @JsonClass(generateAdapter = true)
+@Parcelize
 data class File(
     val sha: String?,
     val filename: String?,
@@ -23,4 +26,5 @@ data class File(
     val additions: Long,
     val deletions: Long,
     val changes: Long,
-    val patch: String?)
+    val patch: String?
+) : Parcelable

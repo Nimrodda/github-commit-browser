@@ -13,12 +13,16 @@
 
 package org.codepond.commitbrowser.model
 
+import android.os.Parcelable
 import com.squareup.moshi.JsonClass
+import kotlinx.android.parcel.Parcelize
 
 @JsonClass(generateAdapter = true)
+@Parcelize
 data class CommitResponse(
     val sha: String?,
     val commit: Commit?,
     val stats: Stats?,
     val author: Author?,
-    val files: List<File>?)
+    val files: List<File>?
+) : Parcelable
