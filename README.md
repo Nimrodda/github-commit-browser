@@ -1,7 +1,8 @@
 # Saving UI state with ViewModel SavedState and Dagger
 
-This repository contains a sample project that demonstrate the topic discussed in my article about
-ViewModel SavedState module, which part of the Android architecture lifecycle components.
+This repository contains a sample project that demonstrate the topic discussed in [my article about
+ViewModel SavedState module](https://proandroiddev.com/saving-ui-state-with-viewmodel-savedstate-and-dagger-f77bcaeb8b08),
+which part of the Android architecture lifecycle components.
 
 ## Trying out the sample
 
