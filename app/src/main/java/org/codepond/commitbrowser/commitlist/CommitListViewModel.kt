@@ -23,6 +23,7 @@ import org.codepond.commitbrowser.api.GithubApi
 import org.codepond.commitbrowser.common.ui.BaseViewModel
 import org.codepond.commitbrowser.di.CoroutinesDispatcherProvider
 import org.codepond.commitbrowser.di.ViewModelAssistedFactory
+import org.codepond.commitbrowser.model.CommitResponse
 import timber.log.Timber
 
 private const val STATE_PAGE = "state_page"
@@ -38,10 +39,11 @@ class CommitListViewModel @AssistedInject constructor(
     init {
         Timber.d("Initializing")
         val page = handle[STATE_PAGE] ?: 0
-        loadData(page)
+        loadData(page, page > 0)
     }
 
-    fun loadData(page: Int) {
+    fun loadData(page: Int, restoringState: Boolean = false) {
+        handle[STATE_PAGE] = page
         notifyLoaded(
             CommitListInfo(
                 loading = true,
@@ -50,8 +52,13 @@ class CommitListViewModel @AssistedInject constructor(
             )
         )
         viewModelScope.launch {
-            val response = withContext(dispatchers.io) {
-                githubApi.getCommits(page)
+            val pages = (if (restoringState) 0 else page)..page
+            val response = mutableListOf<CommitResponse>()
+            pages.forEach { currentPage ->
+                Timber.d("Fetching data for page: %d", currentPage)
+                response += withContext(dispatchers.io) {
+                    githubApi.getCommits(currentPage)
+                }
             }
             Timber.d("Data loaded for page %d", page)
             notifyLoaded(

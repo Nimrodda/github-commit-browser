@@ -70,5 +70,21 @@ class CommitListActivity : BaseActivity<CommitListViewModel, CommitListActivityB
                 }
             }
         })
+
+        savedInstanceState?.let { state ->
+            val position = state.getInt("position")
+            controller.adapter.addModelBuildListener {
+                Timber.d("Restoring last recyclerview position: %d", position)
+                binding.recyclerview.layoutManager?.scrollToPosition(position)
+            }
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val position =
+            (binding.recyclerview.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+        Timber.d("Saving current recyclerview position: %d", position)
+        outState.putInt("position", position)
     }
 }
