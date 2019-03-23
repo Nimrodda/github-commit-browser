@@ -25,6 +25,7 @@ import org.codepond.commitbrowser.common.recyclerview.OnLoadMoreScrollListener
 import org.codepond.commitbrowser.common.ui.BaseActivity
 import org.codepond.commitbrowser.common.ui.BaseViewModel
 import org.codepond.commitbrowser.databinding.CommitListActivityBinding
+import timber.log.Timber
 import javax.inject.Inject
 
 class CommitListActivity : BaseActivity<CommitListViewModel, CommitListActivityBinding>() {
@@ -47,7 +48,9 @@ class CommitListActivity : BaseActivity<CommitListViewModel, CommitListActivityB
             )
             addOnScrollListener(object : OnLoadMoreScrollListener(resources.getInteger(R.integer.load_threshold)) {
                 override fun onLoadMore() {
-                    loadMore()
+                    controller.currentData?.let {
+                        viewModel.loadData(it.page + 1)
+                    }
                 }
             })
             adapter = controller.adapter
@@ -60,12 +63,12 @@ class CommitListActivity : BaseActivity<CommitListViewModel, CommitListActivityB
                 is BaseViewModel.LoadingState.Error -> {
                 }
                 is BaseViewModel.LoadingState.Loaded<*> -> {
-                    controller.setData(state.data as List<CommitInfo>)
+                    (state.data as? CommitListInfo)?.let {
+                        Timber.d("Updating controller")
+                        controller.setData(it)
+                    }
                 }
             }
         })
-    }
-
-    private fun loadMore() {
     }
 }

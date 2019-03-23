@@ -1,5 +1,10 @@
 package org.codepond.commitbrowser.commitlist
 
+data class CommitListInfo(
+    val page: Int,
+    val list: List<CommitInfo>
+)
+
 data class CommitInfo(
     val sha: String,
     val avatar: String,

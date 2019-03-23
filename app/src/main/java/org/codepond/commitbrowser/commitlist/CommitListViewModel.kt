@@ -33,23 +33,36 @@ class CommitListViewModel @AssistedInject constructor(
     dispatchers: CoroutinesDispatcherProvider
 ) : BaseViewModel(handle, githubApi, dispatchers) {
 
+    private val commitList = mutableListOf<CommitInfo>()
+
     init {
         Timber.d("Initializing")
         val page = handle[STATE_PAGE] ?: 0
+        loadData(page)
+    }
+
+    fun loadData(page: Int) {
         viewModelScope.launch {
             val response = withContext(dispatchers.io) {
                 githubApi.getCommits(page)
             }
             Timber.d("Data loaded for page %d", page)
-            notifyLoaded(response.map {
-                CommitInfo(
-                    sha = it.sha,
-                    avatar = it.author?.avatarUrl ?: "",
-                    message = it.commit?.message ?: "",
-                    date = it.commit?.author?.date ?: "",
-                    author = it.author?.name ?: ""
+            notifyLoaded(
+                CommitListInfo(
+                    page = page,
+                    list = commitList.apply {
+                        addAll(response.map {
+                            CommitInfo(
+                                sha = it.sha,
+                                avatar = it.author?.avatarUrl ?: "",
+                                message = it.commit?.message ?: "",
+                                date = it.commit?.author?.date ?: "",
+                                author = it.author?.name ?: ""
+                            )
+                        })
+                    }
                 )
-            })
+            )
         }
     }
 

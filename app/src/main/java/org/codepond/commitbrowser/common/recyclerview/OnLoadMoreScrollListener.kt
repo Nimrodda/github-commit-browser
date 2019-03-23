@@ -18,14 +18,15 @@ import androidx.recyclerview.widget.RecyclerView
 
 import timber.log.Timber
 
-abstract class OnLoadMoreScrollListener @JvmOverloads constructor(private val threshold: Int = 0) :
-    androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+abstract class OnLoadMoreScrollListener(
+    private val threshold: Int
+) : RecyclerView.OnScrollListener() {
     private var loading = false
     private var totalCountBeforeLoad: Int = 0
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-        val layoutManager = recyclerView.layoutManager as LinearLayoutManager?
-        val visibleCount = layoutManager!!.childCount
+        val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+        val visibleCount = layoutManager.childCount
         val totalCount = layoutManager.itemCount
         val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
         Timber.v("visibleCount = %d", visibleCount)
