@@ -14,20 +14,20 @@ abstract class BaseViewModel(
     protected val githubApi: GithubApi,
     protected val dispatchers: CoroutinesDispatcherProvider
 ) : ViewModel() {
-    val loadingState: LiveData<LoadingState>
+    val loadingState: LiveData<ViewState>
         get() = _loadingState
-    private val _loadingState = MutableLiveData<LoadingState>()
+    private val _loadingState = MutableLiveData<ViewState>()
 
     fun notifyLoading() {
-        _loadingState.value = LoadingState.Loading
+        _loadingState.value = ViewState.Loading
     }
 
     fun <T> notifyLoaded(data: T) {
-        _loadingState.value = LoadingState.Loaded(data)
+        _loadingState.value = ViewState.Loaded(data)
     }
 
     fun notifyError(throwable: Throwable) {
-        _loadingState.value = LoadingState.Error(throwable)
+        _loadingState.value = ViewState.Error(throwable)
     }
 
     override fun onCleared() {
@@ -35,9 +35,9 @@ abstract class BaseViewModel(
         Timber.d("ViewModel is destroyed")
     }
 
-    sealed class LoadingState {
-        object Loading : LoadingState()
-        class Error(val throwable: Throwable) : LoadingState()
-        class Loaded<T>(val data: T) : LoadingState()
+    sealed class ViewState {
+        object Loading : ViewState()
+        class Error(val throwable: Throwable) : ViewState()
+        class Loaded<T>(val data: T) : ViewState()
     }
 }

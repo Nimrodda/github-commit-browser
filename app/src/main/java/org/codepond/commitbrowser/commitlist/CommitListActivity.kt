@@ -58,11 +58,11 @@ class CommitListActivity : BaseActivity<CommitListViewModel, CommitListActivityB
 
         viewModel.loadingState.observe(this, Observer { state ->
             when (state) {
-                is BaseViewModel.LoadingState.Loading -> {
+                is BaseViewModel.ViewState.Loading -> {
                 }
-                is BaseViewModel.LoadingState.Error -> {
+                is BaseViewModel.ViewState.Error -> {
                 }
-                is BaseViewModel.LoadingState.Loaded<*> -> {
+                is BaseViewModel.ViewState.Loaded<*> -> {
                     (state.data as? CommitListInfo)?.let {
                         Timber.d("Updating controller")
                         controller.setData(it)

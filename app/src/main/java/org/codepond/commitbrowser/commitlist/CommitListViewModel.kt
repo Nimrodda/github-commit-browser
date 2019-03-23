@@ -42,6 +42,13 @@ class CommitListViewModel @AssistedInject constructor(
     }
 
     fun loadData(page: Int) {
+        notifyLoaded(
+            CommitListInfo(
+                loading = true,
+                page = page,
+                list = commitList
+            )
+        )
         viewModelScope.launch {
             val response = withContext(dispatchers.io) {
                 githubApi.getCommits(page)
@@ -49,6 +56,7 @@ class CommitListViewModel @AssistedInject constructor(
             Timber.d("Data loaded for page %d", page)
             notifyLoaded(
                 CommitListInfo(
+                    loading = false,
                     page = page,
                     list = commitList.apply {
                         addAll(response.map {

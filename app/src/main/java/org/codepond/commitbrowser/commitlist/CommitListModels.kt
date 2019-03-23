@@ -1,6 +1,7 @@
 package org.codepond.commitbrowser.commitlist
 
 data class CommitListInfo(
+    val loading: Boolean,
     val page: Int,
     val list: List<CommitInfo>
 )
