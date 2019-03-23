@@ -14,20 +14,43 @@
 package org.codepond.commitbrowser.commitlist
 
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.codepond.commitbrowser.api.GithubApi
 import org.codepond.commitbrowser.common.ui.BaseViewModel
+import org.codepond.commitbrowser.di.CoroutinesDispatcherProvider
 import org.codepond.commitbrowser.di.ViewModelAssistedFactory
 import timber.log.Timber
 
+private const val STATE_PAGE = "state_page"
+
 class CommitListViewModel @AssistedInject constructor(
     @Assisted handle: SavedStateHandle,
-    githubApi: GithubApi
-) : BaseViewModel(handle, githubApi) {
+    githubApi: GithubApi,
+    dispatchers: CoroutinesDispatcherProvider
+) : BaseViewModel(handle, githubApi, dispatchers) {
 
-    fun loadCommits() {
-        Timber.v("Request commit list")
+    init {
+        Timber.d("Initializing")
+        val page = handle[STATE_PAGE] ?: 0
+        viewModelScope.launch {
+            val response = withContext(dispatchers.io) {
+                githubApi.getCommits(page)
+            }
+            Timber.d("Data loaded for page %d", page)
+            notifyLoaded(response.map {
+                CommitInfo(
+                    sha = it.sha,
+                    avatar = it.author?.avatarUrl ?: "",
+                    message = it.commit?.message ?: "",
+                    date = it.commit?.author?.date ?: "",
+                    author = it.author?.name ?: ""
+                )
+            })
+        }
     }
 
     @AssistedInject.Factory

@@ -17,11 +17,13 @@
 package org.codepond.commitbrowser.commitlist
 
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.codepond.commitbrowser.R
 import org.codepond.commitbrowser.common.recyclerview.OnLoadMoreScrollListener
 import org.codepond.commitbrowser.common.ui.BaseActivity
+import org.codepond.commitbrowser.common.ui.BaseViewModel
 import org.codepond.commitbrowser.databinding.CommitListActivityBinding
 import javax.inject.Inject
 
@@ -50,6 +52,18 @@ class CommitListActivity : BaseActivity<CommitListViewModel, CommitListActivityB
             })
             adapter = controller.adapter
         }
+
+        viewModel.loadingState.observe(this, Observer { state ->
+            when (state) {
+                is BaseViewModel.LoadingState.Loading -> {
+                }
+                is BaseViewModel.LoadingState.Error -> {
+                }
+                is BaseViewModel.LoadingState.Loaded<*> -> {
+                    controller.setData(state.data as List<CommitInfo>)
+                }
+            }
+        })
     }
 
     private fun loadMore() {

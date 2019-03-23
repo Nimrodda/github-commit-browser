@@ -2,7 +2,6 @@ package org.codepond.commitbrowser.commitdetail
 
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,10 +29,6 @@ class CommitDetailActivity : BaseActivity<CommitDetailViewModel, CommitDetailAct
                 DividerItemDecoration.VERTICAL
             )
         )
-        viewModel.commitDetail.observe(this, Observer {
-            // Update recyclerview adapter
-        })
-        viewModel.loadDetail(sha)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

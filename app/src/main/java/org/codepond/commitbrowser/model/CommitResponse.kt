@@ -20,7 +20,7 @@ import kotlinx.android.parcel.Parcelize
 @JsonClass(generateAdapter = true)
 @Parcelize
 data class CommitResponse(
-    val sha: String?,
+    val sha: String,
     val commit: Commit?,
     val stats: Stats?,
     val author: Author?,
