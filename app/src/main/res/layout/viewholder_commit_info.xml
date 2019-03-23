@@ -17,6 +17,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         tools:context="org.codepond.commitbrowser.commitlist.CommitListActivity">
     <data>
+        <variable name="commitInfo" type="org.codepond.commitbrowser.commitlist.CommitInfo"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,6 +38,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:imageUrl="@{commitInfo.avatar}"
                 tools:srcCompat="@mipmap/ic_launcher"/>
 
             <TextView
@@ -51,6 +53,7 @@
                 android:textSize="@dimen/primary_text_size"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:text="@{commitInfo.message}"
                 tools:text="Commit message"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -66,6 +69,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/commit_message"
+                android:text="@{commitInfo.date}"
                 tools:text="Date and time"/>
 
             <TextView
@@ -78,6 +82,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                android:text="@{commitInfo.author}"
                 tools:text="Author"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,46 +16,40 @@
 
 package org.codepond.commitbrowser.commitlist
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.codepond.commitbrowser.R
-import org.codepond.commitbrowser.commitdetail.CommitDetailActivity
 import org.codepond.commitbrowser.common.recyclerview.OnLoadMoreScrollListener
 import org.codepond.commitbrowser.common.ui.BaseActivity
 import org.codepond.commitbrowser.databinding.CommitListActivityBinding
-import timber.log.Timber
+import javax.inject.Inject
 
 class CommitListActivity : BaseActivity<CommitListViewModel, CommitListActivityBinding>() {
     override val viewModelClass: Class<CommitListViewModel> = CommitListViewModel::class.java
     override val layoutId: Int = R.layout.commit_list_activity
 
-    private val onItemClickListener = { id: Int ->
-        Timber.v("Commit with sha: %s was clicked", id)
-        val intent = Intent(this@CommitListActivity, CommitDetailActivity::class.java)
-        intent.putExtra(CommitDetailActivity.EXTRA_COMMIT_SHA, id)
-        startActivity(intent)
-    }
+    @Inject
+    lateinit var controller: CommitListController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding.recyclerview.layoutManager = LinearLayoutManager(this)
-        binding.recyclerview.itemAnimator = DefaultItemAnimator()
-        binding.recyclerview.addItemDecoration(
-            DividerItemDecoration(
-                this,
-                DividerItemDecoration.VERTICAL
+        binding.recyclerview.apply {
+            layoutManager = LinearLayoutManager(this@CommitListActivity)
+            addItemDecoration(
+                DividerItemDecoration(
+                    this@CommitListActivity,
+                    DividerItemDecoration.VERTICAL
+                )
             )
-        )
-        binding.recyclerview.addOnScrollListener(object :
-            OnLoadMoreScrollListener(resources.getInteger(R.integer.load_threshold)) {
-            override fun onLoadMore() {
-                loadMore()
-            }
-        })
+            addOnScrollListener(object : OnLoadMoreScrollListener(resources.getInteger(R.integer.load_threshold)) {
+                override fun onLoadMore() {
+                    loadMore()
+                }
+            })
+            adapter = controller.adapter
+        }
     }
 
     private fun loadMore() {
