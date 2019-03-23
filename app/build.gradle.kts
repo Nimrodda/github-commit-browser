@@ -1,9 +1,11 @@
 import com.nimroddayan.buildsrc.Libs
 
-apply plugin: "com.android.application"
-apply plugin: "kotlin-android"
-apply plugin: "kotlin-android-extensions"
-apply plugin: "kotlin-kapt"
+plugins {
+    id("com.android.application")
+    kotlin("android")
+    kotlin("android.extensions")
+    kotlin("kapt")
+}
 
 android {
     compileSdkVersion(28)
@@ -22,11 +24,11 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     dataBinding {
-        enabled = true
+        isEnabled = true
     }
     buildTypes {
-        release {
-            minifyEnabled = false
+        getByName("release") {
+            isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
@@ -34,10 +36,6 @@ android {
 
 kapt {
     useBuildCache = true
-}
-
-androidExtensions {
-    experimental = true
 }
 
 dependencies {
