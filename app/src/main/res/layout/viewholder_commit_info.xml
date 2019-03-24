@@ -17,16 +17,21 @@
         xmlns:tools="http://schemas.android.com/tools"
         tools:context="org.codepond.commitbrowser.commitlist.CommitListActivity">
     <data>
+        <import type="kotlin.jvm.functions.Function1"/>
+        <import type="kotlin.Unit"/>
+
+        <variable name="click" type="Function1&lt;String, Unit>"/>
         <variable name="commitInfo" type="org.codepond.commitbrowser.commitlist.CommitInfo"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/commit_list_item"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/three_line_list_item_height"
-            android:background="?selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true">
+        android:id="@+id/commit_list_item"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/three_line_list_item_height"
+        android:background="?selectableItemBackground"
+        android:onClick="@{() -> click.invoke(commitInfo.sha)}"
+        android:clickable="true"
+        android:focusable="true">
 
             <ImageView
                 android:id="@+id/avatar"

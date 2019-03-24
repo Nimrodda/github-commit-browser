@@ -14,7 +14,7 @@ abstract class BaseViewModel(
     protected val githubApi: GithubApi,
     protected val dispatchers: CoroutinesDispatcherProvider
 ) : ViewModel() {
-    val loadingState: LiveData<ViewState>
+    val viewState: LiveData<ViewState>
         get() = _loadingState
     private val _loadingState = MutableLiveData<ViewState>()
 

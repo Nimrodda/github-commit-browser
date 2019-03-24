@@ -56,7 +56,7 @@ class CommitListActivity : BaseActivity<CommitListViewModel, CommitListActivityB
             adapter = controller.adapter
         }
 
-        viewModel.loadingState.observe(this, Observer { state ->
+        viewModel.viewState.observe(this, Observer { state ->
             when (state) {
                 is BaseViewModel.ViewState.Loading -> {
                 }
@@ -69,6 +69,10 @@ class CommitListActivity : BaseActivity<CommitListViewModel, CommitListActivityB
                     }
                 }
             }
+        })
+
+        viewModel.navigateToDetail.observe(this, Observer { sha ->
+            Timber.d("Item with sha: %s was clicked", sha)
         })
 
         savedInstanceState?.let { state ->

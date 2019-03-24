@@ -13,6 +13,8 @@
 
 package org.codepond.commitbrowser.commitlist
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.squareup.inject.assisted.Assisted
@@ -33,6 +35,9 @@ class CommitListViewModel @AssistedInject constructor(
     githubApi: GithubApi,
     dispatchers: CoroutinesDispatcherProvider
 ) : BaseViewModel(handle, githubApi, dispatchers) {
+    val navigateToDetail: LiveData<String>
+        get() = _navigateToDetail
+    private val _navigateToDetail = MutableLiveData<String>()
 
     private val commitList = mutableListOf<CommitInfo>()
 
@@ -75,7 +80,8 @@ class CommitListViewModel @AssistedInject constructor(
                                 author = it.author?.name ?: ""
                             )
                         })
-                    }
+                    },
+                    onClick = _navigateToDetail::setValue
                 )
             )
         }

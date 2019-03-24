@@ -12,6 +12,7 @@ class CommitListController @Inject constructor(
             commitInfo {
                 id(it.sha)
                 commitInfo(it)
+                click(data.onClick)
             }
         }
         if (data.loading) {
