@@ -17,10 +17,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         tools:context="org.codepond.commitbrowser.commitlist.CommitListActivity">
     <data>
-        <import type="kotlin.jvm.functions.Function1"/>
-        <import type="kotlin.Unit"/>
-
-        <variable name="click" type="Function1&lt;String, Unit>"/>
+        <variable name="clickListener" type="android.view.View.OnClickListener"/>
         <variable name="commitInfo" type="org.codepond.commitbrowser.commitlist.CommitInfo"/>
     </data>
 
@@ -29,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/three_line_list_item_height"
         android:background="?selectableItemBackground"
-        android:onClick="@{() -> click.invoke(commitInfo.sha)}"
+        android:onClick="@{clickListener}"
         android:clickable="true"
         android:focusable="true">
 
