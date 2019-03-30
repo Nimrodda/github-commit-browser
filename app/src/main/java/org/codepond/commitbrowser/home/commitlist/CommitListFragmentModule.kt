@@ -11,10 +11,15 @@
  * limitations under the License.
  */
 
-package org.codepond.commitbrowser.di
+package org.codepond.commitbrowser.home.commitlist
 
-import javax.inject.Scope
+import dagger.Module
+import dagger.android.ContributesAndroidInjector
+import org.codepond.commitbrowser.di.FragmentScope
 
-@Scope
-@Retention
-annotation class ActivityScope
+@Module
+abstract class CommitListFragmentModule {
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [CommitListModule::class])
+    abstract fun contributeCommitListFragmentInjector(): CommitListFragment
+}

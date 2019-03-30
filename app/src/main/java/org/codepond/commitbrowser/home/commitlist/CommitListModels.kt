@@ -1,4 +1,4 @@
-package org.codepond.commitbrowser.commitlist
+package org.codepond.commitbrowser.home.commitlist
 
 data class CommitListInfo(
     val loading: Boolean,

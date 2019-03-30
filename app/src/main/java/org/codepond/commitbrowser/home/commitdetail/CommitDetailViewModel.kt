@@ -1,4 +1,4 @@
-package org.codepond.commitbrowser.commitdetail
+package org.codepond.commitbrowser.home.commitdetail
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope

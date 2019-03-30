@@ -14,35 +14,38 @@
  * limitations under the License.
  */
 
-package org.codepond.commitbrowser.commitlist
+package org.codepond.commitbrowser.home.commitlist
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.codepond.commitbrowser.R
 import org.codepond.commitbrowser.common.recyclerview.OnLoadMoreScrollListener
-import org.codepond.commitbrowser.common.ui.BaseActivity
+import org.codepond.commitbrowser.common.ui.BaseFragment
 import org.codepond.commitbrowser.common.ui.BaseViewModel
-import org.codepond.commitbrowser.databinding.CommitListActivityBinding
+import org.codepond.commitbrowser.databinding.CommitListFragmentBinding
 import timber.log.Timber
 import javax.inject.Inject
 
-class CommitListActivity : BaseActivity<CommitListViewModel, CommitListActivityBinding>() {
+class CommitListFragment : BaseFragment<CommitListViewModel, CommitListFragmentBinding>() {
     override val viewModelClass: Class<CommitListViewModel> = CommitListViewModel::class.java
-    override val layoutId: Int = R.layout.commit_list_activity
+    override val layoutId: Int = R.layout.commit_list_fragment
 
     @Inject
     lateinit var controller: CommitListController
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = super.onCreateView(inflater, container, savedInstanceState)
 
         binding.recyclerview.apply {
-            layoutManager = LinearLayoutManager(this@CommitListActivity)
+            layoutManager = LinearLayoutManager(context)
             addItemDecoration(
                 DividerItemDecoration(
-                    this@CommitListActivity,
+                    context,
                     DividerItemDecoration.VERTICAL
                 )
             )
@@ -82,6 +85,8 @@ class CommitListActivity : BaseActivity<CommitListViewModel, CommitListActivityB
                 binding.recyclerview.layoutManager?.scrollToPosition(position)
             }
         }
+
+        return view
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

@@ -8,15 +8,10 @@ import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import dagger.android.support.DaggerAppCompatActivity
-import org.codepond.commitbrowser.di.ViewModelFactory
-import javax.inject.Inject
 
 abstract class BaseActivity<T : ViewModel, R : ViewDataBinding> : DaggerAppCompatActivity() {
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
     protected val viewModel: T by lazy(LazyThreadSafetyMode.NONE) {
-        ViewModelProviders.of(this, viewModelFactory).get(viewModelClass)
+        ViewModelProviders.of(this).get(viewModelClass)
     }
 
     protected val binding: R by lazy(LazyThreadSafetyMode.NONE) {

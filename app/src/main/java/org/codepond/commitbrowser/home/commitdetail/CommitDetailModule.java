@@ -1,4 +1,4 @@
-package org.codepond.commitbrowser.commitdetail;
+package org.codepond.commitbrowser.home.commitdetail;
 
 import android.os.Bundle;
 import androidx.annotation.Nullable;
@@ -19,7 +19,7 @@ public abstract class CommitDetailModule {
     abstract ViewModelAssistedFactory<? extends ViewModel> bindFactory(CommitDetailViewModel.Factory factory);
 
     @Binds
-    abstract SavedStateRegistryOwner bindSavedStateRegistryOwner(CommitDetailActivity commitDetailActivity);
+    abstract SavedStateRegistryOwner bindSavedStateRegistryOwner(CommitDetailFragment commitDetailFragment);
 
     @Nullable
     @Provides

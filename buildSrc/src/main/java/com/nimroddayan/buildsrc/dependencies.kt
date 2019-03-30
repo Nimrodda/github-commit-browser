@@ -114,6 +114,15 @@ object Libs {
             private const val version = "1.0.0-rc01"
             val runtimeKtx = "android.arch.work:work-runtime-ktx:$version"
         }
+
+        object Navigation {
+            const val version = "2.0.0"
+            private const val group = "androidx.navigation"
+            const val classpath = "$group:navigation-safe-args-gradle-plugin:$version"
+            const val plugin = "$group.safeargs.kotlin"
+            const val fragment = "$group:navigation-fragment-ktx:$version"
+            const val ui = "$group:navigation-ui-ktx:$version"
+        }
     }
 
     object RxJava {

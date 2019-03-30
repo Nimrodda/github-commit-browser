@@ -2,10 +2,10 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="org.codepond.commitbrowser.commitdetail.CommitDetailViewModel">
+    tools:context=".home.commitlist.CommitListFragment">
 
     <data>
-        <variable name="viewModel" type="org.codepond.commitbrowser.commitdetail.CommitDetailViewModel"/>
+        <variable name="viewModel" type="org.codepond.commitbrowser.home.commitlist.CommitListViewModel"/>
     </data>
 
     <RelativeLayout
@@ -15,7 +15,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
+            android:layout_height="match_parent"
+            tools:listitem="@layout/viewholder_commit_info"/>
     </RelativeLayout>
 </layout>

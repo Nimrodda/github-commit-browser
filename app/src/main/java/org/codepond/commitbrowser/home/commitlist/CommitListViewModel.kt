@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-package org.codepond.commitbrowser.commitlist
+package org.codepond.commitbrowser.home.commitlist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

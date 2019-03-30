@@ -11,15 +11,14 @@
  * limitations under the License.
  */
 
-package org.codepond.commitbrowser.commitdetail
+package org.codepond.commitbrowser.di
 
-import dagger.Module
-import dagger.android.ContributesAndroidInjector
-import org.codepond.commitbrowser.di.ActivityScope
+import javax.inject.Scope
 
-@Module
-abstract class CommitDetailActivityModule {
-    @ActivityScope
-    @ContributesAndroidInjector(modules = [CommitDetailModule::class])
-    abstract fun contributeCommitDetailActivityInjector(): CommitDetailActivity
-}
+@Scope
+@Retention
+annotation class ActivityScope
+
+@Scope
+@Retention
+annotation class FragmentScope

@@ -15,10 +15,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        tools:context="org.codepond.commitbrowser.commitlist.CommitListActivity">
+        tools:context=".home.commitlist.CommitListFragment">
     <data>
         <variable name="clickListener" type="android.view.View.OnClickListener"/>
-        <variable name="commitInfo" type="org.codepond.commitbrowser.commitlist.CommitInfo"/>
+        <variable name="commitInfo" type="org.codepond.commitbrowser.home.commitlist.CommitInfo"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

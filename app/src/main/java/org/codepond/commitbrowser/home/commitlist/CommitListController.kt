@@ -1,4 +1,4 @@
-package org.codepond.commitbrowser.commitlist
+package org.codepond.commitbrowser.home.commitlist
 
 import com.airbnb.epoxy.TypedEpoxyController
 import org.codepond.commitbrowser.commitInfo

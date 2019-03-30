@@ -11,15 +11,15 @@
  * limitations under the License.
  */
 
-package org.codepond.commitbrowser.commitlist
+package org.codepond.commitbrowser.home.commitdetail
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import org.codepond.commitbrowser.di.ActivityScope
+import org.codepond.commitbrowser.di.FragmentScope
 
 @Module
-abstract class CommitListActivityModule {
-    @ActivityScope
-    @ContributesAndroidInjector(modules = [CommitListModule::class])
-    abstract fun contributeCommitListActivityInjector(): CommitListActivity
+abstract class CommitDetailFragmentModule {
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [CommitDetailModule::class])
+    abstract fun contributeCommitDetailFragmentInjector(): CommitDetailFragment
 }
