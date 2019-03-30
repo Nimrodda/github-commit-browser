@@ -21,6 +21,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.codepond.commitbrowser.R
@@ -37,6 +38,30 @@ class CommitListFragment : BaseFragment<CommitListViewModel, CommitListFragmentB
 
     @Inject
     lateinit var controller: CommitListController
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Timber.d("onCreate()")
+        viewModel.viewState.observe(this, Observer { state ->
+            when (state) {
+                is BaseViewModel.ViewState.Loading -> {
+                }
+                is BaseViewModel.ViewState.Error -> {
+                }
+                is BaseViewModel.ViewState.Loaded<*> -> {
+                    (state.data as? CommitListViewState)?.let {
+                        Timber.d("Updating controller")
+                        controller.setData(it)
+                    }
+                }
+            }
+        })
+
+        viewModel.navigateToDetail.observe(this, Observer { sha ->
+            Timber.d("Item with sha: %s was clicked", sha)
+            findNavController().navigate(CommitListFragmentDirections.actionCommitListFragmentToCommitDetailFragment(sha))
+        })
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
@@ -58,25 +83,6 @@ class CommitListFragment : BaseFragment<CommitListViewModel, CommitListFragmentB
             })
             adapter = controller.adapter
         }
-
-        viewModel.viewState.observe(this, Observer { state ->
-            when (state) {
-                is BaseViewModel.ViewState.Loading -> {
-                }
-                is BaseViewModel.ViewState.Error -> {
-                }
-                is BaseViewModel.ViewState.Loaded<*> -> {
-                    (state.data as? CommitListInfo)?.let {
-                        Timber.d("Updating controller")
-                        controller.setData(it)
-                    }
-                }
-            }
-        })
-
-        viewModel.navigateToDetail.observe(this, Observer { sha ->
-            Timber.d("Item with sha: %s was clicked", sha)
-        })
 
         savedInstanceState?.let { state ->
             val position = state.getInt("position")

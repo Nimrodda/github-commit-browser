@@ -6,6 +6,7 @@ plugins {
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -51,7 +52,7 @@ dependencies {
     implementation(Libs.Kotlin.stdlib)
     implementation(Libs.Kotlin.reflect)
 
-    // Android support libraries
+    // AndroidX libraries
     implementation(Libs.AndroidX.recyclerview)
     implementation(Libs.AndroidX.Fragment.fragmentKtx)
     implementation(Libs.AndroidX.Activity.activityKtx)
@@ -60,6 +61,8 @@ dependencies {
     implementation(Libs.AndroidX.Lifecycle.extensions)
     implementation(Libs.AndroidX.Lifecycle.SavedState.savedstate)
     kapt(Libs.AndroidX.Lifecycle.compiler)
+    implementation(Libs.AndroidX.Navigation.fragment)
+    implementation(Libs.AndroidX.Navigation.ui)
 
     // Retrofit related
     implementation(Libs.Moshi.moshi)

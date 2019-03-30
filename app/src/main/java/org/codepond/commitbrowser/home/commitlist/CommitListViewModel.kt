@@ -50,7 +50,7 @@ class CommitListViewModel @AssistedInject constructor(
     fun loadData(page: Int, restoringState: Boolean = false) {
         handle[STATE_PAGE] = page
         notifyLoaded(
-            CommitListInfo(
+            CommitListViewState(
                 loading = true,
                 page = page,
                 list = commitList
@@ -67,7 +67,7 @@ class CommitListViewModel @AssistedInject constructor(
             }
             Timber.d("Data loaded for page %d", page)
             notifyLoaded(
-                CommitListInfo(
+                CommitListViewState(
                     loading = false,
                     page = page,
                     list = commitList.apply {

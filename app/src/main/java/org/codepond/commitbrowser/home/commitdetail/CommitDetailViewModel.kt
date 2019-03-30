@@ -14,6 +14,7 @@ import org.codepond.commitbrowser.model.CommitResponse
 import timber.log.Timber
 
 private const val STATE_RESPONSE = "state_response"
+
 class CommitDetailViewModel @AssistedInject constructor(
     @Assisted handle: SavedStateHandle,
     githubApi: GithubApi,
@@ -21,13 +22,22 @@ class CommitDetailViewModel @AssistedInject constructor(
 ) : BaseViewModel(handle, githubApi, dispatchers) {
 
     fun loadDetail(sha: String) {
-        notifyLoading()
+        notifyLoaded(
+            CommitDetailViewState(
+                loading = true
+            )
+        )
         Timber.d("Request commit detail for sha: %s", sha)
         val storedResponse: CommitResponse? = handle[STATE_RESPONSE]
         val storedSha = storedResponse?.sha
         if (sha == storedSha) {
-            Timber.d("Loaded from SavedState after process death")
-            notifyLoaded(storedResponse)
+            Timber.d("Loaded from SavedState")
+            notifyLoaded(
+                CommitDetailViewState(
+                    loading = false,
+                    files = storedResponse.files
+                )
+            )
         } else {
             viewModelScope.launch {
                 val response = withContext(dispatchers.io) {
@@ -35,7 +45,12 @@ class CommitDetailViewModel @AssistedInject constructor(
                 }
                 Timber.d("Saving to SavedState")
                 handle[STATE_RESPONSE] = response
-                notifyLoaded(response)
+                notifyLoaded(
+                    CommitDetailViewState(
+                        loading = false,
+                        files = response.files
+                    )
+                )
             }
         }
     }

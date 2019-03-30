@@ -118,8 +118,6 @@ object Libs {
         object Navigation {
             const val version = "2.0.0"
             private const val group = "androidx.navigation"
-            const val classpath = "$group:navigation-safe-args-gradle-plugin:$version"
-            const val plugin = "$group.safeargs.kotlin"
             const val fragment = "$group:navigation-fragment-ktx:$version"
             const val ui = "$group:navigation-ui-ktx:$version"
         }

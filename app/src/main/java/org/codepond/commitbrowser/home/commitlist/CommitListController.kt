@@ -6,8 +6,8 @@ import org.codepond.commitbrowser.loading
 import javax.inject.Inject
 
 class CommitListController @Inject constructor(
-) : TypedEpoxyController<CommitListInfo>() {
-    override fun buildModels(data: CommitListInfo) {
+) : TypedEpoxyController<CommitListViewState>() {
+    override fun buildModels(data: CommitListViewState) {
         data.list.forEach {
             commitInfo {
                 id(it.sha)
