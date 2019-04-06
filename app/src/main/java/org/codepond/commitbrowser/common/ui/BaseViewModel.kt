@@ -18,16 +18,19 @@ abstract class BaseViewModel(
         get() = _loadingState
     private val _loadingState = MutableLiveData<ViewState>()
 
-    fun notifyLoading() {
-        _loadingState.value = ViewState.Loading
+    protected fun <T> notifyStateChanged(data: T) {
+        _loadingState.value = ViewState.Changed(data)
     }
 
-    fun <T> notifyLoaded(data: T) {
-        _loadingState.value = ViewState.Loaded(data)
+    private fun notifyError(throwable: Throwable) {
+        _loadingState.postValue(ViewState.Error(throwable))
     }
 
-    fun notifyError(throwable: Throwable) {
-        _loadingState.value = ViewState.Error(throwable)
+    fun retryAfterError(throwable: Throwable): Boolean {
+        notifyError(throwable)
+        // Always retry no matter what is the error
+        // Optionally, throwable can be inspected to determine which error to retry
+        return true
     }
 
     override fun onCleared() {
@@ -36,8 +39,7 @@ abstract class BaseViewModel(
     }
 
     sealed class ViewState {
-        object Loading : ViewState()
         class Error(val throwable: Throwable) : ViewState()
-        class Loaded<T>(val data: T) : ViewState()
+        class Changed<T>(val data: T) : ViewState()
     }
 }

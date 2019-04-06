@@ -22,6 +22,8 @@ import com.squareup.inject.assisted.AssistedInject
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.codepond.commitbrowser.api.GithubApi
+import org.codepond.commitbrowser.common.coroutines.withInternet
+import org.codepond.commitbrowser.common.network.InternetConnection
 import org.codepond.commitbrowser.common.ui.BaseViewModel
 import org.codepond.commitbrowser.di.CoroutinesDispatcherProvider
 import org.codepond.commitbrowser.di.ViewModelAssistedFactory
@@ -33,7 +35,8 @@ private const val STATE_PAGE = "state_page"
 class CommitListViewModel @AssistedInject constructor(
     @Assisted handle: SavedStateHandle,
     githubApi: GithubApi,
-    dispatchers: CoroutinesDispatcherProvider
+    dispatchers: CoroutinesDispatcherProvider,
+    private val internetConnection: InternetConnection
 ) : BaseViewModel(handle, githubApi, dispatchers) {
     val navigateToDetail: LiveData<String>
         get() = _navigateToDetail
@@ -49,7 +52,7 @@ class CommitListViewModel @AssistedInject constructor(
 
     fun loadData(page: Int, restoringState: Boolean = false) {
         handle[STATE_PAGE] = page
-        notifyLoaded(
+        notifyStateChanged(
             CommitListViewState(
                 loading = true,
                 page = page,
@@ -62,11 +65,13 @@ class CommitListViewModel @AssistedInject constructor(
             pages.forEach { currentPage ->
                 Timber.d("Fetching data for page: %d", currentPage)
                 response += withContext(dispatchers.io) {
-                    githubApi.getCommits(currentPage)
+                    withInternet(internetConnection::waitForInternet, ::retryAfterError) {
+                        githubApi.getCommits(currentPage)
+                    }
                 }
             }
             Timber.d("Data loaded for page %d", page)
-            notifyLoaded(
+            notifyStateChanged(
                 CommitListViewState(
                     loading = false,
                     page = page,

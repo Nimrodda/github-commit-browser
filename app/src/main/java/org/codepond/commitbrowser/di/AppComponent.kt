@@ -18,6 +18,7 @@ import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
 import org.codepond.commitbrowser.App
 import org.codepond.commitbrowser.api.GithubApiModule
+import org.codepond.commitbrowser.common.network.InternetConnectionModule
 import org.codepond.commitbrowser.home.HomeActivityModule
 import javax.inject.Singleton
 
@@ -25,6 +26,7 @@ import javax.inject.Singleton
 @Component(modules = [
     AndroidInjectionModule::class,
     OkHttpModule::class,
+    InternetConnectionModule::class,
     GithubApiModule::class,
     ViewModelAssistedFactoriesModule::class,
     HomeActivityModule::class

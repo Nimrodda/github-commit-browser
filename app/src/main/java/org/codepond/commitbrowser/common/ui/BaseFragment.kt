@@ -10,11 +10,13 @@ import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.DaggerFragment
+import org.codepond.commitbrowser.R
 import org.codepond.commitbrowser.di.ViewModelFactory
 import javax.inject.Inject
 
-abstract class BaseFragment<T : ViewModel, R : ViewDataBinding> : DaggerFragment() {
+abstract class BaseFragment<T : ViewModel, B : ViewDataBinding> : DaggerFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
@@ -22,7 +24,7 @@ abstract class BaseFragment<T : ViewModel, R : ViewDataBinding> : DaggerFragment
         ViewModelProviders.of(this, viewModelFactory).get(viewModelClass)
     }
 
-    protected lateinit var binding: R
+    protected lateinit var binding: B
 
     protected abstract val viewModelClass: Class<T>
 
@@ -34,5 +36,9 @@ abstract class BaseFragment<T : ViewModel, R : ViewDataBinding> : DaggerFragment
         binding.lifecycleOwner = this
         binding.setVariable(BR.viewModel, viewModel)
         return binding.root
+    }
+
+    protected fun showError(error: Throwable) {
+        Snackbar.make(binding.root, R.string.no_internet_connection, Snackbar.LENGTH_LONG).show()
     }
 }

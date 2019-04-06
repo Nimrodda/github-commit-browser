@@ -7,6 +7,8 @@ import com.squareup.inject.assisted.AssistedInject
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.codepond.commitbrowser.api.GithubApi
+import org.codepond.commitbrowser.common.coroutines.withInternet
+import org.codepond.commitbrowser.common.network.InternetConnection
 import org.codepond.commitbrowser.common.ui.BaseViewModel
 import org.codepond.commitbrowser.di.CoroutinesDispatcherProvider
 import org.codepond.commitbrowser.di.ViewModelAssistedFactory
@@ -18,11 +20,12 @@ private const val STATE_RESPONSE = "state_response"
 class CommitDetailViewModel @AssistedInject constructor(
     @Assisted handle: SavedStateHandle,
     githubApi: GithubApi,
-    dispatchers: CoroutinesDispatcherProvider
+    dispatchers: CoroutinesDispatcherProvider,
+    private val internetConnection: InternetConnection
 ) : BaseViewModel(handle, githubApi, dispatchers) {
 
     fun loadDetail(sha: String) {
-        notifyLoaded(
+        notifyStateChanged(
             CommitDetailViewState(
                 loading = true
             )
@@ -32,7 +35,7 @@ class CommitDetailViewModel @AssistedInject constructor(
         val storedSha = storedResponse?.sha
         if (sha == storedSha) {
             Timber.d("Loaded from SavedState")
-            notifyLoaded(
+            notifyStateChanged(
                 CommitDetailViewState(
                     loading = false,
                     files = storedResponse.files
@@ -41,11 +44,13 @@ class CommitDetailViewModel @AssistedInject constructor(
         } else {
             viewModelScope.launch {
                 val response = withContext(dispatchers.io) {
-                    githubApi.getCommit(sha)
+                    withInternet(internetConnection::waitForInternet, ::retryAfterError) {
+                        githubApi.getCommit(sha)
+                    }
                 }
                 Timber.d("Saving to SavedState")
                 handle[STATE_RESPONSE] = response
-                notifyLoaded(
+                notifyStateChanged(
                     CommitDetailViewState(
                         loading = false,
                         files = response.files
@@ -58,3 +63,4 @@ class CommitDetailViewModel @AssistedInject constructor(
     @AssistedInject.Factory
     interface Factory : ViewModelAssistedFactory<CommitDetailViewModel>
 }
+

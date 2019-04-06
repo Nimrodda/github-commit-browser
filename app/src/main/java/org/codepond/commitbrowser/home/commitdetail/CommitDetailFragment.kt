@@ -29,11 +29,10 @@ class CommitDetailFragment : BaseFragment<CommitDetailViewModel, CommitDetailFra
         super.onCreate(savedInstanceState)
         viewModel.viewState.observe(this, Observer { state ->
             when (state) {
-                is BaseViewModel.ViewState.Loading -> {
-                }
                 is BaseViewModel.ViewState.Error -> {
+                    showError(state.throwable)
                 }
-                is BaseViewModel.ViewState.Loaded<*> -> {
+                is BaseViewModel.ViewState.Changed<*> -> {
                     (state.data as? CommitDetailViewState)?.let {
                         Timber.d("Updating controller")
                         controller.setData(it)
