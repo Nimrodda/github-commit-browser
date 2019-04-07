@@ -8,14 +8,18 @@ import androidx.lifecycle.ViewModel
 import org.codepond.commitbrowser.api.GithubApi
 import org.codepond.commitbrowser.common.network.InternetConnection
 import org.codepond.commitbrowser.di.CoroutinesDispatcherProvider
+import org.codepond.commitbrowser.di.CoroutinesDispatchers
 import timber.log.Timber
 
 abstract class BaseViewModel<T>(
     protected val handle: SavedStateHandle,
     protected val githubApi: GithubApi,
-    protected val dispatchers: CoroutinesDispatcherProvider,
+    private val dispatchers: CoroutinesDispatcherProvider,
     private val internetConnection: InternetConnection
-) : ViewModel(), InternetConnection by internetConnection {
+) : ViewModel(),
+    InternetConnection by internetConnection,
+    CoroutinesDispatchers by dispatchers {
+
     val viewState: LiveData<ViewState<T>>
         get() = _loadingState
     private val _loadingState = MutableLiveData<ViewState<T>>()

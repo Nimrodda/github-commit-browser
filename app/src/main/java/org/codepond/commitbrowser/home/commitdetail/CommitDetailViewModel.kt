@@ -38,7 +38,7 @@ class CommitDetailViewModel @AssistedInject constructor(
             )
         } else {
             viewModelScope.launch {
-                val response = withContext(dispatchers.io) {
+                val response = withContext(io) {
                     withInternet(::waitForInternetAndNotifyLoading, ::reportErrorAndRetry) {
                         githubApi.getCommit(sha)
                     }

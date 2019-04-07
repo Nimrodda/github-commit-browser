@@ -63,7 +63,7 @@ class CommitListViewModel @AssistedInject constructor(
             val response = mutableListOf<CommitResponse>()
             pages.forEach { currentPage ->
                 Timber.d("Fetching data for page: %d", currentPage)
-                response += withContext(dispatchers.io) {
+                response += withContext(io) {
                     withInternet({ waitForInternetAndNotifyLoading(page) }, { reportErrorAndRetry(it, page) }) {
                         githubApi.getCommits(currentPage)
                     }
