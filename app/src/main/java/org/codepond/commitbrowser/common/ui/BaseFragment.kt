@@ -36,11 +36,15 @@ abstract class BaseFragment<S, T : BaseViewModel<S>, B : ViewDataBinding> : Dagg
     @get:LayoutRes
     protected abstract val layoutId: Int
 
+    private var errorSnackBar: Snackbar? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.viewState.observe(this, Observer { state ->
             if (state is ViewState.Error) {
                 showError(state.throwable)
+            } else {
+                dismissErrorIfShown()
             }
             Timber.d("Updating controller")
             controller.setData(state)
@@ -55,6 +59,12 @@ abstract class BaseFragment<S, T : BaseViewModel<S>, B : ViewDataBinding> : Dagg
     }
 
     private fun showError(error: Throwable) {
-        Snackbar.make(binding.root, R.string.no_internet_connection, Snackbar.LENGTH_LONG).show()
+        errorSnackBar = Snackbar.make(binding.root, R.string.no_internet_connection, Snackbar.LENGTH_INDEFINITE).apply {
+            show()
+        }
+    }
+
+    private fun dismissErrorIfShown() {
+        errorSnackBar?.dismiss()
     }
 }

@@ -6,24 +6,26 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 
 import org.codepond.commitbrowser.api.GithubApi
+import org.codepond.commitbrowser.common.network.InternetConnection
 import org.codepond.commitbrowser.di.CoroutinesDispatcherProvider
 import timber.log.Timber
 
 abstract class BaseViewModel<T>(
     protected val handle: SavedStateHandle,
     protected val githubApi: GithubApi,
-    protected val dispatchers: CoroutinesDispatcherProvider
-) : ViewModel() {
+    protected val dispatchers: CoroutinesDispatcherProvider,
+    private val internetConnection: InternetConnection
+) : ViewModel(), InternetConnection by internetConnection {
     val viewState: LiveData<ViewState<T>>
         get() = _loadingState
     private val _loadingState = MutableLiveData<ViewState<T>>()
 
     protected fun notifyLoading(data: T) {
-        _loadingState.value = ViewState.Loading(data)
+        _loadingState.postValue(ViewState.Loading(data))
     }
 
     protected fun notifyDataLoaded(data: T) {
-        _loadingState.value = ViewState.Loaded(data)
+        _loadingState.postValue(ViewState.Loaded(data))
     }
 
     protected fun notifyError(throwable: Throwable, data: T) {

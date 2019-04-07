@@ -21,8 +21,8 @@ class CommitDetailViewModel @AssistedInject constructor(
     @Assisted handle: SavedStateHandle,
     githubApi: GithubApi,
     dispatchers: CoroutinesDispatcherProvider,
-    private val internetConnection: InternetConnection
-) : BaseViewModel<CommitDetailViewState>(handle, githubApi, dispatchers) {
+    internetConnection: InternetConnection
+) : BaseViewModel<CommitDetailViewState>(handle, githubApi, dispatchers, internetConnection) {
 
     fun loadDetail(sha: String) {
         notifyLoading(CommitDetailViewState())
@@ -39,7 +39,7 @@ class CommitDetailViewModel @AssistedInject constructor(
         } else {
             viewModelScope.launch {
                 val response = withContext(dispatchers.io) {
-                    withInternet(internetConnection::waitForInternet, ::retryAfterError) {
+                    withInternet(::waitForInternetAndNotifyLoading, ::reportErrorAndRetry) {
                         githubApi.getCommit(sha)
                     }
                 }
@@ -54,7 +54,16 @@ class CommitDetailViewModel @AssistedInject constructor(
         }
     }
 
+    private suspend fun waitForInternetAndNotifyLoading() {
+        waitForInternet()
+        notifyLoading(CommitDetailViewState())
+    }
+
+    private fun reportErrorAndRetry(throwable: Throwable): Boolean {
+        notifyError(throwable, CommitDetailViewState())
+        return retryAfterError(throwable)
+    }
+
     @AssistedInject.Factory
     interface Factory : ViewModelAssistedFactory<CommitDetailViewModel>
 }
-

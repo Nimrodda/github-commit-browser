@@ -36,8 +36,8 @@ class CommitListViewModel @AssistedInject constructor(
     @Assisted handle: SavedStateHandle,
     githubApi: GithubApi,
     dispatchers: CoroutinesDispatcherProvider,
-    private val internetConnection: InternetConnection
-) : BaseViewModel<CommitListViewState>(handle, githubApi, dispatchers) {
+    internetConnection: InternetConnection
+) : BaseViewModel<CommitListViewState>(handle, githubApi, dispatchers, internetConnection) {
     val navigateToDetail: LiveData<String>
         get() = _navigateToDetail
     private val _navigateToDetail = MutableLiveData<String>()
@@ -64,7 +64,7 @@ class CommitListViewModel @AssistedInject constructor(
             pages.forEach { currentPage ->
                 Timber.d("Fetching data for page: %d", currentPage)
                 response += withContext(dispatchers.io) {
-                    withInternet(internetConnection::waitForInternet, ::retryAfterError) {
+                    withInternet({ waitForInternetAndNotifyLoading(page) }, { reportErrorAndRetry(it, page) }) {
                         githubApi.getCommits(currentPage)
                     }
                 }
@@ -88,6 +88,16 @@ class CommitListViewModel @AssistedInject constructor(
                 )
             )
         }
+    }
+
+    private suspend fun waitForInternetAndNotifyLoading(page: Int) {
+        waitForInternet()
+        notifyLoading(CommitListViewState(page, commitList))
+    }
+
+    private fun reportErrorAndRetry(throwable: Throwable, page: Int): Boolean {
+        notifyError(throwable, CommitListViewState(page = page, list = commitList))
+        return retryAfterError(throwable)
     }
 
     @AssistedInject.Factory
