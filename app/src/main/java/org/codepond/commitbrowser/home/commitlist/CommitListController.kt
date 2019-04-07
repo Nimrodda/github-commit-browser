@@ -1,26 +1,27 @@
 package org.codepond.commitbrowser.home.commitlist
 
-import com.airbnb.epoxy.TypedEpoxyController
 import org.codepond.commitbrowser.commitInfo
+import org.codepond.commitbrowser.common.epoxy.ViewStateEpoxyController
+import org.codepond.commitbrowser.common.ui.ViewState
 import org.codepond.commitbrowser.loading
 import javax.inject.Inject
 
 class CommitListController @Inject constructor(
-) : TypedEpoxyController<CommitListViewState>() {
-    override fun buildModels(data: CommitListViewState) {
-        data.list.forEach {
+) : ViewStateEpoxyController<CommitListViewState>() {
+    override fun buildModels(state: ViewState<CommitListViewState>) {
+        state.data.list.forEach {
             commitInfo {
                 id(it.sha)
                 commitInfo(it)
                 clickListener { model, _, _, _ ->
-                    data.onClick?.invoke(model.commitInfo().sha)
+                    state.data.onClick?.invoke(model.commitInfo().sha)
                 }
             }
         }
-        if (data.loading) {
+        if (state.isLoading()) {
             loading {
                 id("loading")
-                matchParent(data.list.isEmpty())
+                matchParent(state.data.list.isEmpty())
             }
         }
     }

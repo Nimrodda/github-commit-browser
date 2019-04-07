@@ -8,6 +8,7 @@ import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 import dagger.multibindings.IntoMap;
+import org.codepond.commitbrowser.common.epoxy.ViewStateEpoxyController;
 import org.codepond.commitbrowser.di.ViewModelAssistedFactory;
 import org.codepond.commitbrowser.di.ViewModelKey;
 
@@ -26,4 +27,7 @@ public abstract class CommitDetailModule {
     static Bundle provideDefaultArgs() {
         return null;
     }
+
+    @Binds
+    abstract ViewStateEpoxyController<CommitDetailViewState> bindViewStateEpoxyController(CommitDetailController controller);
 }

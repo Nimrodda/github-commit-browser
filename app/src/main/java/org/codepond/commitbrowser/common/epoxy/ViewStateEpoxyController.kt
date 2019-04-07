@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package org.codepond.commitbrowser.home.commitdetail
+package org.codepond.commitbrowser.common.epoxy
 
-import org.codepond.commitbrowser.model.File
+import com.airbnb.epoxy.TypedEpoxyController
+import org.codepond.commitbrowser.common.ui.ViewState
 
-data class CommitDetailViewState(
-    val files: List<File>? = null
-)
+abstract class ViewStateEpoxyController<T> : TypedEpoxyController<ViewState<T>>()

@@ -37,7 +37,7 @@ class CommitListViewModel @AssistedInject constructor(
     githubApi: GithubApi,
     dispatchers: CoroutinesDispatcherProvider,
     private val internetConnection: InternetConnection
-) : BaseViewModel(handle, githubApi, dispatchers) {
+) : BaseViewModel<CommitListViewState>(handle, githubApi, dispatchers) {
     val navigateToDetail: LiveData<String>
         get() = _navigateToDetail
     private val _navigateToDetail = MutableLiveData<String>()
@@ -52,9 +52,8 @@ class CommitListViewModel @AssistedInject constructor(
 
     fun loadData(page: Int, restoringState: Boolean = false) {
         handle[STATE_PAGE] = page
-        notifyStateChanged(
+        notifyLoading(
             CommitListViewState(
-                loading = true,
                 page = page,
                 list = commitList
             )
@@ -71,9 +70,8 @@ class CommitListViewModel @AssistedInject constructor(
                 }
             }
             Timber.d("Data loaded for page %d", page)
-            notifyStateChanged(
+            notifyDataLoaded(
                 CommitListViewState(
-                    loading = false,
                     page = page,
                     list = commitList.apply {
                         addAll(response.map {

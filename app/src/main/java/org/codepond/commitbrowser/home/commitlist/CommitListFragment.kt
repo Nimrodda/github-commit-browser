@@ -27,35 +27,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.codepond.commitbrowser.R
 import org.codepond.commitbrowser.common.recyclerview.OnLoadMoreScrollListener
 import org.codepond.commitbrowser.common.ui.BaseFragment
-import org.codepond.commitbrowser.common.ui.BaseViewModel
 import org.codepond.commitbrowser.databinding.CommitListFragmentBinding
 import timber.log.Timber
-import javax.inject.Inject
 
-class CommitListFragment : BaseFragment<CommitListViewModel, CommitListFragmentBinding>() {
+class CommitListFragment : BaseFragment<CommitListViewState, CommitListViewModel, CommitListFragmentBinding>() {
     override val viewModelClass: Class<CommitListViewModel> = CommitListViewModel::class.java
     override val layoutId: Int = R.layout.commit_list_fragment
-
-    @Inject
-    lateinit var controller: CommitListController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Timber.d("onCreate()")
-        viewModel.viewState.observe(this, Observer { state ->
-            when (state) {
-                is BaseViewModel.ViewState.Error -> {
-                    showError(state.throwable)
-                }
-                is BaseViewModel.ViewState.Changed<*> -> {
-                    (state.data as? CommitListViewState)?.let {
-                        Timber.d("Updating controller")
-                        controller.setData(it)
-                    }
-                }
-            }
-        })
-
         viewModel.navigateToDetail.observe(this, Observer { sha ->
             Timber.d("Item with sha: %s was clicked", sha)
             findNavController().navigate(CommitListFragmentDirections.actionCommitListFragmentToCommitDetailFragment(sha))
@@ -76,7 +57,7 @@ class CommitListFragment : BaseFragment<CommitListViewModel, CommitListFragmentB
             addOnScrollListener(object : OnLoadMoreScrollListener(resources.getInteger(R.integer.load_threshold)) {
                 override fun onLoadMore() {
                     controller.currentData?.let {
-                        viewModel.loadData(it.page + 1)
+                        viewModel.loadData(it.data.page + 1)
                     }
                 }
             })

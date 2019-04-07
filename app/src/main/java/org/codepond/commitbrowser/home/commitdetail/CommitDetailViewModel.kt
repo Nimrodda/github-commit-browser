@@ -22,22 +22,17 @@ class CommitDetailViewModel @AssistedInject constructor(
     githubApi: GithubApi,
     dispatchers: CoroutinesDispatcherProvider,
     private val internetConnection: InternetConnection
-) : BaseViewModel(handle, githubApi, dispatchers) {
+) : BaseViewModel<CommitDetailViewState>(handle, githubApi, dispatchers) {
 
     fun loadDetail(sha: String) {
-        notifyStateChanged(
-            CommitDetailViewState(
-                loading = true
-            )
-        )
+        notifyLoading(CommitDetailViewState())
         Timber.d("Request commit detail for sha: %s", sha)
         val storedResponse: CommitResponse? = handle[STATE_RESPONSE]
         val storedSha = storedResponse?.sha
         if (sha == storedSha) {
             Timber.d("Loaded from SavedState")
-            notifyStateChanged(
+            notifyDataLoaded(
                 CommitDetailViewState(
-                    loading = false,
                     files = storedResponse.files
                 )
             )
@@ -50,9 +45,8 @@ class CommitDetailViewModel @AssistedInject constructor(
                 }
                 Timber.d("Saving to SavedState")
                 handle[STATE_RESPONSE] = response
-                notifyStateChanged(
+                notifyDataLoaded(
                     CommitDetailViewState(
-                        loading = false,
                         files = response.files
                     )
                 )

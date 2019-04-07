@@ -16,21 +16,22 @@
 
 package org.codepond.commitbrowser.home.commitdetail
 
-import com.airbnb.epoxy.TypedEpoxyController
 import org.codepond.commitbrowser.commitFile
+import org.codepond.commitbrowser.common.epoxy.ViewStateEpoxyController
+import org.codepond.commitbrowser.common.ui.ViewState
 import org.codepond.commitbrowser.loading
 import javax.inject.Inject
 
 class CommitDetailController @Inject constructor(
-) : TypedEpoxyController<CommitDetailViewState>() {
-    override fun buildModels(data: CommitDetailViewState) {
-        data.files?.forEach {
+) : ViewStateEpoxyController<CommitDetailViewState>() {
+    override fun buildModels(state: ViewState<CommitDetailViewState>) {
+        state.data.files?.forEach {
             commitFile {
                 id("file")
                 file(it)
             }
         }
-        if (data.loading) {
+        if (state.isLoading()) {
             loading {
                 id("loading")
                 matchParent(true)

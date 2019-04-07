@@ -1,7 +1,6 @@
 package org.codepond.commitbrowser.home.commitlist
 
 data class CommitListViewState(
-    val loading: Boolean,
     val page: Int,
     val list: List<CommitInfo>,
     val onClick: ((sha: String) -> Unit)? = null

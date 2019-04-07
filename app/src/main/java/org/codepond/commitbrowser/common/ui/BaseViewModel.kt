@@ -9,25 +9,28 @@ import org.codepond.commitbrowser.api.GithubApi
 import org.codepond.commitbrowser.di.CoroutinesDispatcherProvider
 import timber.log.Timber
 
-abstract class BaseViewModel(
+abstract class BaseViewModel<T>(
     protected val handle: SavedStateHandle,
     protected val githubApi: GithubApi,
     protected val dispatchers: CoroutinesDispatcherProvider
 ) : ViewModel() {
-    val viewState: LiveData<ViewState>
+    val viewState: LiveData<ViewState<T>>
         get() = _loadingState
-    private val _loadingState = MutableLiveData<ViewState>()
+    private val _loadingState = MutableLiveData<ViewState<T>>()
 
-    protected fun <T> notifyStateChanged(data: T) {
-        _loadingState.value = ViewState.Changed(data)
+    protected fun notifyLoading(data: T) {
+        _loadingState.value = ViewState.Loading(data)
     }
 
-    private fun notifyError(throwable: Throwable) {
-        _loadingState.postValue(ViewState.Error(throwable))
+    protected fun notifyDataLoaded(data: T) {
+        _loadingState.value = ViewState.Loaded(data)
+    }
+
+    protected fun notifyError(throwable: Throwable, data: T) {
+        _loadingState.postValue(ViewState.Error(throwable, data))
     }
 
     fun retryAfterError(throwable: Throwable): Boolean {
-        notifyError(throwable)
         // Always retry no matter what is the error
         // Optionally, throwable can be inspected to determine which error to retry
         return true
@@ -38,8 +41,12 @@ abstract class BaseViewModel(
         Timber.d("ViewModel is destroyed")
     }
 
-    sealed class ViewState {
-        class Error(val throwable: Throwable) : ViewState()
-        class Changed<T>(val data: T) : ViewState()
-    }
+}
+
+sealed class ViewState<T>(val data: T) {
+    class Error<T>(val throwable: Throwable, data: T) : ViewState<T>(data)
+    class Loading<T>(data: T) : ViewState<T>(data)
+    class Loaded<T>(data: T) : ViewState<T>(data)
+
+    fun isLoading(): Boolean = this is Loading
 }
