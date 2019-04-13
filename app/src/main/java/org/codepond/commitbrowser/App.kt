@@ -23,7 +23,7 @@ import timber.log.Timber
 
 class App : DaggerApplication() {
     private val component: AndroidInjector<App> by lazy {
-        DaggerAppComponent.builder().create(this)
+        DaggerAppComponent.factory().create(this)
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
