@@ -22,8 +22,7 @@ import org.codepond.commitbrowser.common.ui.ViewState
 import org.codepond.commitbrowser.loading
 import javax.inject.Inject
 
-class CommitDetailController @Inject constructor(
-) : ViewStateEpoxyController<CommitDetailViewState>() {
+class CommitDetailController @Inject constructor() : ViewStateEpoxyController<CommitDetailViewState>() {
     override fun buildModels(state: ViewState<CommitDetailViewState>) {
         state.data.files?.forEach {
             commitFile {

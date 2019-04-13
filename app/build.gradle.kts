@@ -23,6 +23,7 @@ plugins {
     kotlin("android.extensions")
     kotlin("kapt")
     id("androidx.navigation.safeargs.kotlin")
+    id("org.jmailen.kotlinter")
 }
 
 android {

@@ -23,4 +23,3 @@ import kotlinx.android.parcel.Parcelize
 @JsonClass(generateAdapter = true)
 @Parcelize
 data class Stats(val total: Long, val addition: Long?, val deletion: Long?) : Parcelable
-

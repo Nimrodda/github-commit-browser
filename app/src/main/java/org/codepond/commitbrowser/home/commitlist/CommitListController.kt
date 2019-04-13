@@ -22,8 +22,7 @@ import org.codepond.commitbrowser.common.ui.ViewState
 import org.codepond.commitbrowser.loading
 import javax.inject.Inject
 
-class CommitListController @Inject constructor(
-) : ViewStateEpoxyController<CommitListViewState>() {
+class CommitListController @Inject constructor() : ViewStateEpoxyController<CommitListViewState>() {
     override fun buildModels(state: ViewState<CommitListViewState>) {
         state.data.list.forEach {
             commitInfo {

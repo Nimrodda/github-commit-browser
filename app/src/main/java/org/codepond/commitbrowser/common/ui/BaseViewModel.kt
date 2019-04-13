@@ -62,7 +62,6 @@ abstract class BaseViewModel<T>(
         super.onCleared()
         Timber.d("ViewModel is destroyed")
     }
-
 }
 
 sealed class ViewState<T>(val data: T) {
