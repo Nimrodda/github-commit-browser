@@ -18,12 +18,11 @@ package org.codepond.commitbrowser
 
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
-import org.codepond.commitbrowser.di.DaggerAppComponent
 import timber.log.Timber
 
 class App : DaggerApplication() {
     private val component: AndroidInjector<App> by lazy {
-        DaggerAppComponent.builder().create(this)
+        DaggerAppComponent.factory().create(this)
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
