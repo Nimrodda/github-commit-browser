@@ -19,7 +19,7 @@ package com.nimroddayan.buildsrc
 object Versions {
     val ktlint = "0.29.0"
     const val agp = "3.4.0-rc03"
-    const val kotlin = "1.3.21"
+    const val kotlin = "1.3.30"
 }
 
 object Libs {

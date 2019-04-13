@@ -15,7 +15,6 @@
  */
 
 import com.nimroddayan.buildsrc.Libs
-import org.jetbrains.kotlin.gradle.internal.AndroidExtensionsExtension
 
 plugins {
     id("com.android.application")
@@ -54,14 +53,15 @@ android {
 
 kapt {
     useBuildCache = true
+    arguments {
+        arg("dagger.formatGeneratedSource", "disabled")
+        arg("dagger.fastInit", "enabled")
+        arg("dagger.gradle.incremental")
+    }
 }
 
 androidExtensions {
-    // Workaround to get experimental features in Kotlin DSL
-    // https://youtrack.jetbrains.com/issue/KT-22213
-    configure(delegateClosureOf<AndroidExtensionsExtension> {
-        isExperimental = true
-    })
+    isExperimental = true
 }
 
 dependencies {
