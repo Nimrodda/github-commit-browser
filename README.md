@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/Nimrodda/github-commit-browser.svg?style=svg)](https://circleci.com/gh/Nimrodda/github-commit-browser)
+
 # Saving UI state with ViewModel SavedState and Dagger
 
 This repository contains a sample project that demonstrate the topic discussed in [my article about
