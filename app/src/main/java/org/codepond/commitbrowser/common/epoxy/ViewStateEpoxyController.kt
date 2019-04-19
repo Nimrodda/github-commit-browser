@@ -16,7 +16,12 @@
 
 package org.codepond.commitbrowser.common.epoxy
 
+import android.os.Handler
+import com.airbnb.epoxy.EpoxyAsyncUtil
 import com.airbnb.epoxy.TypedEpoxyController
 import org.codepond.commitbrowser.common.ui.ViewState
 
-abstract class ViewStateEpoxyController<T> : TypedEpoxyController<ViewState<T>>()
+abstract class ViewStateEpoxyController<T>(
+    modelBuildingHandler: Handler = EpoxyAsyncUtil.getAsyncBackgroundHandler(),
+    diffingHandler: Handler = EpoxyAsyncUtil.getAsyncBackgroundHandler()
+) : TypedEpoxyController<ViewState<T>>(modelBuildingHandler, diffingHandler)
