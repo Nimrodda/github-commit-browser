@@ -80,7 +80,7 @@ dependencies {
     kapt(Libs.AndroidX.Lifecycle.compiler)
     implementation(Libs.AndroidX.Navigation.fragment)
     implementation(Libs.AndroidX.Navigation.ui)
-
+    implementation(Libs.Google.material)
     // Retrofit related
     implementation(Libs.Moshi.moshi)
     kapt(Libs.Moshi.codegen)
