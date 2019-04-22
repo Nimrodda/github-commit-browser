@@ -16,7 +16,8 @@
   -->
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="file"
@@ -26,22 +27,22 @@
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{file.filename}"
+            app:asyncText="@{file.filename}"
             tools:text="Filename"/>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{file.status}"
+            app:asyncText="@{file.status}"
             tools:text="Status"/>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{file.patch}"
+            app:asyncText="@{file.patch}"
             tools:text="Patch"/>
     </LinearLayout>    
 </layout>

@@ -19,6 +19,9 @@ package org.codepond.commitbrowser.common.databinding
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.text.PrecomputedTextCompat
+import androidx.core.widget.TextViewCompat
 import androidx.databinding.BindingAdapter
 import org.codepond.commitbrowser.R
 import org.codepond.commitbrowser.common.glide.GlideApp
@@ -51,4 +54,10 @@ fun setLayoutHeight(view: View, matchParent: Boolean, layoutHeight: Float) {
         params.height = layoutHeight.roundToInt()
     }
     view.layoutParams = params
+}
+
+@BindingAdapter("asyncText")
+fun setTextAsync(textView: AppCompatTextView, text: String) {
+    val params = TextViewCompat.getTextMetricsParams(textView)
+    textView.setTextFuture(PrecomputedTextCompat.getTextFuture(text, params, null))
 }

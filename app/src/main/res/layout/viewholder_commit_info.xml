@@ -40,13 +40,14 @@
                 android:layout_marginStart="@dimen/horizontal_start_margin"
                 android:layout_marginBottom="@dimen/content_vertical_margin"
                 android:layout_marginTop="@dimen/content_vertical_margin"
+                android:contentDescription="@string/avatar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:image_url="@{commitInfo.avatar}"
                 tools:srcCompat="@mipmap/ic_launcher"/>
 
-            <TextView
+        <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/commit_message"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -55,14 +56,14 @@
                 android:layout_marginTop="@dimen/content_vertical_margin"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textSize="@dimen/primary_text_size"
+            android:textAppearance="?attr/textAppearanceBody2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:text="@{commitInfo.message}"
+            app:asyncText="@{commitInfo.message}"
                 tools:text="Commit message"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
-            <TextView
+        <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/commit_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -70,24 +71,26 @@
                 android:layout_marginEnd="@dimen/horizontal_end_margin"
                 android:layout_marginStart="@dimen/text_margin_start"
                 android:layout_marginTop="@dimen/content_vertical_margin"
+            android:textAppearance="?attr/textAppearanceBody2"
                 app:layout_constraintBottom_toTopOf="@+id/commit_author"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/commit_message"
-                android:text="@{commitInfo.date}"
+            app:asyncText="@{commitInfo.date}"
                 tools:text="Date and time"/>
 
-            <TextView
+        <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/commit_author"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/content_vertical_margin"
                 android:layout_marginEnd="@dimen/horizontal_end_margin"
                 android:layout_marginStart="@dimen/text_margin_start"
+            android:textAppearance="?attr/textAppearanceBody2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:text="@{commitInfo.author}"
+            app:asyncText="@{commitInfo.author}"
                 tools:text="Author"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
