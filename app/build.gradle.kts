@@ -15,7 +15,6 @@
  */
 
 import com.nimroddayan.buildsrc.Libs
-import org.jetbrains.kotlin.gradle.internal.AndroidExtensionsExtension
 
 plugins {
     id("com.android.application")
@@ -58,11 +57,7 @@ kapt {
 }
 
 androidExtensions {
-    // Workaround to get experimental features in Kotlin DSL
-    // https://youtrack.jetbrains.com/issue/KT-22213
-    configure(delegateClosureOf<AndroidExtensionsExtension> {
-        isExperimental = true
-    })
+    isExperimental = true
 }
 
 dependencies {
