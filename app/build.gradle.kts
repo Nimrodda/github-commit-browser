@@ -54,6 +54,11 @@ android {
 
 kapt {
     useBuildCache = true
+    arguments {
+        arg("dagger.formatGeneratedSource", "disabled")
+        arg("dagger.fastInit", "enabled")
+        arg("dagger.gradle.incremental")
+    }
 }
 
 androidExtensions {
