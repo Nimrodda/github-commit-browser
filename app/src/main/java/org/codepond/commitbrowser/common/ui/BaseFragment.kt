@@ -69,7 +69,7 @@ abstract class BaseFragment<S, T : BaseViewModel<S>, B : ViewDataBinding> : Dagg
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.setVariable(BR.viewModel, viewModel)
         return binding.root
     }
