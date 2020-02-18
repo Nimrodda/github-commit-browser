@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Nimrod Dayan nimroddayan.com
+ * Copyright 2020 Nimrod Dayan nimroddayan.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@ package org.codepond.commitbrowser.common.recyclerview
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import timber.log.Timber
 
 abstract class OnLoadMoreScrollListener(

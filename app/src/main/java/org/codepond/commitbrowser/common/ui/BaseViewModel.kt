@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Nimrod Dayan nimroddayan.com
+ * Copyright 2020 Nimrod Dayan nimroddayan.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-
 import org.codepond.commitbrowser.api.GithubApi
 import org.codepond.commitbrowser.common.network.InternetConnection
 import org.codepond.commitbrowser.di.CoroutinesDispatcherProvider
