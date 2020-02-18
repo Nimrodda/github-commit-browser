@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Nimrod Dayan nimroddayan.com
+ * Copyright 2020 Nimrod Dayan nimroddayan.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,12 +22,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import dagger.android.support.DaggerAppCompatActivity
 
 abstract class BaseActivity<T : ViewModel, R : ViewDataBinding> : DaggerAppCompatActivity() {
     protected val viewModel: T by lazy(LazyThreadSafetyMode.NONE) {
-        ViewModelProviders.of(this).get(viewModelClass)
+        ViewModelProvider(this).get(viewModelClass)
     }
 
     protected val binding: R by lazy(LazyThreadSafetyMode.NONE) {

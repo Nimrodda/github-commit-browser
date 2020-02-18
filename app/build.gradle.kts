@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Nimrod Dayan nimroddayan.com
+ * Copyright 2020 Nimrod Dayan nimroddayan.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,6 +37,9 @@ android {
 
         buildConfigField("String", "BASE_URL", "\"https://api.github.com/\"")
     }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -57,7 +60,6 @@ kapt {
     arguments {
         arg("dagger.formatGeneratedSource", "disabled")
         arg("dagger.fastInit", "enabled")
-        arg("dagger.gradle.incremental")
     }
 }
 
@@ -75,12 +77,13 @@ dependencies {
     implementation(Libs.AndroidX.Activity.activityKtx)
     implementation(Libs.Google.material)
     implementation(Libs.AndroidX.constraintlayout)
-    implementation(Libs.AndroidX.Lifecycle.extensions)
-    implementation(Libs.AndroidX.Lifecycle.SavedState.savedstate)
-    kapt(Libs.AndroidX.Lifecycle.compiler)
+    implementation(Libs.AndroidX.Lifecycle.viewmodel)
+    implementation(Libs.AndroidX.Lifecycle.livedata)
+    implementation(Libs.AndroidX.Lifecycle.savedstate)
+    implementation(Libs.AndroidX.Lifecycle.common)
     implementation(Libs.AndroidX.Navigation.fragment)
     implementation(Libs.AndroidX.Navigation.ui)
-    implementation(Libs.Google.material)
+
     // Retrofit related
     implementation(Libs.Moshi.moshi)
     kapt(Libs.Moshi.codegen)

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Nimrod Dayan nimroddayan.com
+ * Copyright 2020 Nimrod Dayan nimroddayan.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 package org.codepond.commitbrowser.di
 
 import android.os.Bundle
-import androidx.lifecycle.AbstractSavedStateVMFactory
+import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
@@ -27,7 +27,7 @@ class ViewModelFactory @Inject constructor(
     private val viewModelMap: MutableMap<Class<out ViewModel>, ViewModelAssistedFactory<out ViewModel>>,
     owner: SavedStateRegistryOwner,
     defaultArgs: Bundle?
-) : AbstractSavedStateVMFactory(owner, defaultArgs) {
+) : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(key: String, modelClass: Class<T>, handle: SavedStateHandle): T {

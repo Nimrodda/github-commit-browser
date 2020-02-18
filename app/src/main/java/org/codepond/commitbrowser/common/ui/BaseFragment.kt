@@ -25,7 +25,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.DaggerFragment
 import org.codepond.commitbrowser.R
@@ -42,7 +42,7 @@ abstract class BaseFragment<S, T : BaseViewModel<S>, B : ViewDataBinding> : Dagg
     lateinit var controller: ViewStateEpoxyController<S>
 
     protected val viewModel: T by lazy(LazyThreadSafetyMode.NONE) {
-        ViewModelProviders.of(this, viewModelFactory).get(viewModelClass)
+        ViewModelProvider(this, viewModelFactory).get(viewModelClass)
     }
 
     protected lateinit var binding: B
