@@ -18,7 +18,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/home_nav_graph.xml"
-            app:startDestination="@id/commitListFragment">
+            app:startDestination="@id/commitListFragment"
+    tools:ignore="UnusedNavigation">
 
     <fragment android:id="@+id/commitListFragment"
               android:name="com.nimroddayan.commitbrowser.home.commitlist.CommitListFragment"

@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright 2019 Nimrod Dayan nimroddayan.com
+  ~ Copyright 2020 Nimrod Dayan nimroddayan.com
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -14,13 +15,14 @@
   ~ limitations under the License.
   -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto"
-      xmlns:tools="http://schemas.android.com/tools"
-      tools:context=".home.commitdetail.CommitDetailFragment">
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never"/>
-</menu>
+<lint>
+    <!-- Ignore everything in the test source set -->
+    <issue id="UnusedResources" severity="ignore">
+        <ignore regexp="viewholder_loading.xml"/>
+        <ignore regexp="viewmodel.xml"/>
+    </issue>
+    <issue id="UnusedIds" severity="ignore"/>
+    <issue id="all" severity="ignore">
+        <ignore regexp="gradle/cache"/>
+    </issue>
+</lint>

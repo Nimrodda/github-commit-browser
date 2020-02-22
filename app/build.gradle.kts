@@ -54,6 +54,13 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
+    lintOptions {
+        isCheckDependencies = true
+        isAbortOnError = true
+        isCheckReleaseBuilds = false
+        isWarningsAsErrors = true
+        isCheckAllWarnings = true
+    }
 }
 
 kapt {
