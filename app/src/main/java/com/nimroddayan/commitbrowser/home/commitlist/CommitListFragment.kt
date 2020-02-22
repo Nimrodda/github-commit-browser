@@ -42,14 +42,17 @@ class CommitListFragment @Inject constructor(
 ) {
     override val viewModel: CommitListViewModel by viewModels { withFactory(commitListViewModelFactory) }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
-
-        viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer { commitInfo ->
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.navigateToDetail.observe(this, Observer { commitInfo ->
             Timber.d("Item with sha: %s was clicked", commitInfo)
             findNavController().navigate(
                 CommitListFragmentDirections.actionCommitListFragmentToCommitDetailFragment(commitInfo.sha, commitInfo.message))
         })
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = super.onCreateView(inflater, container, savedInstanceState)
 
         binding.recyclerview.apply {
             layoutManager = LinearLayoutManager(context)

@@ -26,6 +26,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.nimroddayan.commitbrowser.base.R
 import com.nimroddayan.commitbrowser.common.epoxy.ViewStateEpoxyController
@@ -40,21 +41,26 @@ abstract class BaseFragment<S, T : BaseViewModel<S>, B : ViewDataBinding>(
 
     private var errorSnackBar: Snackbar? = null
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.viewState.observe(this, Observer { state ->
+            Timber.d("Updating controller")
+            controller.setData(state)
+
+            lifecycleScope.launchWhenStarted {
+                if (state is ViewState.Error) {
+                    showError(state.throwable)
+                } else {
+                    dismissErrorIfShown()
+                }
+            }
+        })
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.setVariable(BR.viewModel, viewModel)
-
-        viewModel.viewState.observe(viewLifecycleOwner, Observer { state ->
-            if (state is ViewState.Error) {
-                showError(state.throwable)
-            } else {
-                dismissErrorIfShown()
-            }
-            Timber.d("Updating controller")
-            controller.setData(state)
-        })
-
         return binding.root
     }
 

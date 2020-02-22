@@ -25,12 +25,13 @@ import com.nimroddayan.commitbrowser.common.ui.BaseActivity
 import com.nimroddayan.commitbrowser.databinding.HomeActivityBinding
 
 class HomeActivity : BaseActivity<HomeViewModel, HomeActivityBinding>() {
+    private lateinit var navHostFragment: NavHostFragment
     override val viewModel: HomeViewModel by viewModels()
     override val layoutId: Int = R.layout.home_activity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         binding.toolbar.setupWithNavController(navHostFragment.navController)
     }
 }
