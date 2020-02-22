@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright 2019 Nimrod Dayan nimroddayan.com
+  ~ Copyright 2020 Nimrod Dayan nimroddayan.com
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
     <data>
         <variable
             name="file"
-            type="org.codepond.commitbrowser.model.File"/>
+            type="com.nimroddayan.commitbrowser.model.File"/>
     </data>
     <LinearLayout android:orientation="vertical"
                   android:layout_width="match_parent"

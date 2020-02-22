@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import com.nimroddayan.buildsrc.Build
 import com.nimroddayan.buildsrc.Libs
 
 plugins {
@@ -26,12 +27,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion(28)
-    buildToolsVersion("28.0.3")
+    compileSdkVersion(Build.compileSdkVersion)
+    buildToolsVersion(Build.buildToolsVersion)
     defaultConfig {
-        applicationId = "org.codepond.commitbrowser"
-        minSdkVersion(21)
-        targetSdkVersion(28)
+        minSdkVersion(Build.minSdkVersion)
+        targetSdkVersion(Build.targetSdkVersion)
+        applicationId = "com.nimroddayan.commitbrowser"
         versionCode = 100000
         versionName = "1.0.0"
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright 2019 Nimrod Dayan nimroddayan.com
+  ~ Copyright 2020 Nimrod Dayan nimroddayan.com
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
             app:startDestination="@id/commitListFragment">
 
     <fragment android:id="@+id/commitListFragment"
-              android:name="org.codepond.commitbrowser.home.commitlist.CommitListFragment"
+              android:name="com.nimroddayan.commitbrowser.home.commitlist.CommitListFragment"
               android:label="commit_list_fragment" tools:layout="@layout/commit_list_fragment">
         <action android:id="@+id/action_commitListFragment_to_commitDetailFragment"
                 app:destination="@id/commitDetailFragment" app:launchSingleTop="true"
@@ -29,7 +29,7 @@
                 app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
     <fragment android:id="@+id/commitDetailFragment"
-              android:name="org.codepond.commitbrowser.home.commitdetail.CommitDetailFragment"
+              android:name="com.nimroddayan.commitbrowser.home.commitdetail.CommitDetailFragment"
               android:label="commit_detail_fragment" tools:layout="@layout/commit_detail_fragment">
         <argument android:name="sha" app:argType="string"/>
     </fragment>
