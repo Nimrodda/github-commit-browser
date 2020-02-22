@@ -23,18 +23,16 @@ import com.nimroddayan.commitbrowser.common.coroutines.withInternet
 import com.nimroddayan.commitbrowser.common.network.InternetConnection
 import com.nimroddayan.commitbrowser.common.ui.BaseViewModel
 import com.nimroddayan.commitbrowser.di.CoroutinesDispatcherProvider
-import com.nimroddayan.commitbrowser.di.ViewModelAssistedFactory
 import com.nimroddayan.commitbrowser.model.CommitResponse
-import com.squareup.inject.assisted.Assisted
-import com.squareup.inject.assisted.AssistedInject
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
+import javax.inject.Inject
 
 private const val STATE_RESPONSE = "state_response"
 
-class CommitDetailViewModel @AssistedInject constructor(
-    @Assisted handle: SavedStateHandle,
+class CommitDetailViewModel(
+    handle: SavedStateHandle,
     githubApi: GithubApi,
     dispatchers: CoroutinesDispatcherProvider,
     internetConnection: InternetConnection
@@ -80,6 +78,22 @@ class CommitDetailViewModel @AssistedInject constructor(
         return retryAfterError(throwable)
     }
 
-    @AssistedInject.Factory
-    interface Factory : ViewModelAssistedFactory<CommitDetailViewModel>
+    class Factory @Inject constructor(
+        githubApi: GithubApi,
+        dispatchers: CoroutinesDispatcherProvider,
+        internetConnection: InternetConnection
+    ) : BaseViewModel.Factory<CommitDetailViewModel>(
+        githubApi,
+        dispatchers,
+        internetConnection
+    ) {
+        override fun create(handle: SavedStateHandle): CommitDetailViewModel {
+            return CommitDetailViewModel(
+                handle,
+                githubApi,
+                dispatchers,
+                internetConnection
+            )
+        }
+    }
 }

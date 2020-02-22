@@ -13,16 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.nimroddayan.commitbrowser.home.commitdetail
 
-package com.nimroddayan.commitbrowser.home.commitlist
-
-import com.nimroddayan.commitbrowser.di.FragmentScope
+import androidx.fragment.app.Fragment
+import com.nimroddayan.commitbrowser.di.FragmentKey
+import dagger.Binds
 import dagger.Module
-import dagger.android.ContributesAndroidInjector
+import dagger.multibindings.IntoMap
 
 @Module
-abstract class CommitListFragmentModule {
-    @FragmentScope
-    @ContributesAndroidInjector(modules = [CommitListModule::class])
-    abstract fun contributeCommitListFragmentInjector(): CommitListFragment
+abstract class CommitDetailModule {
+    @Binds
+    @IntoMap
+    @FragmentKey(CommitDetailFragment::class)
+    abstract fun bindCommitDetailFragment(fragment: CommitDetailFragment): Fragment
 }

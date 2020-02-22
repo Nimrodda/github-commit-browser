@@ -16,11 +16,12 @@
 
 package com.nimroddayan.commitbrowser.home
 
+import androidx.activity.viewModels
 import com.nimroddayan.commitbrowser.R
 import com.nimroddayan.commitbrowser.common.ui.BaseActivity
 import com.nimroddayan.commitbrowser.databinding.HomeActivityBinding
 
 class HomeActivity : BaseActivity<HomeViewModel, HomeActivityBinding>() {
-    override val viewModelClass: Class<HomeViewModel> = HomeViewModel::class.java
+    override val viewModel: HomeViewModel by viewModels()
     override val layoutId: Int = R.layout.home_activity
 }

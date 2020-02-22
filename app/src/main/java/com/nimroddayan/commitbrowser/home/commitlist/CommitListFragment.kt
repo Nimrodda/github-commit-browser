@@ -20,6 +20,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -28,23 +29,26 @@ import com.nimroddayan.commitbrowser.R
 import com.nimroddayan.commitbrowser.common.recyclerview.OnLoadMoreScrollListener
 import com.nimroddayan.commitbrowser.common.ui.BaseFragment
 import com.nimroddayan.commitbrowser.databinding.CommitListFragmentBinding
+import com.nimroddayan.commitbrowser.di.withFactory
 import timber.log.Timber
+import javax.inject.Inject
 
-class CommitListFragment : BaseFragment<CommitListViewState, CommitListViewModel, CommitListFragmentBinding>() {
-    override val viewModelClass: Class<CommitListViewModel> = CommitListViewModel::class.java
-    override val layoutId: Int = R.layout.commit_list_fragment
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Timber.d("onCreate()")
-        viewModel.navigateToDetail.observe(this, Observer { sha ->
-            Timber.d("Item with sha: %s was clicked", sha)
-            findNavController().navigate(CommitListFragmentDirections.actionCommitListFragmentToCommitDetailFragment(sha))
-        })
-    }
+class CommitListFragment @Inject constructor(
+    commitListViewModelFactory: CommitListViewModel.Factory,
+    commitListController: CommitListController
+) : BaseFragment<CommitListViewState, CommitListViewModel, CommitListFragmentBinding>(
+    commitListController,
+    R.layout.commit_list_fragment
+) {
+    override val viewModel: CommitListViewModel by viewModels { withFactory(commitListViewModelFactory) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
+
+        viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer { sha ->
+            Timber.d("Item with sha: %s was clicked", sha)
+            findNavController().navigate(CommitListFragmentDirections.actionCommitListFragmentToCommitDetailFragment(sha))
+        })
 
         binding.recyclerview.apply {
             layoutManager = LinearLayoutManager(context)

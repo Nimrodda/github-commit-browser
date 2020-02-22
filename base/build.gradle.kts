@@ -90,8 +90,6 @@ dependencies {
     kapt(Libs.Dagger.androidProcessor)
     api(Libs.Dagger.dagger)
     api(Libs.Dagger.androidSupport)
-    compileOnly(Libs.AssistedInject.annotationDagger2)
-    kapt(Libs.AssistedInject.processorDagger2)
 
     // Timber
     api(Libs.timber)

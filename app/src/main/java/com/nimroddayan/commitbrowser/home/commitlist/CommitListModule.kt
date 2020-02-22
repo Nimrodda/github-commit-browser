@@ -13,15 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.nimroddayan.commitbrowser.home.commitlist
 
-package com.nimroddayan.commitbrowser.di
+import androidx.fragment.app.Fragment
+import com.nimroddayan.commitbrowser.di.FragmentKey
+import dagger.Binds
+import dagger.Module
+import dagger.multibindings.IntoMap
 
-import androidx.lifecycle.ViewModel
-import dagger.MapKey
-import kotlin.reflect.KClass
-
-@MustBeDocumented
-@Target(AnnotationTarget.FUNCTION)
-@Retention(AnnotationRetention.RUNTIME)
-@MapKey
-annotation class ViewModelKey(val value: KClass<out ViewModel>)
+@Module
+abstract class CommitListModule {
+    @Binds
+    @IntoMap
+    @FragmentKey(CommitListFragment::class)
+    abstract fun bindCommitListFragment(fragment: CommitListFragment): Fragment
+}

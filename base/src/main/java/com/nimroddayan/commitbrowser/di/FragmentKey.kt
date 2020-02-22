@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-package com.nimroddayan.commitbrowser.home.commitdetail
+package com.nimroddayan.commitbrowser.di
 
-import com.nimroddayan.commitbrowser.di.FragmentScope
-import dagger.Module
-import dagger.android.ContributesAndroidInjector
+import androidx.fragment.app.Fragment
+import dagger.MapKey
+import kotlin.reflect.KClass
 
-@Module
-abstract class CommitDetailFragmentModule {
-    @FragmentScope
-    @ContributesAndroidInjector(modules = [CommitDetailModule::class])
-    abstract fun contributeCommitDetailFragmentInjector(): CommitDetailFragment
-}
+@MustBeDocumented
+@Target(AnnotationTarget.FUNCTION)
+@Retention(AnnotationRetention.RUNTIME)
+@MapKey
+annotation class FragmentKey(val value: KClass<out Fragment>)

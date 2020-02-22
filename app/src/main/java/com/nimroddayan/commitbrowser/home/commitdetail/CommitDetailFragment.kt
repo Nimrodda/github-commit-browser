@@ -20,6 +20,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -27,10 +28,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.nimroddayan.commitbrowser.R
 import com.nimroddayan.commitbrowser.common.ui.BaseFragment
 import com.nimroddayan.commitbrowser.databinding.CommitDetailFragmentBinding
+import com.nimroddayan.commitbrowser.di.withFactory
+import javax.inject.Inject
 
-class CommitDetailFragment : BaseFragment<CommitDetailViewState, CommitDetailViewModel, CommitDetailFragmentBinding>() {
-    override val viewModelClass: Class<CommitDetailViewModel> = CommitDetailViewModel::class.java
-    override val layoutId: Int = R.layout.commit_detail_fragment
+class CommitDetailFragment @Inject constructor(
+    commitDetailController: CommitDetailController,
+    commitDetailViewModelFacory: CommitDetailViewModel.Factory
+) : BaseFragment<CommitDetailViewState, CommitDetailViewModel, CommitDetailFragmentBinding>(
+    commitDetailController,
+    R.layout.commit_detail_fragment
+) {
+    override val viewModel: CommitDetailViewModel by viewModels { withFactory(commitDetailViewModelFacory) }
 
     private val args: CommitDetailFragmentArgs by navArgs()
 

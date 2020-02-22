@@ -32,7 +32,6 @@ import javax.inject.Singleton
     AppModule::class,
     InternetConnectionModule::class,
     GithubApiModule::class,
-    ViewModelAssistedFactoriesModule::class,
     HomeActivityModule::class
 ])
 interface AppComponent : AndroidInjector<App> {

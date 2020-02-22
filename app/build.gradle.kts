@@ -72,8 +72,6 @@ dependencies {
     implementation(project(Modules.base))
     kapt(Libs.Dagger.compiler)
     kapt(Libs.Dagger.androidProcessor)
-    kapt(Libs.AssistedInject.processorDagger2)
-    compileOnly(Libs.AssistedInject.annotationDagger2)
     kapt(Libs.Glide.compiler)
     kapt(Libs.Epoxy.processor)
 

@@ -24,39 +24,28 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.nimroddayan.commitbrowser.base.R
 import com.nimroddayan.commitbrowser.common.epoxy.ViewStateEpoxyController
-import com.nimroddayan.commitbrowser.di.ViewModelFactory
-import dagger.android.support.DaggerFragment
 import timber.log.Timber
-import javax.inject.Inject
 
-abstract class BaseFragment<S, T : BaseViewModel<S>, B : ViewDataBinding> : DaggerFragment() {
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    @Inject
-    lateinit var controller: ViewStateEpoxyController<S>
-
-    protected val viewModel: T by lazy(LazyThreadSafetyMode.NONE) {
-        ViewModelProvider(this, viewModelFactory).get(viewModelClass)
-    }
-
+abstract class BaseFragment<S, T : BaseViewModel<S>, B : ViewDataBinding>(
+    protected val controller: ViewStateEpoxyController<S>,
+    @LayoutRes private val layoutId: Int
+) : Fragment() {
     protected lateinit var binding: B
-
-    protected abstract val viewModelClass: Class<T>
-
-    @get:LayoutRes
-    protected abstract val layoutId: Int
+    protected abstract val viewModel: T
 
     private var errorSnackBar: Snackbar? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.viewState.observe(this, Observer { state ->
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.setVariable(BR.viewModel, viewModel)
+
+        viewModel.viewState.observe(viewLifecycleOwner, Observer { state ->
             if (state is ViewState.Error) {
                 showError(state.throwable)
             } else {
@@ -65,12 +54,7 @@ abstract class BaseFragment<S, T : BaseViewModel<S>, B : ViewDataBinding> : Dagg
             Timber.d("Updating controller")
             controller.setData(state)
         })
-    }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.setVariable(BR.viewModel, viewModel)
         return binding.root
     }
 

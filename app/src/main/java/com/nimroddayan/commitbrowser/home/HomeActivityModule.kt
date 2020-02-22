@@ -13,12 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.nimroddayan.commitbrowser.home
 
-package com.nimroddayan.commitbrowser.di
+import com.nimroddayan.commitbrowser.di.ActivityScope
+import com.nimroddayan.commitbrowser.home.commitdetail.CommitDetailModule
+import com.nimroddayan.commitbrowser.home.commitlist.CommitListModule
+import dagger.Module
+import dagger.android.ContributesAndroidInjector
 
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
+@Module
+abstract class HomeActivityModule {
+    @ActivityScope
+    @ContributesAndroidInjector(modules = [HomeModule::class])
+    abstract fun contributeHomeActivity(): HomeActivity
 
-interface ViewModelAssistedFactory<T : ViewModel> {
-    fun create(handle: SavedStateHandle): T
+    @Module(includes = [CommitListModule::class, CommitDetailModule::class])
+    internal abstract class HomeModule
 }
