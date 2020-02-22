@@ -19,7 +19,7 @@ package com.nimroddayan.commitbrowser.home.commitlist
 data class CommitListViewState(
     val page: Int,
     val list: List<CommitInfo>,
-    val onClick: ((sha: String) -> Unit)? = null
+    val onClick: ((commitInfo: CommitInfo) -> Unit)? = null
 )
 
 data class CommitInfo(

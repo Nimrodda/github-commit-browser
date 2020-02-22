@@ -15,8 +15,7 @@
   ~ limitations under the License.
   -->
 
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".home.commitlist.CommitListFragment">
 
@@ -24,14 +23,10 @@
         <variable name="viewModel" type="com.nimroddayan.commitbrowser.home.commitlist.CommitListViewModel"/>
     </data>
 
-    <RelativeLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:listitem="@layout/viewholder_commit_info"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/viewholder_commit_info"/>
-    </RelativeLayout>
 </layout>

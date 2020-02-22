@@ -39,9 +39,9 @@ class CommitListViewModel(
     dispatchers: CoroutinesDispatcherProvider,
     internetConnection: InternetConnection
 ) : BaseViewModel<CommitListViewState>(handle, githubApi, dispatchers, internetConnection) {
-    val navigateToDetail: LiveData<String>
+    val navigateToDetail: LiveData<CommitInfo>
         get() = _navigateToDetail
-    private val _navigateToDetail = MutableLiveData<String>()
+    private val _navigateToDetail = MutableLiveData<CommitInfo>()
 
     private val commitList = mutableListOf<CommitInfo>()
 

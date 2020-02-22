@@ -29,7 +29,7 @@ class CommitListController @Inject constructor() : ViewStateEpoxyController<Comm
                 id(it.sha)
                 commitInfo(it)
                 clickListener { model, _, _, _ ->
-                    state.data.onClick?.invoke(model.commitInfo().sha)
+                    state.data.onClick?.invoke(model.commitInfo())
                 }
             }
         }
