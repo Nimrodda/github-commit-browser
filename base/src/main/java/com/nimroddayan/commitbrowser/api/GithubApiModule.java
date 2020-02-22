@@ -18,8 +18,7 @@ package com.nimroddayan.commitbrowser.api;
 
 import android.content.Context;
 
-import com.nimroddayan.commitbrowser.App;
-import com.nimroddayan.commitbrowser.BuildConfig;
+import com.nimroddayan.commitbrowser.base.BuildConfig;
 import com.squareup.moshi.Moshi;
 
 import dagger.Module;
@@ -36,11 +35,6 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class GithubApiModule {
     private static final long CACHE_SIZE = 20 * 1024 * 1024; // 20 MB
     private static final String HEADER_LINK = "link";
-
-    @Provides
-    Context provideContext(App application) {
-        return application.getApplicationContext();
-    }
 
     @Provides
     GithubApi provideGithubApi(Context context, OkHttpClient.Builder okHttpBuilder) {

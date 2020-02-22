@@ -14,14 +14,17 @@
  * limitations under the License.
  */
 
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-        jcenter()
-        google()
+package com.nimroddayan.commitbrowser.di
+
+import android.content.Context
+import com.nimroddayan.commitbrowser.App
+import dagger.Module
+import dagger.Provides
+
+@Module
+object AppModule {
+    @Provides
+    fun provideContext(application: App): Context {
+        return application.applicationContext
     }
 }
-rootProject.buildFileName = "build.gradle.kts"
-
-include(":app")
-include(":base")

@@ -14,14 +14,8 @@
  * limitations under the License.
  */
 
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-        jcenter()
-        google()
-    }
-}
-rootProject.buildFileName = "build.gradle.kts"
+@EpoxyDataBindingPattern(rClass = R2.class, layoutPrefix = "viewholder")
+package com.nimroddayan.commitbrowser;
 
-include(":app")
-include(":base")
+import com.airbnb.epoxy.EpoxyDataBindingPattern;
+import com.nimroddayan.commitbrowser.base.R2;

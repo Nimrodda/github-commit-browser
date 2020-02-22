@@ -24,7 +24,7 @@ object Build {
 }
 
 object Modules {
-    const val commitlist = ":commitlist"
+    const val base = ":base"
 }
 
 object Versions {

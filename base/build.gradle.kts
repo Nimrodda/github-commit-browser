@@ -16,14 +16,14 @@
 
 import com.nimroddayan.buildsrc.Build
 import com.nimroddayan.buildsrc.Libs
-import com.nimroddayan.buildsrc.Modules
 
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.jakewharton.butterknife")
 }
 
 android {
@@ -32,10 +32,6 @@ android {
     defaultConfig {
         minSdkVersion(Build.minSdkVersion)
         targetSdkVersion(Build.targetSdkVersion)
-        applicationId = "com.nimroddayan.commitbrowser"
-        versionCode = 100000
-        versionName = "1.0.0"
-
         buildConfigField("String", "BASE_URL", "\"https://api.github.com/\"")
     }
     kotlinOptions {
@@ -47,12 +43,6 @@ android {
     }
     dataBinding {
         isEnabled = true
-    }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-        }
     }
 }
 
@@ -69,12 +59,56 @@ androidExtensions {
 }
 
 dependencies {
-    implementation(project(Modules.base))
+    api(Libs.Kotlin.stdlib)
+    api(Libs.Kotlin.reflect)
+
+    // AndroidX libraries
+    api(Libs.AndroidX.recyclerview)
+    api(Libs.AndroidX.Fragment.fragmentKtx)
+    api(Libs.AndroidX.Activity.activityKtx)
+    api(Libs.Google.material)
+    api(Libs.AndroidX.constraintlayout)
+    api(Libs.AndroidX.Lifecycle.viewmodel)
+    api(Libs.AndroidX.Lifecycle.livedata)
+    api(Libs.AndroidX.Lifecycle.savedstate)
+    api(Libs.AndroidX.Lifecycle.common)
+    api(Libs.AndroidX.Navigation.fragment)
+    api(Libs.AndroidX.Navigation.ui)
+
+    // Retrofit related
+    api(Libs.Moshi.moshi)
+    kapt(Libs.Moshi.codegen)
+    api(Libs.Retrofit.retrofit)
+    api(Libs.Retrofit.scalars)
+    api(Libs.Retrofit.moshi)
+    api(Libs.OkHttp.okhttp)
+    debugApi(Libs.OkHttp.loggingInterceptor)
+
+
+    // Dagger related
     kapt(Libs.Dagger.compiler)
     kapt(Libs.Dagger.androidProcessor)
-    kapt(Libs.AssistedInject.processorDagger2)
+    api(Libs.Dagger.dagger)
+    api(Libs.Dagger.androidSupport)
     compileOnly(Libs.AssistedInject.annotationDagger2)
+    kapt(Libs.AssistedInject.processorDagger2)
+
+    // Timber
+    api(Libs.timber)
+
+//    // LeakCanary
+//    releaseImplementation("com.squareup.leakcanary:leakcanary-android-no-op:$leakcanaryVersion"
+//    debugApi("com.squareup.leakcanary:leakcanary-android:$leakcanaryVersion"
+//
+    // Glide
+    api(Libs.Glide.glide)
+    api(Libs.Glide.okhttp)
+    api(Libs.Glide.recyclerview)
     kapt(Libs.Glide.compiler)
+
+    // Epoxy
+    api(Libs.Epoxy.dataBinding)
+    api(Libs.Epoxy.epoxy)
     kapt(Libs.Epoxy.processor)
 
     testImplementation(Libs.junit)

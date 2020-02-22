@@ -27,7 +27,7 @@ import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
-import com.nimroddayan.commitbrowser.R
+import com.nimroddayan.commitbrowser.base.R
 import com.nimroddayan.commitbrowser.common.epoxy.ViewStateEpoxyController
 import com.nimroddayan.commitbrowser.di.ViewModelFactory
 import dagger.android.support.DaggerFragment

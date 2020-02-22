@@ -23,7 +23,6 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.text.PrecomputedTextCompat
 import androidx.core.widget.TextViewCompat
 import androidx.databinding.BindingAdapter
-import com.nimroddayan.commitbrowser.R
 import com.nimroddayan.commitbrowser.common.glide.GlideApp
 import kotlin.math.roundToInt
 
@@ -35,7 +34,6 @@ fun loadImage(imageView: ImageView, url: String) {
     GlideApp.with(imageView.context)
         .load(url)
         .fitCenter()
-        .placeholder(R.mipmap.ic_launcher)
         .into(imageView)
 }
 
