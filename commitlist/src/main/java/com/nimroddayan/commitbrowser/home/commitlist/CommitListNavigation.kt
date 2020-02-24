@@ -14,15 +14,8 @@
  * limitations under the License.
  */
 
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-        jcenter()
-        google()
-    }
-}
-rootProject.buildFileName = "build.gradle.kts"
+package com.nimroddayan.commitbrowser.home.commitlist
 
-include(":app")
-include(":base")
-include(":commitlist")
+interface CommitListNavigation {
+    suspend fun navigateToCommitDetails(commitInfo: CommitInfo)
+}

@@ -39,9 +39,9 @@ class CommitListViewModel(
     dispatchers: CoroutinesDispatcherProvider,
     internetConnection: InternetConnection
 ) : BaseViewModel<CommitListViewState>(handle, githubApi, dispatchers, internetConnection) {
-    val navigateToDetail: LiveData<CommitInfo>
-        get() = _navigateToDetail
-    private val _navigateToDetail = MutableLiveData<CommitInfo>()
+    val commitItemClickedEvent: LiveData<CommitInfo>
+        get() = _commitItemClickedEvent
+    private val _commitItemClickedEvent = MutableLiveData<CommitInfo>()
 
     private val commitList = mutableListOf<CommitInfo>()
 
@@ -85,7 +85,7 @@ class CommitListViewModel(
                             )
                         })
                     },
-                    onClick = _navigateToDetail::setValue
+                    onClick = _commitItemClickedEvent::setValue
                 )
             )
         }

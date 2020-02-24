@@ -18,13 +18,19 @@ package com.nimroddayan.commitbrowser.home
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.nimroddayan.commitbrowser.R
 import com.nimroddayan.commitbrowser.common.ui.BaseActivity
 import com.nimroddayan.commitbrowser.databinding.HomeActivityBinding
+import kotlinx.coroutines.flow.collect
+import javax.inject.Inject
 
 class HomeActivity : BaseActivity<HomeViewModel, HomeActivityBinding>() {
+    @Inject
+    internal lateinit var navigator: HomeNavigator
+
     private lateinit var navHostFragment: NavHostFragment
     override val viewModel: HomeViewModel by viewModels()
     override val layoutId: Int = R.layout.home_activity
@@ -33,5 +39,10 @@ class HomeActivity : BaseActivity<HomeViewModel, HomeActivityBinding>() {
         super.onCreate(savedInstanceState)
         navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         binding.toolbar.setupWithNavController(navHostFragment.navController)
+        lifecycleScope.launchWhenStarted {
+            navigator.navigationEventFlow.collect { request ->
+                request.navigate(navHostFragment.navController)
+            }
+        }
     }
 }

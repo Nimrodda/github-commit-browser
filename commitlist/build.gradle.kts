@@ -19,11 +19,12 @@ import com.nimroddayan.buildsrc.Libs
 import com.nimroddayan.buildsrc.Modules
 
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.jakewharton.butterknife")
 }
 
 android {
@@ -32,11 +33,6 @@ android {
     defaultConfig {
         minSdkVersion(Build.minSdkVersion)
         targetSdkVersion(Build.targetSdkVersion)
-        applicationId = "com.nimroddayan.commitbrowser"
-        versionCode = 100000
-        versionName = "1.0.0"
-
-        buildConfigField("String", "BASE_URL", "\"https://api.github.com/\"")
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -47,19 +43,6 @@ android {
     }
     dataBinding {
         isEnabled = true
-    }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-        }
-    }
-    lintOptions {
-        isCheckDependencies = true
-        isAbortOnError = true
-        isCheckReleaseBuilds = false
-        isWarningsAsErrors = true
-        isCheckAllWarnings = true
     }
 }
 
@@ -77,10 +60,8 @@ androidExtensions {
 
 dependencies {
     implementation(project(Modules.base))
-    implementation(project(Modules.commitlist))
     kapt(Libs.Dagger.compiler)
     kapt(Libs.Dagger.androidProcessor)
-    kapt(Libs.Glide.compiler)
     kapt(Libs.Epoxy.processor)
 
     testImplementation(Libs.junit)

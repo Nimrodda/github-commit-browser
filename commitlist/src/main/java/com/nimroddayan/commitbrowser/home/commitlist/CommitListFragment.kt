@@ -22,20 +22,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.nimroddayan.commitbrowser.R
+import com.nimroddayan.commitbrowser.commitlist.R
+import com.nimroddayan.commitbrowser.commitlist.databinding.CommitListFragmentBinding
 import com.nimroddayan.commitbrowser.common.recyclerview.OnLoadMoreScrollListener
 import com.nimroddayan.commitbrowser.common.ui.BaseFragment
-import com.nimroddayan.commitbrowser.databinding.CommitListFragmentBinding
 import com.nimroddayan.commitbrowser.di.withFactory
 import timber.log.Timber
 import javax.inject.Inject
 
 class CommitListFragment @Inject constructor(
     commitListViewModelFactory: CommitListViewModel.Factory,
-    commitListController: CommitListController
+    commitListController: CommitListController,
+    private val navigation: CommitListNavigation
 ) : BaseFragment<CommitListViewState, CommitListViewModel, CommitListFragmentBinding>(
     commitListController,
     R.layout.commit_list_fragment
@@ -44,10 +45,11 @@ class CommitListFragment @Inject constructor(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.navigateToDetail.observe(this, Observer { commitInfo ->
-            Timber.d("Item with sha: %s was clicked", commitInfo)
-            findNavController().navigate(
-                CommitListFragmentDirections.actionCommitListFragmentToCommitDetailFragment(commitInfo.sha, commitInfo.message))
+        viewModel.commitItemClickedEvent.observe(this, Observer { commitInfo ->
+            lifecycleScope.launchWhenStarted {
+                Timber.d("Item with sha: %s was clicked", commitInfo)
+                navigation.navigateToCommitDetails(commitInfo)
+            }
         })
     }
 
