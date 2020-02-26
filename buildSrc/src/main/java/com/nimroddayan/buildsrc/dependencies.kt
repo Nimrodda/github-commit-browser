@@ -33,7 +33,7 @@ object Versions {
 }
 
 object Plugins {
-    const val androidGradlePlugin = "com.android.tools.build:gradle:3.6.0-rc03"
+    const val androidGradlePlugin = "com.android.tools.build:gradle:3.6.0"
     const val playPublisherPlugin = "com.github.triplet.gradle:play-publisher:2.1.0"
     const val safeArgsPlugins =
         "androidx.navigation:navigation-safe-args-gradle-plugin:${Libs.AndroidX.Navigation.version}"
