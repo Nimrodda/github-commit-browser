@@ -17,9 +17,8 @@
 package com.nimroddayan.commitbrowser.home.commitlist
 
 data class CommitListViewState(
-    val page: Int,
-    val list: List<CommitInfo>,
-    val onClick: ((commitInfo: CommitInfo) -> Unit)? = null
+    val page: Int = 0,
+    val list: List<CommitInfo> = emptyList()
 )
 
 data class CommitInfo(

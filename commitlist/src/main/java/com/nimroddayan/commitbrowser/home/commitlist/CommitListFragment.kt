@@ -20,41 +20,49 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nimroddayan.commitbrowser.commitlist.R
 import com.nimroddayan.commitbrowser.commitlist.databinding.CommitListFragmentBinding
 import com.nimroddayan.commitbrowser.common.recyclerview.OnLoadMoreScrollListener
-import com.nimroddayan.commitbrowser.common.ui.BaseFragment
 import com.nimroddayan.commitbrowser.di.withFactory
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 import javax.inject.Inject
 
 class CommitListFragment @Inject constructor(
     commitListViewModelFactory: CommitListViewModel.Factory,
-    commitListController: CommitListController,
     private val navigation: CommitListNavigation
-) : BaseFragment<CommitListViewState, CommitListViewModel, CommitListFragmentBinding>(
-    commitListController,
-    R.layout.commit_list_fragment
-) {
-    override val viewModel: CommitListViewModel by viewModels { withFactory(commitListViewModelFactory) }
+) : Fragment() {
+    private val viewModel: CommitListViewModel by viewModels { withFactory(commitListViewModelFactory) }
+    private lateinit var binding: CommitListFragmentBinding
+    private lateinit var controller: CommitListController
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.commitItemClickedEvent.observe(this, Observer { commitInfo ->
-            lifecycleScope.launchWhenStarted {
-                Timber.d("Item with sha: %s was clicked", commitInfo)
-                navigation.navigateToCommitDetails(commitInfo)
-            }
-        })
+    init {
+        lifecycleScope.launchWhenStarted {
+            viewModel.stateFlow.onEach { commitListViewState ->
+                controller.setData(commitListViewState)
+            }.collect()
+        }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        viewModel.commitItemClickedEvent.observe(this, Observer { commitInfo ->
+//            lifecycleScope.launchWhenStarted {
+//                Timber.d("Item with sha: %s was clicked", commitInfo)
+//                navigation.navigateToCommitDetails(commitInfo)
+//            }
+//        })
+//    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = CommitListFragmentBinding.inflate(inflater, container, false)
+        controller = CommitListController(viewModel)
 
         binding.recyclerview.apply {
             layoutManager = LinearLayoutManager(context)
@@ -66,9 +74,7 @@ class CommitListFragment @Inject constructor(
             )
             addOnScrollListener(object : OnLoadMoreScrollListener(resources.getInteger(R.integer.load_threshold)) {
                 override fun onLoadMore() {
-                    controller.currentData?.let {
-                        viewModel.loadData(it.data.page + 1)
-                    }
+                    viewModel.loadCommits(viewModel.getState().data.page + 1)
                 }
             })
             adapter = controller.adapter
@@ -82,7 +88,7 @@ class CommitListFragment @Inject constructor(
             }
         }
 
-        return view
+        return binding.root
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

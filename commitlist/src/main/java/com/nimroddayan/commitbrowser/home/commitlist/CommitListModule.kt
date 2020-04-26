@@ -16,9 +16,12 @@
 package com.nimroddayan.commitbrowser.home.commitlist
 
 import androidx.fragment.app.Fragment
+import com.nimroddayan.commitbrowser.common.ui.Store
+import com.nimroddayan.commitbrowser.common.ui.ViewState
 import com.nimroddayan.commitbrowser.di.FragmentKey
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.multibindings.IntoMap
 
 @Module
@@ -27,4 +30,14 @@ abstract class CommitListModule {
     @IntoMap
     @FragmentKey(CommitListFragment::class)
     abstract fun bindCommitListFragment(fragment: CommitListFragment): Fragment
+
+    companion object {
+        @Provides
+        fun provideStore(commitListReducer: CommitListReducer): Store<ViewState<CommitListViewState>> {
+            return Store(
+                initialState = ViewState.Loading(CommitListViewState()),
+                reducer = commitListReducer
+            )
+        }
+    }
 }

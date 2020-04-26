@@ -20,16 +20,17 @@ import com.nimroddayan.commitbrowser.base.loading
 import com.nimroddayan.commitbrowser.commitlist.commitInfo
 import com.nimroddayan.commitbrowser.common.epoxy.ViewStateEpoxyController
 import com.nimroddayan.commitbrowser.common.ui.ViewState
-import javax.inject.Inject
 
-class CommitListController @Inject constructor() : ViewStateEpoxyController<CommitListViewState>() {
+class CommitListController(
+    private val commitListViewModel: CommitListViewModel
+) : ViewStateEpoxyController<CommitListViewState>() {
     override fun buildModels(state: ViewState<CommitListViewState>) {
         state.data.list.forEach {
             commitInfo {
                 id(it.sha)
                 commitInfo(it)
                 clickListener { model, _, _, _ ->
-                    state.data.onClick?.invoke(model.commitInfo())
+
                 }
             }
         }
