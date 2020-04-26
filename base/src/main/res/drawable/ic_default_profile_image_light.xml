@@ -1,0 +1,34 @@
+<!--
+  ~ Copyright 2020 Nimrod Dayan nimroddayan.com
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="40dp"
+    android:height="40dp"
+    android:viewportWidth="40"
+    android:viewportHeight="40">
+  <path
+      android:pathData="M19.957,19.957m-19.957,0a19.957,19.957 0,1 1,39.914 0a19.957,19.957 0,1 1,-39.914 0"
+      android:strokeWidth="1"
+      android:fillColor="#E9E9E9"
+      android:fillType="evenOdd"
+      android:strokeColor="#00000000"/>
+  <path
+      android:pathData="M9.3033,27.5604C9.1568,23.8377 10.9148,21.3063 14.5772,19.9661C15.878,19.4901 18.8237,19.2494 20.0707,19.296C21.0896,19.2494 24.0353,19.4901 25.3361,19.9661C28.9985,21.3063 30.7565,23.8377 30.61,27.5604C30.8738,30.047 27.3244,31.2903 19.9617,31.2903C12.599,31.2903 9.0462,30.047 9.3033,27.5604ZM19.957,17.2903C17.0115,17.2903 14.6237,14.9025 14.6237,11.957C14.6237,9.0115 17.0115,6.6237 19.957,6.6237C22.9025,6.6237 25.2903,9.0115 25.2903,11.957C25.2903,14.9025 22.9025,17.2903 19.957,17.2903Z"
+      android:strokeWidth="1"
+      android:fillColor="#FFFFFF"
+      android:fillType="evenOdd"
+      android:strokeColor="#00000000"/>
+</vector>

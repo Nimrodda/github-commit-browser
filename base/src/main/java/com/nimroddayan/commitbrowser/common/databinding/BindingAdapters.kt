@@ -23,6 +23,8 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.text.PrecomputedTextCompat
 import androidx.core.widget.TextViewCompat
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.nimroddayan.commitbrowser.base.R
 import com.nimroddayan.commitbrowser.common.glide.GlideApp
 import kotlin.math.roundToInt
 
@@ -33,7 +35,9 @@ import kotlin.math.roundToInt
 fun loadImage(imageView: ImageView, url: String) {
     GlideApp.with(imageView.context)
         .load(url)
+        .placeholder(R.drawable.ic_default_profile_image_light)
         .fitCenter()
+        .transform(CircleCrop())
         .into(imageView)
 }
 
