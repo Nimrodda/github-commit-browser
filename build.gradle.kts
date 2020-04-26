@@ -19,8 +19,8 @@ buildscript {
         google()
     }
     dependencies {
-        classpath(kotlin("gradle-plugin", version = "1.3.70"))
-        classpath("com.android.tools.build:gradle:4.0.0-beta01")
+        classpath(kotlin("gradle-plugin", version = "1.3.72"))
+        classpath("com.android.tools.build:gradle:4.0.0-beta05")
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.3.0-alpha01")
         classpath("com.jakewharton:butterknife-gradle-plugin:10.2.1")
     }
