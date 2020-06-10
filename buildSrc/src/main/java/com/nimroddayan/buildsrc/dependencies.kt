@@ -28,10 +28,6 @@ object Modules {
     const val commitlist = ":commitlist"
 }
 
-object Versions {
-    const val kotlin = "1.3.61"
-}
-
 object Plugins {
     const val androidGradlePlugin = "com.android.tools.build:gradle:3.6.0"
     const val playPublisherPlugin = "com.github.triplet.gradle:play-publisher:2.1.0"
@@ -65,7 +61,7 @@ object Libs {
     }
 
     object Kotlin {
-        const val version = "1.3.61"
+        const val version = "1.3.72"
         const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
         val reflect = "org.jetbrains.kotlin:kotlin-reflect:$version"
         val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
