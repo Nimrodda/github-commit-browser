@@ -38,7 +38,7 @@ The app is utilizing the MVVM design pattern for the UI with the help of the fol
 * Constraint layout
 * Retrofit2 + OkHttp
 * Moshi
-* Dagger2
+* Dagger2 + Hilt
 * Timber
 * Glide
 * Kotlin coroutines
@@ -46,7 +46,7 @@ The app is utilizing the MVVM design pattern for the UI with the help of the fol
 
 ## License
 
-Copyright 2019 Nimrod Dayan nimroddayan.com
+Copyright 2020 Nimrod Dayan nimroddayan.com
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.

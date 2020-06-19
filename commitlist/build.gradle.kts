@@ -25,6 +25,7 @@ plugins {
     kotlin("kapt")
     id("androidx.navigation.safeargs.kotlin")
     id("com.jakewharton.butterknife")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -61,8 +62,10 @@ androidExtensions {
 dependencies {
     implementation(project(Modules.base))
     kapt(Libs.Dagger.compiler)
-    kapt(Libs.Dagger.androidProcessor)
+    kapt(Libs.Dagger.hiltCompiler)
+    implementation(Libs.Dagger.hilt)
     kapt(Libs.Epoxy.processor)
+    kapt(Libs.Dagger.hiltAndroidxCompiler)
 
     testImplementation(Libs.junit)
 }

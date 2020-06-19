@@ -13,28 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.nimroddayan.commitbrowser.di
 
-import com.nimroddayan.commitbrowser.App
-import com.nimroddayan.commitbrowser.api.GithubApiModule
-import com.nimroddayan.commitbrowser.common.network.InternetConnectionModule
-import com.nimroddayan.commitbrowser.home.HomeActivityModule
-import dagger.Component
-import dagger.android.AndroidInjectionModule
-import dagger.android.AndroidInjector
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import javax.inject.Singleton
 
-@Singleton
-@Component(modules = [
-    AndroidInjectionModule::class,
-    OkHttpModule::class,
-    AppModule::class,
-    InternetConnectionModule::class,
-    GithubApiModule::class,
-    HomeActivityModule::class
-])
-interface AppComponent : AndroidInjector<App> {
-    @Component.Factory
-    interface Factory : AndroidInjector.Factory<App>
+@InstallIn(ApplicationComponent::class)
+@Module
+object OkHttpModule {
+    @Singleton
+    @Provides
+    fun provideOkHttpBuilder(): OkHttpClient.Builder {
+        val logInterceptor = HttpLoggingInterceptor()
+        logInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS)
+        return OkHttpClient.Builder()
+            .addInterceptor(logInterceptor)
+    }
 }

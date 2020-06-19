@@ -16,20 +16,12 @@
 
 package com.nimroddayan.commitbrowser
 
-import com.nimroddayan.commitbrowser.di.DaggerAppComponent
-import dagger.android.AndroidInjector
-import dagger.android.DaggerApplication
+import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
-class App : DaggerApplication() {
-    private val component: AndroidInjector<App> by lazy {
-        DaggerAppComponent.factory().create(this)
-    }
-
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return component
-    }
-
+@HiltAndroidApp
+class App : Application() {
     override fun onCreate() {
         super.onCreate()
         if (BuildConfig.DEBUG) {

@@ -22,6 +22,7 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import androidx.core.content.ContextCompat
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.suspendCancellableCoroutine
 import timber.log.Timber
 import javax.inject.Inject
@@ -46,7 +47,7 @@ interface InternetConnection {
  * @param context instance of [Context]
  */
 class InternetConnectionState @Inject constructor(
-    context: Context
+    @ApplicationContext context: Context
 ) : InternetConnection {
     private val appContext: Context = context.applicationContext
 

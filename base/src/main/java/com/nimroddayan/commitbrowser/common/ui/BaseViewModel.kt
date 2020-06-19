@@ -24,7 +24,6 @@ import com.nimroddayan.commitbrowser.api.GithubApi
 import com.nimroddayan.commitbrowser.common.network.InternetConnection
 import com.nimroddayan.commitbrowser.di.CoroutinesDispatcherProvider
 import com.nimroddayan.commitbrowser.di.CoroutinesDispatchers
-import com.nimroddayan.commitbrowser.di.ViewModelFactory
 import timber.log.Timber
 
 abstract class BaseViewModel<T>(
@@ -62,12 +61,6 @@ abstract class BaseViewModel<T>(
         super.onCleared()
         Timber.d("ViewModel is destroyed")
     }
-
-    abstract class Factory<V : BaseViewModel<*>>(
-        protected val githubApi: GithubApi,
-        protected val dispatchers: CoroutinesDispatcherProvider,
-        protected val internetConnection: InternetConnection
-    ) : ViewModelFactory<V>
 }
 
 sealed class ViewState<T>(val data: T) {

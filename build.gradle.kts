@@ -17,12 +17,14 @@
 buildscript {
     repositories {
         google()
+        mavenCentral()
     }
     dependencies {
         classpath(kotlin("gradle-plugin", version = "1.3.72"))
-        classpath("com.android.tools.build:gradle:4.0.0-beta05")
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.3.0-alpha01")
+        classpath("com.android.tools.build:gradle:4.0.0")
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.3.0-beta01")
         classpath("com.jakewharton:butterknife-gradle-plugin:10.2.1")
+        classpath(com.nimroddayan.buildsrc.Plugins.hiltPlugin)
     }
 }
 
@@ -40,10 +42,12 @@ subprojects {
             allWarningsAsErrors = false
 
             // Enable experimental coroutines APIs, including Flow
-            freeCompilerArgs += "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi"
-            freeCompilerArgs += "-Xuse-experimental=kotlinx.coroutines.FlowPreview"
-            freeCompilerArgs += "-Xuse-experimental=kotlinx.coroutines.FlowPreview"
-            freeCompilerArgs += "-Xuse-experimental=kotlin.Experimental"
+            freeCompilerArgs = listOf(
+                "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                "-Xuse-experimental=kotlinx.coroutines.FlowPreview",
+                "-Xuse-experimental=kotlinx.coroutines.FlowPreview",
+                "-Xuse-experimental=kotlin.Experimental"
+            )
 
             // Set JVM target to 1.8
             jvmTarget = "1.8"

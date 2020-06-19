@@ -24,9 +24,11 @@ import androidx.navigation.ui.setupWithNavController
 import com.nimroddayan.commitbrowser.R
 import com.nimroddayan.commitbrowser.common.ui.BaseActivity
 import com.nimroddayan.commitbrowser.databinding.HomeActivityBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class HomeActivity : BaseActivity<HomeViewModel, HomeActivityBinding>() {
     @Inject
     internal lateinit var navigator: HomeNavigator

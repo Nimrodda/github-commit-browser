@@ -24,6 +24,7 @@ plugins {
     kotlin("android.extensions")
     kotlin("kapt")
     id("androidx.navigation.safeargs.kotlin")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -68,7 +69,9 @@ kapt {
     arguments {
         arg("dagger.formatGeneratedSource", "disabled")
         arg("dagger.fastInit", "enabled")
+        arg("dagger.experimentalDaggerErrorMessages", "enabled")
     }
+    correctErrorTypes = true
 }
 
 androidExtensions {
@@ -79,7 +82,9 @@ dependencies {
     implementation(project(Modules.base))
     implementation(project(Modules.commitlist))
     kapt(Libs.Dagger.compiler)
-    kapt(Libs.Dagger.androidProcessor)
+    kapt(Libs.Dagger.hiltCompiler)
+    kapt(Libs.Dagger.hiltAndroidxCompiler)
+    implementation(Libs.Dagger.hilt)
     kapt(Libs.Glide.compiler)
     kapt(Libs.Epoxy.processor)
 

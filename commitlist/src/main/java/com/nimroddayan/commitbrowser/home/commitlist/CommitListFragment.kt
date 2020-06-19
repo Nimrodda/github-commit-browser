@@ -29,21 +29,25 @@ import com.nimroddayan.commitbrowser.commitlist.R
 import com.nimroddayan.commitbrowser.commitlist.databinding.CommitListFragmentBinding
 import com.nimroddayan.commitbrowser.common.recyclerview.OnLoadMoreScrollListener
 import com.nimroddayan.commitbrowser.common.ui.BaseFragment
-import com.nimroddayan.commitbrowser.di.withFactory
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
 
-class CommitListFragment @Inject constructor(
-    commitListViewModelFactory: CommitListViewModel.Factory,
-    commitListController: CommitListController,
-    private val navigation: CommitListNavigation
-) : BaseFragment<CommitListViewState, CommitListViewModel, CommitListFragmentBinding>(
-    commitListController,
-    R.layout.commit_list_fragment
-) {
-    override val viewModel: CommitListViewModel by viewModels { withFactory(commitListViewModelFactory) }
+@AndroidEntryPoint
+class CommitListFragment :
+    BaseFragment<CommitListViewState, CommitListViewModel, CommitListFragmentBinding>() {
+    @Inject
+    lateinit var commitListController: CommitListController
+
+    @Inject
+    lateinit var navigation: CommitListNavigation
+
+    override val layoutId: Int = R.layout.commit_list_fragment
+
+    override val viewModel: CommitListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        controller = commitListController
         super.onCreate(savedInstanceState)
         viewModel.commitItemClickedEvent.observe(this, Observer { commitInfo ->
             lifecycleScope.launchWhenStarted {

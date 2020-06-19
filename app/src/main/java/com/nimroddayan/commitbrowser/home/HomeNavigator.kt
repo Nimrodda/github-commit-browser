@@ -19,13 +19,13 @@ package com.nimroddayan.commitbrowser.home
 import androidx.navigation.NavController
 import com.nimroddayan.commitbrowser.common.navigation.DefaultNavigator
 import com.nimroddayan.commitbrowser.common.navigation.NavigationRequest
-import com.nimroddayan.commitbrowser.di.ActivityScope
 import com.nimroddayan.commitbrowser.home.commitlist.CommitInfo
 import com.nimroddayan.commitbrowser.home.commitlist.CommitListFragmentDirections
 import com.nimroddayan.commitbrowser.home.commitlist.CommitListNavigation
+import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
 
-@ActivityScope
+@ActivityScoped
 class HomeNavigator @Inject constructor() : DefaultNavigator(), CommitListNavigation {
     override suspend fun navigateToCommitDetails(commitInfo: CommitInfo) {
         navigate(CommitDetailNavRequest(commitInfo))
