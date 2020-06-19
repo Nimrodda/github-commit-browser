@@ -13,16 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.nimroddayan.commitbrowser.di
 
-package com.nimroddayan.commitbrowser.di;
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import okhttp3.OkHttpClient
+import javax.inject.Singleton
 
-import dagger.Module;
-import dagger.Provides;
-import okhttp3.OkHttpClient;
-
+@InstallIn(ApplicationComponent::class)
 @Module
-public class OkHttpModule {
-    @Provides public OkHttpClient.Builder provideOkHttpBuilder() {
-        return new OkHttpClient.Builder();
+object OkHttpModule {
+    @Singleton
+    @Provides
+    fun provideOkHttpBuilder(): OkHttpClient.Builder {
+        return OkHttpClient.Builder()
     }
 }
