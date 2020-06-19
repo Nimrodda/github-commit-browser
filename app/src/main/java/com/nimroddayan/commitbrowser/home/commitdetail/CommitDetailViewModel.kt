@@ -16,6 +16,8 @@
 
 package com.nimroddayan.commitbrowser.home.commitdetail
 
+import androidx.hilt.Assisted
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.nimroddayan.commitbrowser.api.GithubApi
@@ -27,15 +29,14 @@ import com.nimroddayan.commitbrowser.model.CommitResponse
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import javax.inject.Inject
 
 private const val STATE_RESPONSE = "state_response"
 
-class CommitDetailViewModel(
-    handle: SavedStateHandle,
+class CommitDetailViewModel @ViewModelInject constructor(
     githubApi: GithubApi,
     dispatchers: CoroutinesDispatcherProvider,
-    internetConnection: InternetConnection
+    internetConnection: InternetConnection,
+    @Assisted handle: SavedStateHandle
 ) : BaseViewModel<CommitDetailViewState>(handle, githubApi, dispatchers, internetConnection) {
 
     fun loadDetail(sha: String) {
@@ -76,24 +77,5 @@ class CommitDetailViewModel(
     private fun reportErrorAndRetry(throwable: Throwable): Boolean {
         notifyError(throwable, CommitDetailViewState())
         return retryAfterError(throwable)
-    }
-
-    class Factory @Inject constructor(
-        githubApi: GithubApi,
-        dispatchers: CoroutinesDispatcherProvider,
-        internetConnection: InternetConnection
-    ) : BaseViewModel.Factory<CommitDetailViewModel>(
-        githubApi,
-        dispatchers,
-        internetConnection
-    ) {
-        override fun create(handle: SavedStateHandle): CommitDetailViewModel {
-            return CommitDetailViewModel(
-                handle,
-                githubApi,
-                dispatchers,
-                internetConnection
-            )
-        }
     }
 }

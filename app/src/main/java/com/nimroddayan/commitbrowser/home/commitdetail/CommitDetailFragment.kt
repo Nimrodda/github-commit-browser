@@ -28,26 +28,32 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.nimroddayan.commitbrowser.R
 import com.nimroddayan.commitbrowser.common.ui.BaseFragment
 import com.nimroddayan.commitbrowser.databinding.CommitDetailFragmentBinding
-import com.nimroddayan.commitbrowser.di.withFactory
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-class CommitDetailFragment @Inject constructor(
-    commitDetailController: CommitDetailController,
-    commitDetailViewModelFacory: CommitDetailViewModel.Factory
-) : BaseFragment<CommitDetailViewState, CommitDetailViewModel, CommitDetailFragmentBinding>(
-    commitDetailController,
-    R.layout.commit_detail_fragment
-) {
-    override val viewModel: CommitDetailViewModel by viewModels { withFactory(commitDetailViewModelFacory) }
+@AndroidEntryPoint
+class CommitDetailFragment :
+    BaseFragment<CommitDetailViewState, CommitDetailViewModel, CommitDetailFragmentBinding>() {
+    @Inject
+    lateinit var commitDetailController: CommitDetailController
+
+    override val layoutId: Int = R.layout.commit_detail_fragment
+
+    override val viewModel: CommitDetailViewModel by viewModels()
 
     private val args: CommitDetailFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        controller = commitDetailController
         super.onCreate(savedInstanceState)
         viewModel.loadDetail(args.sha)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
 
         binding.recyclerview.apply {

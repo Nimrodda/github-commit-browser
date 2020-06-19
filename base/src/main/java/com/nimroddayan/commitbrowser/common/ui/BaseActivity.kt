@@ -23,13 +23,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.ViewModel
-import com.nimroddayan.commitbrowser.di.DaggerFragmentFactory
-import javax.inject.Inject
 
 abstract class BaseActivity<T : ViewModel, R : ViewDataBinding> : AppCompatActivity() {
-    @Inject
-    internal lateinit var fragmentFactory: DaggerFragmentFactory
-
     protected abstract val viewModel: T
 
     @Suppress("RemoveExplicitTypeArguments")
@@ -41,7 +36,6 @@ abstract class BaseActivity<T : ViewModel, R : ViewDataBinding> : AppCompatActiv
     protected abstract val layoutId: Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        supportFragmentManager.fragmentFactory = fragmentFactory
         super.onCreate(savedInstanceState)
         binding.lifecycleOwner = this
         binding.setVariable(BR.viewModel, viewModel)

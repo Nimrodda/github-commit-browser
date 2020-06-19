@@ -16,6 +16,8 @@
 
 package com.nimroddayan.commitbrowser.home.commitlist
 
+import androidx.hilt.Assisted
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -29,15 +31,14 @@ import com.nimroddayan.commitbrowser.model.CommitResponse
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import javax.inject.Inject
 
 private const val STATE_PAGE = "state_page"
 
-class CommitListViewModel(
-    handle: SavedStateHandle,
+class CommitListViewModel @ViewModelInject constructor(
     githubApi: GithubApi,
     dispatchers: CoroutinesDispatcherProvider,
-    internetConnection: InternetConnection
+    internetConnection: InternetConnection,
+    @Assisted handle: SavedStateHandle
 ) : BaseViewModel<CommitListViewState>(handle, githubApi, dispatchers, internetConnection) {
     val commitItemClickedEvent: LiveData<CommitInfo>
         get() = _commitItemClickedEvent
@@ -99,24 +100,5 @@ class CommitListViewModel(
     private fun reportErrorAndRetry(throwable: Throwable, page: Int): Boolean {
         notifyError(throwable, CommitListViewState(page = page, list = commitList))
         return retryAfterError(throwable)
-    }
-
-    class Factory @Inject constructor(
-        githubApi: GithubApi,
-        dispatchers: CoroutinesDispatcherProvider,
-        internetConnection: InternetConnection
-    ) : BaseViewModel.Factory<CommitListViewModel>(
-        githubApi,
-        dispatchers,
-        internetConnection
-    ) {
-        override fun create(handle: SavedStateHandle): CommitListViewModel {
-            return CommitListViewModel(
-                handle,
-                githubApi,
-                dispatchers,
-                internetConnection
-            )
-        }
     }
 }

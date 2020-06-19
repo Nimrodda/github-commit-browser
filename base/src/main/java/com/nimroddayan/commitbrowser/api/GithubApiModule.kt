@@ -21,7 +21,7 @@ import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.Cache
 import okhttp3.Interceptor
@@ -35,7 +35,7 @@ private const val CACHE_SIZE = 20 * 1024 * 1024 // 20 MB
 private const val HEADER_LINK = "link"
 
 
-@InstallIn(ActivityComponent::class)
+@InstallIn(ApplicationComponent::class)
 @Module
 object GithubApiModule {
     @Provides

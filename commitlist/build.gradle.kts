@@ -65,6 +65,7 @@ dependencies {
     kapt(Libs.Dagger.hiltCompiler)
     implementation(Libs.Dagger.hilt)
     kapt(Libs.Epoxy.processor)
+    kapt(Libs.Dagger.hiltAndroidxCompiler)
 
     testImplementation(Libs.junit)
 }

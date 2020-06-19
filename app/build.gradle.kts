@@ -83,6 +83,7 @@ dependencies {
     implementation(project(Modules.commitlist))
     kapt(Libs.Dagger.compiler)
     kapt(Libs.Dagger.hiltCompiler)
+    kapt(Libs.Dagger.hiltAndroidxCompiler)
     implementation(Libs.Dagger.hilt)
     kapt(Libs.Glide.compiler)
     kapt(Libs.Epoxy.processor)

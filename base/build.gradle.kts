@@ -89,8 +89,10 @@ dependencies {
     // Dagger related
     kapt(Libs.Dagger.compiler)
     kapt(Libs.Dagger.hiltCompiler)
+    kapt(Libs.Dagger.hiltAndroidxCompiler)
     api(Libs.Dagger.dagger)
-    implementation(Libs.Dagger.hilt) // Hilt dep needs to be added per module
+    implementation(Libs.Dagger.hilt) // Hilt dep needs to be added per module required by Gradle plugin
+    api(Libs.Dagger.hiltViewModel)
 
     // Timber
     api(Libs.timber)

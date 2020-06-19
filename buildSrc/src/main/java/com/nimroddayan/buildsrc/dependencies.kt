@@ -155,11 +155,15 @@ object Libs {
 
     object Dagger {
         const val version = "2.28"
+        const val hiltAndroidxVersion = "1.0.0-alpha01"
         val dagger = "com.google.dagger:dagger:$version"
         val compiler = "com.google.dagger:dagger-compiler:$version"
         val androidProcessor = "com.google.dagger:dagger-android-processor:$version"
         val hilt = "com.google.dagger:hilt-android:$version-alpha"
         val hiltCompiler = "com.google.dagger:hilt-android-compiler:$version-alpha"
+        val hiltViewModel = "androidx.hilt:hilt-lifecycle-viewmodel:$hiltAndroidxVersion"
+        val hiltWorkManager = "androidx.hilt:hilt-work:$hiltAndroidxVersion"
+        val hiltAndroidxCompiler = "androidx.hilt:hilt-compiler:$hiltAndroidxVersion"
     }
 
     object Glide {

@@ -32,12 +32,13 @@ import com.nimroddayan.commitbrowser.base.R
 import com.nimroddayan.commitbrowser.common.epoxy.ViewStateEpoxyController
 import timber.log.Timber
 
-abstract class BaseFragment<S, T : BaseViewModel<S>, B : ViewDataBinding>(
-    protected val controller: ViewStateEpoxyController<S>,
-    @LayoutRes private val layoutId: Int
-) : Fragment() {
+abstract class BaseFragment<S, T : BaseViewModel<S>, B : ViewDataBinding> : Fragment() {
+    protected lateinit var controller: ViewStateEpoxyController<S>
     protected lateinit var binding: B
     protected abstract val viewModel: T
+
+    @get:LayoutRes
+    protected abstract val layoutId: Int
 
     private var errorSnackBar: Snackbar? = null
 
