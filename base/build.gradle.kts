@@ -24,6 +24,7 @@ plugins {
     kotlin("kapt")
     id("androidx.navigation.safeargs.kotlin")
     id("com.jakewharton.butterknife")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -87,9 +88,9 @@ dependencies {
 
     // Dagger related
     kapt(Libs.Dagger.compiler)
-    kapt(Libs.Dagger.androidProcessor)
+    kapt(Libs.Dagger.hiltCompiler)
     api(Libs.Dagger.dagger)
-    api(Libs.Dagger.androidSupport)
+    implementation(Libs.Dagger.hilt) // Hilt dep needs to be added per module
 
     // Timber
     api(Libs.timber)

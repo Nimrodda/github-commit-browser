@@ -15,23 +15,15 @@
  */
 package com.nimroddayan.commitbrowser.home
 
-import com.nimroddayan.commitbrowser.di.ActivityScope
-import com.nimroddayan.commitbrowser.home.commitdetail.CommitDetailModule
-import com.nimroddayan.commitbrowser.home.commitlist.CommitListModule
 import com.nimroddayan.commitbrowser.home.commitlist.CommitListNavigation
 import dagger.Binds
 import dagger.Module
-import dagger.android.ContributesAndroidInjector
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
 
+@InstallIn(ActivityComponent::class)
 @Module
-abstract class HomeActivityModule {
-    @ActivityScope
-    @ContributesAndroidInjector(modules = [HomeModule::class])
-    abstract fun contributeHomeActivity(): HomeActivity
-
-    @Module(includes = [CommitListModule::class, CommitDetailModule::class])
-    internal abstract class HomeModule {
-        @Binds
-        abstract fun bindHomeNavigator(navigator: HomeNavigator): CommitListNavigation
-    }
+internal abstract class HomeModule {
+    @Binds
+    abstract fun bindHomeNavigator(navigator: HomeNavigator): CommitListNavigation
 }

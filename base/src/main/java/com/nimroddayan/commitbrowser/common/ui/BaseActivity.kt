@@ -18,16 +18,15 @@ package com.nimroddayan.commitbrowser.common.ui
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.ViewModel
 import com.nimroddayan.commitbrowser.di.DaggerFragmentFactory
-import dagger.android.AndroidInjection
-import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
-abstract class BaseActivity<T : ViewModel, R : ViewDataBinding> : DaggerAppCompatActivity() {
+abstract class BaseActivity<T : ViewModel, R : ViewDataBinding> : AppCompatActivity() {
     @Inject
     internal lateinit var fragmentFactory: DaggerFragmentFactory
 
@@ -42,7 +41,6 @@ abstract class BaseActivity<T : ViewModel, R : ViewDataBinding> : DaggerAppCompa
     protected abstract val layoutId: Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         supportFragmentManager.fragmentFactory = fragmentFactory
         super.onCreate(savedInstanceState)
         binding.lifecycleOwner = this

@@ -33,6 +33,8 @@ object Plugins {
     const val playPublisherPlugin = "com.github.triplet.gradle:play-publisher:2.1.0"
     const val safeArgsPlugins =
         "androidx.navigation:navigation-safe-args-gradle-plugin:${Libs.AndroidX.Navigation.version}"
+    const val hiltPlugin =
+        "com.google.dagger:hilt-android-gradle-plugin:${Libs.Dagger.version}-alpha"
 }
 
 object Libs {
@@ -152,11 +154,12 @@ object Libs {
     }
 
     object Dagger {
-        private const val version = "2.26"
+        const val version = "2.28"
         val dagger = "com.google.dagger:dagger:$version"
-        val androidSupport = "com.google.dagger:dagger-android-support:$version"
         val compiler = "com.google.dagger:dagger-compiler:$version"
         val androidProcessor = "com.google.dagger:dagger-android-processor:$version"
+        val hilt = "com.google.dagger:hilt-android:$version-alpha"
+        val hiltCompiler = "com.google.dagger:hilt-android-compiler:$version-alpha"
     }
 
     object Glide {

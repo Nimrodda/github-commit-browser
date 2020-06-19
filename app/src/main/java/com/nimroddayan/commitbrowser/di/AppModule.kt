@@ -16,15 +16,11 @@
 
 package com.nimroddayan.commitbrowser.di
 
-import android.content.Context
-import com.nimroddayan.commitbrowser.App
 import dagger.Module
-import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 
+@InstallIn(ApplicationComponent::class)
 @Module
 object AppModule {
-    @Provides
-    fun provideContext(application: App): Context {
-        return application.applicationContext
-    }
 }

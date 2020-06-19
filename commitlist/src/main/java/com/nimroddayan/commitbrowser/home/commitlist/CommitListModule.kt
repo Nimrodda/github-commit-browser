@@ -19,8 +19,11 @@ import androidx.fragment.app.Fragment
 import com.nimroddayan.commitbrowser.di.FragmentKey
 import dagger.Binds
 import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
 import dagger.multibindings.IntoMap
 
+@InstallIn(ActivityComponent::class)
 @Module
 abstract class CommitListModule {
     @Binds
