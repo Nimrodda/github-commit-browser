@@ -141,7 +141,7 @@ object Libs {
         }
 
         object Navigation {
-            const val version = "2.3.0-alpha01"
+            const val version = "2.3.0-rc01"
             private const val group = "androidx.navigation"
             const val fragment = "$group:navigation-fragment-ktx:$version"
             const val ui = "$group:navigation-ui-ktx:$version"
