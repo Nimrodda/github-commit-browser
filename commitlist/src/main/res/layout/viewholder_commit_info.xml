@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2020 Nimrod Dayan nimroddayan.com
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,83 +15,90 @@
   -->
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:context=".home.commitlist.CommitListFragment">
-    <data>
-        <variable name="clickListener" type="android.view.View.OnClickListener"/>
-        <variable name="commitInfo" type="com.nimroddayan.commitbrowser.home.commitlist.CommitInfo"/>
-    </data>
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".home.commitlist.CommitListFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/commit_list_item"
         android:layout_width="match_parent"
         android:layout_height="@dimen/three_line_list_item_height"
         android:background="?selectableItemBackground"
-        android:onClick="@{clickListener}"
         android:clickable="true"
-        android:focusable="true">
+        android:focusable="true"
+        android:onClick="@{clickListener}">
 
-            <ImageView
-                android:id="@+id/avatar"
-                android:layout_width="@dimen/avatar_size"
-                android:layout_height="@dimen/avatar_size"
-                android:layout_marginStart="@dimen/horizontal_start_margin"
-                android:layout_marginBottom="@dimen/content_vertical_margin"
-                android:layout_marginTop="@dimen/content_vertical_margin"
-                android:contentDescription="@string/avatar"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:image_url="@{commitInfo.avatar}"
-                tools:srcCompat="@mipmap/ic_launcher"/>
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="@dimen/avatar_size"
+            android:layout_height="@dimen/avatar_size"
+            android:layout_marginStart="@dimen/horizontal_start_margin"
+            android:layout_marginTop="@dimen/content_vertical_margin"
+            android:layout_marginBottom="@dimen/content_vertical_margin"
+            android:contentDescription="@string/avatar"
+            app:image_url="@{commitInfo.avatar}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_baseline_account_circle" />
 
         <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/commit_message"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/horizontal_end_margin"
-                android:layout_marginStart="@dimen/text_margin_start"
-                android:layout_marginTop="@dimen/content_vertical_margin"
-                android:ellipsize="end"
-                android:maxLines="1"
+            android:id="@+id/commit_message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/text_margin_start"
+            android:layout_marginTop="@dimen/content_vertical_margin"
+            android:layout_marginEnd="@dimen/horizontal_end_margin"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textAppearance="?attr/textAppearanceBody2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
             app:asyncText="@{commitInfo.message}"
-                tools:text="Commit message"
-                app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Commit message" />
 
         <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/commit_date"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/content_vertical_margin"
-                android:layout_marginEnd="@dimen/horizontal_end_margin"
-                android:layout_marginStart="@dimen/text_margin_start"
-                android:layout_marginTop="@dimen/content_vertical_margin"
+            android:id="@+id/commit_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/text_margin_start"
+            android:layout_marginTop="@dimen/content_vertical_margin"
+            android:layout_marginEnd="@dimen/horizontal_end_margin"
+            android:layout_marginBottom="@dimen/content_vertical_margin"
             android:textAppearance="?attr/textAppearanceBody2"
-                app:layout_constraintBottom_toTopOf="@+id/commit_author"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/commit_message"
             app:asyncText="@{commitInfo.date}"
-                tools:text="Date and time"/>
+            app:layout_constraintBottom_toTopOf="@+id/commit_author"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/commit_message"
+            tools:text="Date and time" />
 
         <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/commit_author"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/content_vertical_margin"
-                android:layout_marginEnd="@dimen/horizontal_end_margin"
-                android:layout_marginStart="@dimen/text_margin_start"
+            android:id="@+id/commit_author"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/text_margin_start"
+            android:layout_marginEnd="@dimen/horizontal_end_margin"
+            android:layout_marginBottom="@dimen/content_vertical_margin"
             android:textAppearance="?attr/textAppearanceBody2"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
             app:asyncText="@{commitInfo.author}"
-                tools:text="Author"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Author" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="commitInfo"
+            type="com.nimroddayan.commitbrowser.home.commitlist.CommitInfo" />
+    </data>
 
 </layout>

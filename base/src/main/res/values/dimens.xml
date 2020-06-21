@@ -16,5 +16,9 @@
   -->
 
 <resources>
+    <dimen name="horizontal_start_margin">16dp</dimen>
+    <dimen name="horizontal_end_margin">16dp</dimen>
     <dimen name="three_line_list_item_height">88dp</dimen>
+    <dimen name="text_margin_start">72dp</dimen>
+    <dimen name="content_vertical_margin">8dp</dimen>
 </resources>

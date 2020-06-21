@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@EpoxyDataBindingPattern(rClass = R.class, layoutPrefix = "viewholder")
-package com.nimroddayan.commitbrowser;
+@EpoxyDataBindingPattern(rClass = R2.class, layoutPrefix = "viewholder")
+package com.nimroddayan.commitbrowser.home.commitdetail;
 
 import com.airbnb.epoxy.EpoxyDataBindingPattern;

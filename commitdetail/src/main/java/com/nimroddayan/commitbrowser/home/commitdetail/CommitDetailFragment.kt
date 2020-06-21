@@ -25,15 +25,15 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.nimroddayan.commitbrowser.R
 import com.nimroddayan.commitbrowser.common.ui.BaseFragment
-import com.nimroddayan.commitbrowser.databinding.CommitDetailFragmentBinding
+import com.nimroddayan.commitbrowser.home.commitdetail.databinding.CommitDetailFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class CommitDetailFragment :
     BaseFragment<CommitDetailViewState, CommitDetailViewModel, CommitDetailFragmentBinding>() {
+
     @Inject
     lateinit var commitDetailController: CommitDetailController
 

@@ -25,10 +25,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.nimroddayan.commitbrowser.commitlist.R
-import com.nimroddayan.commitbrowser.commitlist.databinding.CommitListFragmentBinding
 import com.nimroddayan.commitbrowser.common.recyclerview.OnLoadMoreScrollListener
 import com.nimroddayan.commitbrowser.common.ui.BaseFragment
+import com.nimroddayan.commitbrowser.home.commitlist.databinding.CommitListFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject

@@ -17,25 +17,20 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/home_nav_graph.xml"
-    app:startDestination="@id/commitListFragment"
-    tools:ignore="UnusedNavigation">
-
-    <include app:graph="@navigation/commit_detail_nav_graph" />
+    android:id="@+id/commit_detail_nav_graph"
+    app:startDestination="@id/commitDetailFragment">
 
     <fragment
-        android:id="@+id/commitListFragment"
-        android:name="com.nimroddayan.commitbrowser.home.commitlist.CommitListFragment"
-        android:label="@string/label_commit_browser"
-        tools:layout="@layout/commit_list_fragment">
-        <action
-            android:id="@+id/action_commitListFragment_to_commitDetailFragment"
-            app:destination="@id/commit_detail_nav_graph"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:launchSingleTop="true"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        android:id="@+id/commitDetailFragment"
+        android:name="com.nimroddayan.commitbrowser.home.commitdetail.CommitDetailFragment"
+        android:label="{message}"
+        tools:layout="@layout/commit_detail_fragment">
+        <argument
+            android:name="sha"
+            app:argType="string" />
+        <argument
+            android:name="message"
+            app:argType="string" />
     </fragment>
 
 </navigation>

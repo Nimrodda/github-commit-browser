@@ -15,13 +15,15 @@
   ~ limitations under the License.
   -->
 
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".home.commitdetail.CommitDetailFragment">
+    tools:context="home.CommitDetailFragment">
 
     <data>
-        <variable name="viewModel" type="com.nimroddayan.commitbrowser.home.commitdetail.CommitDetailViewModel"/>
+
+        <variable
+            name="viewModel"
+            type="com.nimroddayan.commitbrowser.home.commitdetail.CommitDetailViewModel" />
     </data>
 
     <RelativeLayout

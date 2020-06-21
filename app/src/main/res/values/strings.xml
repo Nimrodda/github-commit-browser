@@ -17,6 +17,5 @@
 <resources>
     <string name="app_name">commitbrowser</string>
     <string name="no_internet_connection">No internet connection</string>
-    <string name="avatar">Avatar icon</string>
     <string name="label_commit_browser">Github Commit Browser</string>
 </resources>

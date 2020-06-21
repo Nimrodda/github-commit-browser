@@ -18,4 +18,3 @@
 package com.nimroddayan.commitbrowser.home.commitlist;
 
 import com.airbnb.epoxy.EpoxyDataBindingPattern;
-import com.nimroddayan.commitbrowser.commitlist.R2;

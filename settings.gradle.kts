@@ -26,3 +26,4 @@ rootProject.buildFileName = "build.gradle.kts"
 include(":app")
 include(":base")
 include(":commitlist")
+include(":commitdetail")

@@ -26,6 +26,7 @@ object Build {
 object Modules {
     const val base = ":base"
     const val commitlist = ":commitlist"
+    const val commitdetail = ":commitdetail"
 }
 
 object Plugins {

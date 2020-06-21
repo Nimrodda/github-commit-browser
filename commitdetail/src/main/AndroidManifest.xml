@@ -14,4 +14,4 @@
   ~ limitations under the License.
   -->
 
-<manifest package="com.nimroddayan.commitbrowser.home.commitlist" />
+<manifest package="com.nimroddayan.commitbrowser.home.commitdetail"></manifest>

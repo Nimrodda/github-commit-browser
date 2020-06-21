@@ -16,11 +16,12 @@
 
 package com.nimroddayan.commitbrowser.home
 
+import androidx.core.os.bundleOf
 import androidx.navigation.NavController
+import com.nimroddayan.commitbrowser.R
 import com.nimroddayan.commitbrowser.common.navigation.DefaultNavigator
 import com.nimroddayan.commitbrowser.common.navigation.NavigationRequest
 import com.nimroddayan.commitbrowser.home.commitlist.CommitInfo
-import com.nimroddayan.commitbrowser.home.commitlist.CommitListFragmentDirections
 import com.nimroddayan.commitbrowser.home.commitlist.CommitListNavigation
 import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
@@ -34,10 +35,12 @@ class HomeNavigator @Inject constructor() : DefaultNavigator(), CommitListNaviga
 
 class CommitDetailNavRequest(private val commitInfo: CommitInfo) : NavigationRequest {
     override fun navigate(navController: NavController) {
+        // Can't use safe args here because the destination is not in the same module
         navController.navigate(
-            CommitListFragmentDirections.actionCommitListFragmentToCommitDetailFragment(
-                commitInfo.sha,
-                commitInfo.message
+            R.id.action_commitListFragment_to_commitDetailFragment,
+            bundleOf(
+                "sha" to commitInfo.sha,
+                "message" to commitInfo.message
             )
         )
     }

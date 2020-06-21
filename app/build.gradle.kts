@@ -46,8 +46,8 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    dataBinding {
-        isEnabled = true
+    buildFeatures {
+        dataBinding = true
     }
     buildTypes {
         getByName("release") {
@@ -81,6 +81,7 @@ androidExtensions {
 dependencies {
     implementation(project(Modules.base))
     implementation(project(Modules.commitlist))
+    implementation(project(Modules.commitdetail))
     kapt(Libs.Dagger.compiler)
     kapt(Libs.Dagger.hiltCompiler)
     kapt(Libs.Dagger.hiltAndroidxCompiler)

@@ -1,4 +1,4 @@
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2020 Nimrod Dayan nimroddayan.com
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,4 +14,6 @@
   ~ limitations under the License.
   -->
 
-<manifest package="com.nimroddayan.commitbrowser.home.commitlist" />
+<resources>
+    <string name="avatar">Avatar icon</string>
+</resources>

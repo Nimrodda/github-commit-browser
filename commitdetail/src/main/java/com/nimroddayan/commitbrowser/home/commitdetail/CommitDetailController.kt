@@ -17,7 +17,6 @@
 package com.nimroddayan.commitbrowser.home.commitdetail
 
 import com.nimroddayan.commitbrowser.base.loading
-import com.nimroddayan.commitbrowser.commitFile
 import com.nimroddayan.commitbrowser.common.epoxy.ViewStateEpoxyController
 import com.nimroddayan.commitbrowser.common.ui.ViewState
 import javax.inject.Inject
