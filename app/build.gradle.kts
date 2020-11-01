@@ -62,6 +62,11 @@ android {
         isWarningsAsErrors = true
         isCheckAllWarnings = true
     }
+    buildTypes {
+        getByName("release") {
+            signingConfig = signingConfigs.getByName("debug")
+        }
+    }
 }
 
 kapt {
